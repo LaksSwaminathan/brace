@@ -78,7 +78,10 @@ view: plaid_details {
   }
 
   measure: count {
-    type: count
+    type: count_distinct
+    sql: ${plaid_item_id} ;;
     drill_fields: [plaid_item_id, item.plaid_item_id, item.count]
   }
+
+
 }

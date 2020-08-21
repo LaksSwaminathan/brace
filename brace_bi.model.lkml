@@ -18,11 +18,26 @@ explore: application {
 
   join: plaid_details {
     sql_on: ${application.application_id} = ${plaid_details.borrower_to_loan_application_id} ;;
-    relationship: many_to_one
+    relationship: one_to_many
+  }
+
+  join: borrower_income {
+    #filethis
+    from: income
+    sql_on: ${application.application_id} = ${borrower_income.borrower_to_loan_application_id} ;;
+    relationship: one_to_many
+  }
+
+  join: borrower_to_loan_application {
+    #hellosign, createdsign... form710_signature
+    sql_on: ${application.application_id} = ${borrower_to_loan_application.borrower_to_loan_application_id} ;;
+    relationship: one_to_many
   }
 
   join: user {
     sql_on: ${loan.created_by} = ${user.user_id} ;;
     relationship: many_to_one
   }
+
+  ## Equifax -- credit.liability or credit.report (Count)
 }
