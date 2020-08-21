@@ -4,6 +4,8 @@ include: "views/*/*.view.lkml"                # include all views in the views/ 
 
 
 explore: application {
+  label: "Borrower Application"
+
   join: hardship {
     sql_on: ${application.application_id} = ${hardship.loan_application_id} ;;
     relationship: one_to_one
