@@ -83,5 +83,11 @@ view: plaid_details {
     drill_fields: [plaid_item_id, item.plaid_item_id, item.count]
   }
 
+  measure: total_cost {
+    type: number
+    sql: ${count} * 4 ;;
+    value_format_name: usd_0
+  }
+
 
 }

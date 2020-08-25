@@ -85,4 +85,10 @@ view: income {
     type: count
     drill_fields: [income_id, name]
   }
+
+  measure: total_cost {
+    type: number
+    sql: ${count}*4 ;;
+    value_format_name: usd_0
+  }
 }

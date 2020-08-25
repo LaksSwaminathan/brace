@@ -109,4 +109,16 @@ view: borrower_to_loan_application {
     type: count
     drill_fields: [borrower_to_loan_application_id]
   }
+
+  measure: count_of_hello_sign {
+    type: number
+    sql: COUNT(${form710_signature_raw} IS NOT NULL) ;;
+  }
+
+  measure: total_cost {
+    type: number
+    sql: ${count_of_hello_sign} * 1 ;;
+    value_format_name: usd_0
+  }
+
 }
