@@ -159,6 +159,13 @@ view: application {
     sql: ${TABLE}."workout_details_communicated" ;;
   }
 
+  measure: borrower_intent {
+    type: number
+    label: "(2) Borrower's Intent with Property"
+    group_label: "Funnel Steps"
+    sql: COUNT(${property_usage_type_id} IS NOT NULL) ;;
+  }
+
   measure: count {
     type: count
     drill_fields: [application_id, loan.loan_id, delinquency.delinquency_id, expenses.expenses_id]

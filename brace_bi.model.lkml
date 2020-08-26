@@ -13,10 +13,22 @@ explore: application {
     relationship: one_to_one
   }
 
+  join: hardship_type {
+    type: inner
+    sql_on: ${hardship_type.hardship_type_id} = ${hardship.type_id} ;;
+    relationship: many_to_one
+  }
+
   join: document {
     type: left_outer
     sql_on: ${application.application_id} = ${document.application_id} ;;
     relationship: one_to_many
+  }
+
+  join: document_type {
+    type: left_outer
+    sql_on: ${document.document_type_id} = ${document_type.document_type_id} ;;
+    relationship: many_to_one
   }
 
   join: disaster {
@@ -57,5 +69,31 @@ explore: application {
     relationship: many_to_one
   }
 
+  join: borrower {
+    type: inner
+    sql_on: ${borrower.user_id} = ${user.user_id}  ;;
+    relationship: one_to_one
+  }
+
+  join: equifax_report {
+    type: left_outer
+    sql_on: ${equifax_report.borrower_id} = ${borrower.borrower_id} ;;
+    relationship: one_to_many
+  }
+
   ## Equifax -- credit.liability or credit.report (Count)
 }
+
+# explore: application_funnel {
+#   from: application
+#   join: hardship {
+#     sql_on: ${application_funnel.application_id} = ${hardship.loan_application_id} ;;
+#     relationship: one_to_one
+#   }
+#
+#   join: hardship_type {
+#     type: inner
+#     sql_on: ${hardship_type.hardship_type_id} = ${hardship.type_id} ;;
+#     relationship: many_to_one
+#   }
+# }

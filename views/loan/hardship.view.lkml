@@ -130,4 +130,12 @@ view: hardship {
     type: count
     drill_fields: [hardship_id]
   }
+
+  measure: hardship_count {
+    type: number
+    label: "(1) Hardship Type"
+    view_label: "Application"
+    group_label: "Funnel Steps"
+    sql: COUNT(${type_id} IS NOT NULL) ;;
+  }
 }

@@ -76,8 +76,9 @@ view: plaid_details {
     type: string
     sql: ${TABLE}."webhook" ;;
   }
-
+# put count + cost side by side
   measure: count {
+    label: "Total Connections"
     type: count_distinct
     sql: ${plaid_item_id} ;;
     drill_fields: [plaid_item_id, item.plaid_item_id, item.count]
@@ -85,7 +86,7 @@ view: plaid_details {
 
   measure: total_cost {
     type: number
-    sql: ${count} * 4 ;;
+    sql: ${count} * 2.99 ;;
     value_format_name: usd_0
   }
 

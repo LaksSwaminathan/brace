@@ -82,8 +82,17 @@ view: income {
   }
 
   measure: count {
-    type: count
+    type: count_distinct
+    sql: ${borrower_to_loan_application_id} ;;
     drill_fields: [income_id, name]
+  }
+
+  measure: income_specified{
+    type: number
+    label: "(3) Income Specified"
+    view_label: "Application"
+    group_label: "Funnel Steps"
+    sql: COUNT(${amount} IS NOT NULL) ;;
   }
 
   measure: total_cost {
