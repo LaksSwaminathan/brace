@@ -16,7 +16,6 @@ explore: application {
 
   join: hardship_type {
     view_label: "Hardship"
-    type: inner
     sql_on: ${hardship_type.hardship_type_id} = ${hardship.type_id} ;;
     relationship: many_to_one
     fields: [hardship_type.hardship_type_fields*]
@@ -25,7 +24,6 @@ explore: application {
   join: disaster {
     view_label: "Hardship"
     from: disaster
-    type: inner
     sql_on: ${disaster.disaster_id} = ${hardship.disaster_id} ;;
     relationship: many_to_one
     fields: [disaster.diaster_fields*]
