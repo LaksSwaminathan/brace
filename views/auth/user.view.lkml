@@ -115,6 +115,11 @@ view: user {
     sql: ${TABLE}."last_name" ;;
   }
 
+  dimension: full_name {
+    type: string
+    sql: CONCAT(${first_name}, ' ', ${last_name}) ;;
+  }
+
   dimension: mailing_address {
     type: string
     sql: ${TABLE}."mailing_address" ;;

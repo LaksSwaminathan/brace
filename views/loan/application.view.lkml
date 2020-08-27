@@ -73,7 +73,7 @@ view: application {
 
   dimension: mode {
     type: string
-    sql: ${TABLE}."mode" ;;
+    sql: initcap(CAST(${TABLE}."mode" AS VARCHAR)) ;;
   }
 
   dimension: prior_partial_claims {
@@ -83,7 +83,7 @@ view: application {
 
   dimension: property_condition {
     type: string
-    sql: ${TABLE}."property_condition" ;;
+    sql: initcap(CAST(${TABLE}."property_condition" AS VARCHAR)) ;;
   }
 
   dimension: property_disposition_type_id {
@@ -119,12 +119,12 @@ view: application {
 
   dimension: state {
     type: string
-    sql: ${TABLE}."state" ;;
+    sql: initcap(CAST(${TABLE}."state" AS VARCHAR)) ;;
   }
 
   dimension: status {
     type: string
-    sql: ${TABLE}."status" ;;
+    sql: initcap(CAST(${TABLE}."status" AS VARCHAR)) ;;
   }
 
   dimension: subject_to_indemnification {
@@ -161,6 +161,13 @@ view: application {
     hidden: yes
     type: yesno
     sql: ${TABLE}."workout_details_communicated" ;;
+  }
+
+  measure: borrower_intent {
+    type: number
+    label: "(2) Borrower's Intent with Property"
+    group_label: "Funnel Steps"
+    sql: COUNT(${property_usage_type_id} IS NOT NULL) ;;
   }
 
   measure: count {

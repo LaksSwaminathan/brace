@@ -38,6 +38,7 @@ view: loan {
   }
 
   dimension: loan_uuid {
+    hidden: yes
     type: string
     sql: ${TABLE}."loan_uuid" ;;
   }
@@ -58,26 +59,31 @@ view: loan {
   }
 
   dimension: property_id {
+    hidden: yes
     type: number
     sql: ${TABLE}."property_id" ;;
   }
 
   dimension: searchable {
+    hidden: yes
     type: string
     sql: ${TABLE}."searchable" ;;
   }
 
   dimension: servicer_id {
+    hidden: yes
     type: number
     sql: ${TABLE}."servicer_id" ;;
   }
 
   dimension: servicer_verified_first_lienholder {
+    hidden: yes
     type: yesno
     sql: ${TABLE}."servicer_verified_first_lienholder" ;;
   }
 
   dimension: sor_identifier {
+    hidden: yes
     type: string
     sql: ${TABLE}."sor_identifier" ;;
   }

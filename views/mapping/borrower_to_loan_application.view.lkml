@@ -105,8 +105,36 @@ view: borrower_to_loan_application {
     sql: ${TABLE}."updated_by" ;;
   }
 
-  measure: count {
-    type: count
-    drill_fields: [borrower_to_loan_application_id]
+#   measure: count {
+#     type: count
+#     drill_fields: [borrower_to_loan_application_id]
+#   }
+
+  measure: count_of_hello_sign {
+    type: number
+    label: "Total Hello Sign Connection"
+    sql: COUNT(${form710_signature_raw} IS NOT NULL) ;;
   }
+
+  measure: count_of_incomplete_application {
+    type: number
+    label: "Total Incomplete Hello Sign Connection"
+    sql: COUNT(${form710_signature_raw} IS NULL) ;;
+  }
+
+  measure: submitted_application{
+    type: number
+    label: "(4) Submitted Application"
+    view_label: "Application"
+    group_label: "Funnel Steps"
+    sql: COUNT(${form710_signature_date} IS NOT NULL) ;;
+  }
+
+
+  measure: total_cost {
+    type: number
+    sql: ${count_of_hello_sign} * 0.67 ;;
+    value_format_name: usd_0
+  }
+
 }
