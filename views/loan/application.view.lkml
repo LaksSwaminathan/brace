@@ -9,6 +9,7 @@ view: application {
   }
 
   dimension: application_uuid {
+    hidden: yes
     type: string
     sql: ${TABLE}."application_uuid" ;;
   }
@@ -111,6 +112,7 @@ view: application {
   }
 
   dimension: servicer_confirmed_down_payment_from_borrower {
+    hidden: yes
     type: yesno
     sql: ${TABLE}."servicer_confirmed_down_payment_from_borrower" ;;
   }
@@ -126,6 +128,7 @@ view: application {
   }
 
   dimension: subject_to_indemnification {
+    hidden: yes
     type: yesno
     sql: ${TABLE}."subject_to_indemnification" ;;
   }
@@ -155,6 +158,7 @@ view: application {
   }
 
   dimension: workout_details_communicated {
+    hidden: yes
     type: yesno
     sql: ${TABLE}."workout_details_communicated" ;;
   }
@@ -162,5 +166,11 @@ view: application {
   measure: count {
     type: count
     drill_fields: [application_id, loan.loan_id, delinquency.delinquency_id, expenses.expenses_id]
+  }
+
+  set: application {
+    fields: [
+
+    ]
   }
 }
