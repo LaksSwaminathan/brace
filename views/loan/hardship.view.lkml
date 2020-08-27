@@ -138,4 +138,15 @@ view: hardship {
     group_label: "Funnel Steps"
     sql: COUNT(${type_id} IS NOT NULL) ;;
   }
+
+  set: hardship_fields {
+    fields: [
+      start_date,
+      end_date,
+      can_repay_missed_payments,
+      can_resume_full_payment,
+      impacts_place_of_employment,
+      other_type_description
+      ]
+  }
 }

@@ -85,4 +85,13 @@ view: hardship_type {
     type: count
     drill_fields: [hardship_type_id, name]
   }
+
+  set: hardship_type_fields {
+    fields: [
+      name,
+      tooltip,
+      smdu_code,
+      description
+    ]
+  }
 }

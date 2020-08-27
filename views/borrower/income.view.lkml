@@ -14,6 +14,7 @@ view: income {
   }
 
   dimension: borrower_to_loan_application_id {
+    hidden: yes
     type: number
     sql: ${TABLE}."borrower_to_loan_application_id" ;;
   }
@@ -48,6 +49,7 @@ view: income {
   }
 
   dimension: income_uuid {
+    hidden: yes
     type: string
     sql: ${TABLE}."income_uuid" ;;
   }
@@ -63,6 +65,7 @@ view: income {
   }
 
   dimension_group: updated {
+    hidden: yes
     type: time
     timeframes: [
       raw,
@@ -77,6 +80,7 @@ view: income {
   }
 
   dimension: updated_by {
+    hidden: yes
     type: number
     sql: ${TABLE}."updated_by" ;;
   }
@@ -96,8 +100,16 @@ view: income {
   }
 
   measure: total_cost {
+    label: "FileThis cost"
     type: number
     sql: ${count}*4 ;;
     value_format_name: usd_0
+  }
+
+  set: filethis_fields {
+    fields: [
+      count,
+      total_cost
+    ]
   }
 }

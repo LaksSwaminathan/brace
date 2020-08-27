@@ -80,4 +80,14 @@ view: document {
     type: count
     drill_fields: [document_id, file_name]
   }
+
+  set: document_fields {
+    fields: [
+      file_name,
+      content,
+      content_type,
+      created_date,
+      updated_date
+    ]
+  }
 }

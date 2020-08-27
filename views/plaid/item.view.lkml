@@ -90,5 +90,4 @@ view: plaid_details {
     value_format_name: usd_0
   }
 
-
 }

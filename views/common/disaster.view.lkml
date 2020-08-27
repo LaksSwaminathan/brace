@@ -122,4 +122,16 @@ view: disaster {
     type: count
     drill_fields: [disaster_id, name]
   }
+
+  set: diaster_fields {
+    fields: [
+      is_covid,
+      name,
+      fema_declaration_date,
+      fema_disaster_type,
+      fema_incident_type,
+      incident_begin_date,
+      incident_end_date
+    ]
+  }
 }

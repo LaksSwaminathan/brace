@@ -11,31 +11,39 @@ explore: application {
   join: hardship {
     sql_on: ${application.application_id} = ${hardship.loan_application_id} ;;
     relationship: one_to_one
+    fields: [hardship.hardship_fields*]
   }
 
   join: hardship_type {
+    view_label: "Hardship"
     type: inner
     sql_on: ${hardship_type.hardship_type_id} = ${hardship.type_id} ;;
     relationship: many_to_one
+    fields: [hardship_type.hardship_type_fields*]
+  }
+
+  join: disaster {
+    view_label: "Hardship"
+    from: disaster
+    type: inner
+    sql_on: ${disaster.disaster_id} = ${hardship.disaster_id} ;;
+    relationship: many_to_one
+    fields: [disaster.diaster_fields*]
   }
 
   join: document {
     type: left_outer
     sql_on: ${application.application_id} = ${document.application_id} ;;
     relationship: one_to_many
+    fields: [document.document_fields*]
   }
 
   join: document_type {
+    view_label: "Document"
     type: left_outer
     sql_on: ${document.document_type_id} = ${document_type.document_type_id} ;;
     relationship: many_to_one
-  }
-
-  join: disaster {
-    from: disaster
-    type: inner
-    sql_on: ${disaster.disaster_id} = ${hardship.disaster_id} ;;
-    relationship: many_to_one
+    fields: [document_type.document_type_fields*]
   }
 
   join: loan {
@@ -47,10 +55,10 @@ explore: application {
     view_label: "Plaid Information"
     sql_on: ${application.application_id} = ${plaid_details.borrower_to_loan_application_id} ;;
     relationship: one_to_many
+    fields: [plaid_details.count, plaid_details.total_cost]
   }
 
   join: borrower_income {
-    #filethis
     view_label: "FileThis Information"
     from: income
     sql_on: ${application.application_id} = ${borrower_income.borrower_to_loan_application_id} ;;
@@ -62,6 +70,7 @@ explore: application {
     view_label: "HelloSign Information"
     sql_on: ${application.application_id} = ${borrower_to_loan_application.borrower_to_loan_application_id} ;;
     relationship: one_to_many
+    fields: [borrower_to_loan_application.hellosign_fields*]
   }
 
   join: user {
@@ -73,12 +82,15 @@ explore: application {
     type: inner
     sql_on: ${borrower.user_id} = ${user.user_id}  ;;
     relationship: one_to_one
+    fields: []
   }
 
   join: equifax_report {
+    view_label: "Equifax Information"
     type: left_outer
     sql_on: ${equifax_report.borrower_id} = ${borrower.borrower_id} ;;
     relationship: one_to_many
+    fields: [equifax_report.number_of_completed_equifax_pulls]
   }
 
   ## Equifax -- credit.liability or credit.report (Count)

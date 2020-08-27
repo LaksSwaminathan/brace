@@ -92,6 +92,7 @@ view: user {
   }
 
   dimension: first_name {
+    hidden: yes
     type: string
     sql: ${TABLE}."first_name" ;;
   }
@@ -111,6 +112,7 @@ view: user {
   }
 
   dimension: last_name {
+    hidden: yes
     type: string
     sql: ${TABLE}."last_name" ;;
   }
@@ -146,6 +148,7 @@ view: user {
   }
 
   dimension: middle_name {
+    hidden: yes
     type: string
     sql: ${TABLE}."middle_name" ;;
   }
@@ -171,6 +174,7 @@ view: user {
   }
 
   dimension: searchable {
+    hidden: yes
     type: string
     sql: ${TABLE}."searchable" ;;
   }
@@ -186,6 +190,7 @@ view: user {
   }
 
   dimension_group: updated {
+    hidden: yes
     type: time
     timeframes: [
       raw,
@@ -200,11 +205,13 @@ view: user {
   }
 
   dimension: updated_by {
+    hidden: yes
     type: number
     sql: ${TABLE}."updated_by" ;;
   }
 
   dimension: user_uuid {
+    hidden: yes
     type: string
     sql: ${TABLE}."user_uuid" ;;
   }

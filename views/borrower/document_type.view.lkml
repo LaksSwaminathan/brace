@@ -70,4 +70,11 @@ view: document_type {
     type: count
     drill_fields: [document_type_id, name]
   }
+
+  set: document_type_fields {
+    fields: [
+      name,
+      description
+    ]
+  }
 }

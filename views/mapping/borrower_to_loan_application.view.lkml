@@ -130,11 +130,20 @@ view: borrower_to_loan_application {
     sql: COUNT(${form710_signature_date} IS NOT NULL) ;;
   }
 
-
   measure: total_cost {
+    label: "Hello Sign Cost"
     type: number
     sql: ${count_of_hello_sign} * 0.67 ;;
     value_format_name: usd_0
+  }
+
+  set: hellosign_fields {
+    fields: [
+      total_cost,
+      count_of_hello_sign,
+      count_of_incomplete_application,
+      submitted_application
+    ]
   }
 
 }

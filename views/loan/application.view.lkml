@@ -15,6 +15,7 @@ view: application {
   }
 
   dimension: cash_contribution_prohibited {
+    hidden: yes
     type: yesno
     sql: ${TABLE}."cash_contribution_prohibited" ;;
   }
@@ -67,6 +68,7 @@ view: application {
   }
 
   dimension: meets_fhlmc_uw_guidelines {
+    hidden: yes
     type: yesno
     sql: ${TABLE}."meets_fhlmc_uw_guidelines" ;;
   }
@@ -77,6 +79,7 @@ view: application {
   }
 
   dimension: prior_partial_claims {
+    hidden: yes
     type: number
     sql: ${TABLE}."prior_partial_claims" ;;
   }
@@ -102,6 +105,7 @@ view: application {
   }
 
   dimension: property_repair_cost {
+    hidden: yes
     type: number
     sql: ${TABLE}."property_repair_cost" ;;
   }
@@ -134,6 +138,7 @@ view: application {
   }
 
   dimension: terms_id {
+    hidden: yes
     type: number
     sql: ${TABLE}."terms_id" ;;
   }

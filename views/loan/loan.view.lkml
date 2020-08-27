@@ -14,6 +14,7 @@ view: loan {
   }
 
   dimension_group: created {
+    hidden: yes
     type: time
     timeframes: [
       raw,
@@ -28,11 +29,13 @@ view: loan {
   }
 
   dimension: created_by {
+    hidden: yes
     type: number
     sql: ${TABLE}."created_by" ;;
   }
 
   dimension: is_escrow_prohibited {
+    hidden: yes
     type: yesno
     sql: ${TABLE}."is_escrow_prohibited" ;;
   }
@@ -44,6 +47,7 @@ view: loan {
   }
 
   dimension_group: mbs_pool_issue {
+    hidden: yes
     type: time
     timeframes: [
       raw,
@@ -89,6 +93,7 @@ view: loan {
   }
 
   dimension_group: transferred {
+    hidden: yes
     type: time
     timeframes: [
       raw,
@@ -108,6 +113,7 @@ view: loan {
   }
 
   dimension_group: updated {
+    hidden: yes
     type: time
     timeframes: [
       raw,
@@ -122,6 +128,7 @@ view: loan {
   }
 
   dimension: updated_by {
+    hidden: yes
     type: number
     sql: ${TABLE}."updated_by" ;;
   }
