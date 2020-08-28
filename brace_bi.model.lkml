@@ -33,7 +33,7 @@ explore: application {
     type: left_outer
     sql_on: ${application.application_id} = ${document.application_id} ;;
     relationship: one_to_many
-    fields: [document.document_fields*]
+    fields: [document.document_fields*, document.count]
   }
 
   join: document_type {
