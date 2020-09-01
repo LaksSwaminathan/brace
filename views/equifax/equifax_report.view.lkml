@@ -83,7 +83,10 @@ view: equifax_report {
   }
 
   measure: number_of_completed_equifax_pulls {
-    type: count
+    label: "Equifax Credit Pulls"
+    type: count_distinct
+    sql: ${report_id} ;;
     drill_fields: [report_id]
   }
+
 }

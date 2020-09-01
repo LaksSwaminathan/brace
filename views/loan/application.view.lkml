@@ -39,31 +39,46 @@ view: application {
     sql: ${TABLE}."created_by" ;;
   }
 
+  dimension: days_to_submit {
+    type: number
+    sql: DATE_PART('day', ${created_raw}- ${borrower_to_loan_application.form710_signature_raw});;
+  }
+
+  dimension: days_to_submit_tier {
+    type: tier
+    tiers: [0,1,3,5]
+    style: integer
+    sql: ${days_to_submit} ;;
+  }
+
+
   dimension: delinquency_id {
     type: number
-    # hidden: yes
+    hidden: yes
     sql: ${TABLE}."delinquency_id" ;;
   }
 
   dimension: expenses_id {
     type: number
-    # hidden: yes
+    hidden: yes
     sql: ${TABLE}."expenses_id" ;;
   }
 
   dimension: in_recourse {
+    hidden: yes
     type: yesno
     sql: ${TABLE}."in_recourse" ;;
   }
 
   dimension: lien_position {
+    hidden: yes
     type: string
     sql: ${TABLE}."lien_position" ;;
   }
 
   dimension: loan_id {
     type: number
-    # hidden: yes
+    hidden: yes
     sql: ${TABLE}."loan_id" ;;
   }
 
@@ -85,21 +100,25 @@ view: application {
   }
 
   dimension: property_condition {
+    hidden: yes
     type: string
     sql: initcap(CAST(${TABLE}."property_condition" AS VARCHAR)) ;;
   }
 
   dimension: property_disposition_type_id {
+    hidden: yes
     type: number
     sql: ${TABLE}."property_disposition_type_id" ;;
   }
 
   dimension: property_has_problems {
+    hidden: yes
     type: yesno
     sql: ${TABLE}."property_has_problems" ;;
   }
 
   dimension: property_occupancy_status_id {
+    hidden: yes
     type: number
     sql: ${TABLE}."property_occupancy_status_id" ;;
   }
@@ -111,6 +130,7 @@ view: application {
   }
 
   dimension: property_usage_type_id {
+    hidden: yes
     type: number
     sql: ${TABLE}."property_usage_type_id" ;;
   }
@@ -122,6 +142,7 @@ view: application {
   }
 
   dimension: state {
+    label: "Servicer State"
     type: string
     sql: initcap(CAST(${TABLE}."state" AS VARCHAR)) ;;
   }

@@ -7,7 +7,6 @@ label: "Borrower"
 explore: application {
   label: "Application 📝"
 
-
   join: hardship {
     sql_on: ${application.application_id} = ${hardship.loan_application_id} ;;
     relationship: one_to_one
@@ -50,28 +49,27 @@ explore: application {
   }
 
   join: plaid_details {
-    view_label: "Plaid Information"
+    view_label: "Vendor Information"
     sql_on: ${application.application_id} = ${plaid_details.borrower_to_loan_application_id} ;;
     relationship: one_to_many
     fields: [plaid_details.count, plaid_details.total_cost]
   }
 
   join: borrower_income {
-    view_label: "FileThis Information"
     from: income
     sql_on: ${application.application_id} = ${borrower_income.borrower_to_loan_application_id} ;;
     relationship: one_to_many
   }
 
   join: borrower_to_loan_application {
-    #hellosign, createdsign... form710_signature
-    view_label: "HelloSign Information"
+    view_label: "Vendor Information"
     sql_on: ${application.application_id} = ${borrower_to_loan_application.borrower_to_loan_application_id} ;;
-    relationship: one_to_many
+    relationship: one_to_one
     fields: [borrower_to_loan_application.hellosign_fields*]
   }
 
   join: user {
+    view_label: "Borrower"
     sql_on: ${loan.created_by} = ${user.user_id} ;;
     relationship: many_to_one
   }
@@ -80,11 +78,11 @@ explore: application {
     type: inner
     sql_on: ${borrower.user_id} = ${user.user_id}  ;;
     relationship: one_to_one
-    fields: []
+#     fields: []
   }
 
   join: equifax_report {
-    view_label: "Equifax Information"
+    view_label: "Vendor Information"
     type: left_outer
     sql_on: ${equifax_report.borrower_id} = ${borrower.borrower_id} ;;
     relationship: one_to_many

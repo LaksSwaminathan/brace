@@ -38,6 +38,8 @@ view: borrower_to_loan_application {
   }
 
   dimension_group: form710_signature {
+    view_label: "Application"
+    label: "Hello Sign Signature"
     type: time
     timeframes: [
       raw,
@@ -105,21 +107,17 @@ view: borrower_to_loan_application {
     sql: ${TABLE}."updated_by" ;;
   }
 
-#   measure: count {
-#     type: count
-#     drill_fields: [borrower_to_loan_application_id]
-#   }
 
   measure: count_of_hello_sign {
     type: number
-    label: "Total Hello Sign Connection"
-    sql: COUNT(${form710_signature_raw} IS NOT NULL) ;;
+    label: "Hello Sign Signature Count"
+    sql: COUNT(case when ${form710_signature_raw} IS NOT NULL then 1 end) ;;
   }
 
   measure: count_of_incomplete_application {
     type: number
-    label: "Total Incomplete Hello Sign Connection"
-    sql: COUNT(${form710_signature_raw} IS NULL) ;;
+    label: "Hello Sign Incomplete Signature Count"
+    sql: COUNT(case when ${form710_signature_raw} IS NULL then 1 end) ;;
   }
 
   measure: submitted_application{
@@ -127,11 +125,11 @@ view: borrower_to_loan_application {
     label: "(4) Submitted Application"
     view_label: "Application"
     group_label: "Funnel Steps"
-    sql: COUNT(${form710_signature_date} IS NOT NULL) ;;
+    sql: COUNT(case when ${form710_signature_date} IS NOT NULL then 1 end) ;;
   }
 
   measure: total_cost {
-    label: "Hello Sign Cost"
+    label: "Hello Sign Total Cost"
     type: number
     sql: ${count_of_hello_sign} * 0.67 ;;
     value_format_name: usd_0
@@ -139,6 +137,7 @@ view: borrower_to_loan_application {
 
   set: hellosign_fields {
     fields: [
+      form710_signature_date,
       total_cost,
       count_of_hello_sign,
       count_of_incomplete_application,

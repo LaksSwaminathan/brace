@@ -20,6 +20,7 @@ view: income {
   }
 
   dimension_group: created {
+    hidden: yes
     type: time
     timeframes: [
       raw,
@@ -34,16 +35,19 @@ view: income {
   }
 
   dimension: created_by {
+    hidden: yes
     type: number
     sql: ${TABLE}."created_by" ;;
   }
 
   dimension: document_group_id {
+    hidden: yes
     type: number
     sql: ${TABLE}."document_group_id" ;;
   }
 
   dimension: income_type_id {
+    hidden: yes
     type: number
     sql: ${TABLE}."income_type_id" ;;
   }
@@ -60,6 +64,7 @@ view: income {
   }
 
   dimension: silenced {
+    hidden: yes
     type: yesno
     sql: ${TABLE}."silenced" ;;
   }
@@ -85,11 +90,16 @@ view: income {
     sql: ${TABLE}."updated_by" ;;
   }
 
-  measure: count {
-    type: count_distinct
-    sql: ${borrower_to_loan_application_id} ;;
-    drill_fields: [income_id, name]
+  measure: total_income {
+    type: sum
+    sql: ${amount} ;;
   }
+
+#   measure: count {
+#     type: count_distinct
+#     sql: ${borrower_to_loan_application_id} ;;
+#     drill_fields: [income_id, name]
+#   }
 
   measure: income_specified{
     type: number
@@ -99,17 +109,4 @@ view: income {
     sql: COUNT(${amount} IS NOT NULL) ;;
   }
 
-  measure: total_cost {
-    label: "FileThis cost"
-    type: number
-    sql: ${count}*4 ;;
-    value_format_name: usd_0
-  }
-
-  set: filethis_fields {
-    fields: [
-      count,
-      total_cost
-    ]
-  }
 }

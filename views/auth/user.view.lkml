@@ -52,41 +52,49 @@ view: user {
   }
 
   dimension: employer_address {
+    group_label: "Employer"
     type: string
     sql: ${TABLE}."employer_address" ;;
   }
 
   dimension: employer_address2 {
+    group_label: "Employer"
     type: string
     sql: ${TABLE}."employer_address2" ;;
   }
 
   dimension: employer_city {
+    group_label: "Employer"
     type: string
     sql: ${TABLE}."employer_city" ;;
   }
 
   dimension: employer_county {
+    group_label: "Employer"
     type: string
     sql: ${TABLE}."employer_county" ;;
   }
 
   dimension: employer_name {
+    group_label: "Employer"
     type: string
     sql: ${TABLE}."employer_name" ;;
   }
 
   dimension: employer_phone {
+    group_label: "Employer"
     type: string
     sql: ${TABLE}."employer_phone" ;;
   }
 
   dimension: employer_state {
+    group_label: "Employer"
     type: string
     sql: ${TABLE}."employer_state" ;;
   }
 
   dimension: employer_zip_code {
+    group_label: "Employer"
     type: string
     sql: ${TABLE}."employer_zip_code" ;;
   }
@@ -123,26 +131,31 @@ view: user {
   }
 
   dimension: mailing_address {
+    group_label: "Address"
     type: string
     sql: ${TABLE}."mailing_address" ;;
   }
 
   dimension: mailing_address2 {
+    group_label: "Address"
     type: string
     sql: ${TABLE}."mailing_address2" ;;
   }
 
   dimension: mailing_city {
+    group_label: "Address"
     type: string
     sql: ${TABLE}."mailing_city" ;;
   }
 
   dimension: mailing_state {
+    group_label: "Address"
     type: string
     sql: ${TABLE}."mailing_state" ;;
   }
 
   dimension: mailing_zip_code {
+    group_label: "Address"
     type: string
     sql: ${TABLE}."mailing_zip_code" ;;
   }
@@ -180,11 +193,13 @@ view: user {
   }
 
   dimension: secondary_phone {
+    hidden: yes
     type: string
     sql: ${TABLE}."secondary_phone" ;;
   }
 
   dimension: secondary_phone_type {
+    hidden: yes
     type: string
     sql: ${TABLE}."secondary_phone_type" ;;
   }

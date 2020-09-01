@@ -14,6 +14,7 @@ view: document {
   }
 
   dimension: content {
+    hidden: yes
     type: string
     sql: ${TABLE}."content" ;;
   }

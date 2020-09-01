@@ -78,13 +78,14 @@ view: plaid_details {
   }
 # put count + cost side by side
   measure: count {
-    label: "Total Connections"
+    label: "Plaid Total Connections"
     type: count_distinct
     sql: ${plaid_item_id} ;;
     drill_fields: [plaid_item_id, item.plaid_item_id, item.count]
   }
 
   measure: total_cost {
+    label: "Plaid Total Cost"
     type: number
     sql: ${count} * 2.99 ;;
     value_format_name: usd_0

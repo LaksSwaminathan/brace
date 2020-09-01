@@ -9,6 +9,7 @@ view: borrower {
   }
 
   dimension: borrower_uuid {
+    hidden: yes
     type: string
     sql: ${TABLE}."borrower_uuid" ;;
   }
@@ -28,21 +29,25 @@ view: borrower {
   }
 
   dimension: created_by {
+    hidden: yes
     type: number
     sql: ${TABLE}."created_by" ;;
   }
 
   dimension: encrypted_ssn {
+    hidden: yes
     type: string
     sql: ${TABLE}."encrypted_ssn" ;;
   }
 
   dimension: file_this_account_id {
+    hidden: yes
     type: number
     sql: ${TABLE}."file_this_account_id" ;;
   }
 
   dimension: file_this_token {
+    hidden: yes
     type: string
     sql: ${TABLE}."file_this_token" ;;
   }
@@ -58,6 +63,7 @@ view: borrower {
   }
 
   dimension_group: updated {
+    hidden: yes
     type: time
     timeframes: [
       raw,
@@ -72,6 +78,7 @@ view: borrower {
   }
 
   dimension: updated_by {
+    hidden: yes
     type: number
     sql: ${TABLE}."updated_by" ;;
   }
@@ -81,8 +88,21 @@ view: borrower {
     sql: ${TABLE}."user_id" ;;
   }
 
-  measure: count {
-    type: count
+  measure: count_filethis_accounts {
+    view_label: "Vendor Information"
+    label: "FileThis Account Count"
+    type: count_distinct
+    sql: ${file_this_account_id} ;;
     drill_fields: [borrower_id]
   }
+
+  measure: total_filethis_cost {
+    view_label: "Vendor Information"
+    label: "FileThis Total Cost"
+    type: number
+    sql: ${count_filethis_accounts}*4 ;;
+    value_format_name: usd_0
+  }
+
+
 }
