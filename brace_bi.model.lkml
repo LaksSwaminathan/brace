@@ -7,6 +7,11 @@ label: "Borrower"
 explore: application {
   label: "Application 📝"
 
+  join: application_details {
+    sql_on: ${application.application_id} = ${application_details.application_id} ;;
+    relationship: one_to_one
+  }
+
   join: hardship {
     sql_on: ${application.application_id} = ${hardship.loan_application_id} ;;
     relationship: one_to_one

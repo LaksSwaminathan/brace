@@ -39,6 +39,16 @@ view: application {
     sql: ${TABLE}."created_by" ;;
   }
 
+  dimension: is_incomplete_application {
+    type: yesno
+    sql: ${borrower_to_loan_application.form710_signature_raw} is not NULL ;;
+  }
+
+  dimension: days_since_application_creation {
+    type: number
+    sql: DATE_PART('day', current_date - ${created_raw});;
+  }
+
   dimension: days_to_submit {
     type: number
     sql: DATE_PART('day', ${created_raw}- ${borrower_to_loan_application.form710_signature_raw});;
@@ -179,6 +189,7 @@ view: application {
   }
 
   dimension: updated_by {
+    hidden: yes
     type: number
     sql: ${TABLE}."updated_by" ;;
   }

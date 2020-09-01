@@ -4,11 +4,13 @@ view: user {
 
   dimension: user_id {
     primary_key: yes
+    hidden: yes
     type: number
     sql: ${TABLE}."user_id" ;;
   }
 
   dimension_group: created {
+    hidden: yes
     type: time
     timeframes: [
       raw,
@@ -23,6 +25,7 @@ view: user {
   }
 
   dimension: created_by {
+    hidden: yes
     type: number
     sql: ${TABLE}."created_by" ;;
   }
