@@ -81,7 +81,7 @@ view: plaid_details {
     label: "Plaid Total Connections"
     type: count_distinct
     sql: ${plaid_item_id} ;;
-    drill_fields: [plaid_item_id, item.plaid_item_id, item.count]
+    drill_fields: [item_id, count]
   }
 
   measure: total_cost {
