@@ -49,6 +49,22 @@ view: application {
     sql: DATE_PART('day', current_date - ${created_raw});;
   }
 
+  measure: count_of_incomplete_application {
+    type: count
+    filters: [is_incomplete_application: "No"]
+  }
+
+  measure: count_of_complete_application {
+    type: count
+    filters: [is_incomplete_application: "Yes"]
+  }
+
+  measure: days_in_funnel {
+    type: sum
+    sql: ${days_since_application_creation} ;;
+    filters: [is_incomplete_application: "No"]
+  }
+
   dimension: days_to_submit {
     type: number
     sql: DATE_PART('day', ${created_raw}- ${borrower_to_loan_application.form710_signature_raw});;
@@ -56,7 +72,7 @@ view: application {
 
   dimension: days_to_submit_tier {
     type: tier
-    tiers: [0,1,3,5]
+    tiers: [1,3,5]
     style: integer
     sql: ${days_to_submit} ;;
   }
@@ -209,7 +225,7 @@ view: application {
 
   measure: count {
     type: count
-    drill_fields: [application_id, loan.loan_id, delinquency.delinquency_id, expenses.expenses_id]
+    drill_fields: [user.email,status,hardship_type.name, days_in_funnel]
   }
 
   set: application {

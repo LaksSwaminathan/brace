@@ -95,6 +95,10 @@ view: income {
     sql: ${amount} ;;
   }
 
+  measure: count {
+    type: count
+  }
+
 #   measure: count {
 #     type: count_distinct
 #     sql: ${borrower_to_loan_application_id} ;;
