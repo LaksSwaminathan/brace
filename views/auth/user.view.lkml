@@ -130,7 +130,7 @@ view: user {
 
   dimension: full_name {
     type: string
-    sql: CONCAT(${first_name}, ' ', ${last_name}) ;;
+    sql: md5(CONCAT(${first_name}, ' ', ${last_name})) ;;
   }
 
   dimension: mailing_address {
