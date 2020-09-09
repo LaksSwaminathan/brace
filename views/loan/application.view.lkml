@@ -41,7 +41,7 @@ view: application {
 
   dimension: is_incomplete_application {
     type: yesno
-    sql: ${borrower_to_loan_application.form710_signature_raw} is not NULL ;;
+    sql: case when ${borrower_to_loan_application.form710_signature_raw} is NULL then true else false end ;;
   }
 
   dimension: days_since_application_creation {
@@ -72,7 +72,7 @@ view: application {
 
   dimension: days_to_submit_tier {
     type: tier
-    tiers: [1,3,5]
+    tiers: [0,1,3,5]
     style: integer
     sql: ${days_to_submit} ;;
   }
