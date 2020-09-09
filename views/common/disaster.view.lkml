@@ -10,7 +10,7 @@ view: disaster {
 
   dimension_group: created {
     type: time
-    timeframes: [
+    timeframes: [hour_of_day,
       raw,
       time,
       date,
