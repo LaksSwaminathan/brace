@@ -2,7 +2,7 @@ connection: "dev-readreplica"
 include: "../base_brace_explore.lkml"
 
 explore: +application {
-  label: "Client A Application 📝"
+  label: "PennyMac 📝"
 }
 
 # include: "views/*/*.view.lkml"                # include all views in the views/ folder in this project

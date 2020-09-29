@@ -1,4 +1,3 @@
-explore: application_details {}
 view: application_details {
 
   derived_table: {
