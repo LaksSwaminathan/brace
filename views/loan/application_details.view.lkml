@@ -1,3 +1,4 @@
+explore: application_details {}
 view: application_details {
 
   derived_table: {
@@ -5,6 +6,7 @@ view: application_details {
       column: count { field: document.count }
       column: application_id {}
     }
+#     persist_for: "24 hours"
   }
 
   dimension: application_id {
