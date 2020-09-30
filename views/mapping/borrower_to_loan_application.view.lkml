@@ -64,8 +64,9 @@ view: borrower_to_loan_application {
   }
 
   dimension: last_completed_step {
+    hidden: yes
     type: string
-    sql: ${TABLE}."last_completed_step" ;;
+    sql: initcap(CAST(${TABLE}."last_completed_step" AS VARCHAR)) ;;
   }
 
   dimension: loan_application_id {
@@ -138,6 +139,7 @@ view: borrower_to_loan_application {
   set: hellosign_fields {
     fields: [
       form710_signature_date,
+      last_completed_step,
       total_cost,
       count_of_hello_sign,
       count_of_incomplete_application,

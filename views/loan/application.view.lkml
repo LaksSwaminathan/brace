@@ -41,8 +41,9 @@ view: application {
 
   dimension: is_incomplete_application {
     type: yesno
-    sql: case when ${borrower_to_loan_application.form710_signature_raw} is NULL then true else false end ;;
+    sql: case when ${application_status_detail} not like 'eSigned Application' then true else false end ;;
   }
+
 
   dimension: days_since_application_creation {
     type: number
@@ -167,6 +168,37 @@ view: application {
     sql: ${TABLE}."servicer_confirmed_down_payment_from_borrower" ;;
   }
 
+  dimension: application_status_detail {
+    type: string
+    sql:
+      case
+        when ${state} like 'Collecting' AND ${status} like 'Pending' then 'Logged In'
+        when ${state} like 'Collecting' AND ${status} like 'Active'
+          and ${borrower_to_loan_application.last_completed_step} like 'Notstarted' then 'Application Started'
+        when ${state} like 'Collecting' AND ${status} like 'Active'
+          and ${borrower_to_loan_application.last_completed_step} not like 'Notstarted' then 'Application Active'
+        when ${state} not like 'Collecting' AND ${status} not like 'Pending' then 'eSigned Application'
+        when ${state} not like 'Collecting' AND ${status} like 'Expired' then 'Application Expired'
+
+        else 'Other'
+      end
+      ;;
+  }
+
+  dimension: application_status_description {
+    type: string
+    sql:
+      case
+        when ${application_status_detail} like 'Logged In' then 'User has reached Brace, User has not clicked "Begin Application", User has closed browser'
+        when ${application_status_detail} like 'Application Started' then 'User has reached brace, user has clicked "Begin Application", and has specified some information in the application. User has not yet submitted OR has not reached the application timeout window'
+        when ${application_status_detail} like 'Application Active' then 'All Users have e-signed an application with all the required fields'
+        when ${application_status_detail} like 'eSigned Application' then 'User has clicked "Begin Application", but has not finished and/or submitted an application, and X days have passed'
+        when ${application_status_detail} like 'Application Expired' then 'User has reached brace, user has clicked "Begin Application", User has not completed anything'
+        else 'Other'
+      end
+      ;;
+  }
+
   dimension: state {
     label: "Servicer State"
     type: string
@@ -174,6 +206,7 @@ view: application {
   }
 
   dimension: status {
+    label: "Application Status"
     type: string
     sql: initcap(CAST(${TABLE}."status" AS VARCHAR)) ;;
   }
@@ -214,13 +247,6 @@ view: application {
     hidden: yes
     type: yesno
     sql: ${TABLE}."workout_details_communicated" ;;
-  }
-
-  measure: borrower_intent {
-    type: number
-    label: "(2) Borrower's Intent with Property"
-    group_label: "Funnel Steps"
-    sql: COUNT(${property_usage_type_id} IS NOT NULL) ;;
   }
 
   measure: count {
