@@ -81,7 +81,7 @@ explore: application {
   }
 
   join: borrower {
-    type: inner
+    type: left_outer
     sql_on: ${borrower.user_id} = ${user.user_id}  ;;
     relationship: one_to_one
 #     fields: []

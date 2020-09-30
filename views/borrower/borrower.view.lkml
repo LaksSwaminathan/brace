@@ -4,6 +4,7 @@ view: borrower {
 
   dimension: borrower_id {
     primary_key: yes
+    hidden: yes
     type: number
     sql: ${TABLE}."borrower_id" ;;
   }
@@ -53,11 +54,13 @@ view: borrower {
   }
 
   dimension: last_four_ssn {
+    hidden: yes
     type: string
     sql: ${TABLE}."last_four_ssn" ;;
   }
 
   dimension: sor_last_four_ssn {
+    hidden: yes
     type: string
     sql: ${TABLE}."sor_last_four_ssn" ;;
   }
@@ -84,6 +87,7 @@ view: borrower {
   }
 
   dimension: user_id {
+#     hidden: yes
     type: number
     sql: ${TABLE}."user_id" ;;
   }
