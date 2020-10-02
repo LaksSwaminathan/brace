@@ -81,7 +81,8 @@ view: plaid_details {
     label: "Plaid Total Connections"
     type: count_distinct
     sql: ${plaid_item_id} ;;
-    drill_fields: [item_id, count]
+    drill_fields: [application.application_id, user.full_name, application.created_date, count]
+
   }
 
   measure: total_cost {
@@ -89,6 +90,8 @@ view: plaid_details {
     type: number
     sql: ${count} * 2.99 ;;
     value_format_name: usd_0
+    drill_fields: [borrower_to_loan_application_id, borrower.full_name, application.created_date]
+
   }
 
 }

@@ -2,8 +2,9 @@ view: application_details {
 
   derived_table: {
     explore_source: application {
-      column: count { field: document.count }
       column: application_id {}
+      column: count { field: document.count }
+      column: login_count { field: login.count }
     }
 #     persist_for: "24 hours"
   }
@@ -22,6 +23,11 @@ view: application_details {
     style: integer
     tiers: [1,2,3,5]
     sql: ${TABLE}.count ;;
+  }
+
+  dimension: has_logged_in {
+    type: yesno
+    sql: ${TABLE}.login_count > 0  ;;
   }
 
   measure: average_document_upload {

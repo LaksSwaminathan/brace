@@ -172,7 +172,8 @@ view: application {
     type: string
     sql:
       case
-        when ${state} like 'Collecting' AND ${mode} like 'Notstarted' AND ${status} like 'Pending' then 'Logged In'
+        when ${state} like 'Collecting' AND ${mode} like 'Notstarted' AND ${status} like 'Pending' AND ${application_details.has_logged_in} is false then 'Not Logged In'
+        when ${state} like 'Collecting' AND ${mode} like 'Notstarted' AND ${status} like 'Pending' AND ${application_details.has_logged_in} is true then 'Logged In'
         when ${state} like 'Collecting' AND ${status} like 'Active'
           and ${borrower_to_loan_application.last_completed_step} like 'Notstarted' then 'Application Started'
         when ${state} like 'Collecting' AND ${status} like 'Active'
@@ -189,6 +190,7 @@ view: application {
     type: string
     sql:
       case
+        when ${application_status_detail} like 'Not Logged In' then 'User has not reached Brace, User has not clicked "Begin Application"'
         when ${application_status_detail} like 'Logged In' then 'User has reached Brace, User has not clicked "Begin Application", User has closed browser'
         when ${application_status_detail} like 'Application Started' then 'User has reached brace, user has clicked "Begin Application", and has specified some information in the application. User has not yet submitted OR has not reached the application timeout window'
         when ${application_status_detail} like 'Application Active' then 'All Users have e-signed an application with all the required fields'
@@ -251,7 +253,7 @@ view: application {
 
   measure: count {
     type: count
-    drill_fields: [user.email,status,hardship_type.name, days_in_funnel]
+    drill_fields: [application_id, user.full_name, application_status_detail]
   }
 
   set: application {

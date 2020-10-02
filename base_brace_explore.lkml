@@ -80,6 +80,13 @@ explore: application {
     relationship: many_to_one
   }
 
+  join: login {
+    sql_on: ${user.user_id} = ${login.user_id} ;;
+    relationship: many_to_one
+
+    # fields: []
+  }
+
   join: borrower {
     type: left_outer
     sql_on: ${borrower.user_id} = ${user.user_id}  ;;
