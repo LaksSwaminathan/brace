@@ -41,7 +41,7 @@ view: application {
 
   dimension: is_incomplete_application {
     type: yesno
-    sql: case when ${application_status_detail} not like 'eSigned Application' then true else false end ;;
+    sql: case when ${application_status_detail} like 'eSigned Application' then true else false end ;;
   }
 
 
