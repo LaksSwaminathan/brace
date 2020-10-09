@@ -117,7 +117,12 @@ view: application {
 
   dimension: mode {
     type: string
-    sql: initcap(CAST(${TABLE}."mode" AS VARCHAR)) ;;
+    sql:
+      case
+        when initcap(CAST(${TABLE}."mode" AS VARCHAR)) like 'Individual%' then 'Individual'
+        when initcap(CAST(${TABLE}."mode" AS VARCHAR)) like 'Together%' then 'Together'
+        else initcap(CAST(${TABLE}."mode" AS VARCHAR))
+      end;;
   }
 
   dimension: prior_partial_claims {
@@ -192,14 +197,15 @@ view: application {
       case
         when ${application_status_detail} like 'Not Logged In' then 'User has not reached Brace, User has not clicked "Begin Application"'
         when ${application_status_detail} like 'Logged In' then 'User has reached Brace, User has not clicked "Begin Application", User has closed browser'
-        when ${application_status_detail} like 'Application Started' then 'User has reached brace, user has clicked "Begin Application", and has specified some information in the application. User has not yet submitted OR has not reached the application timeout window'
-        when ${application_status_detail} like 'Application Active' then 'All Users have e-signed an application with all the required fields'
-        when ${application_status_detail} like 'eSigned Application' then 'User has clicked "Begin Application", but has not finished and/or submitted an application, and X days have passed'
-        when ${application_status_detail} like 'Application Expired' then 'User has reached brace, user has clicked "Begin Application", User has not completed anything'
+        when ${application_status_detail} like 'Application Started' then 'User has reached brace, user has clicked "Begin Application", User has not completed anything'
+        when ${application_status_detail} like 'Application Active' then 'User has reached brace, user has clicked "Begin Application", and has specified some information in the application. User has not yet submitted OR has not reached the application timeout window'
+        when ${application_status_detail} like 'eSigned Application' then 'All Users have e-signed an application with all the required fields'
+        when ${application_status_detail} like 'Application Expired' then 'User has clicked "Begin Application", but has not finished and/or submitted an application, and X days have passed'
         else 'Other'
       end
       ;;
   }
+  # esigned is not defined correctly...
 
   dimension: state {
     label: "Servicer State"

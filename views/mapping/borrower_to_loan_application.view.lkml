@@ -1,6 +1,5 @@
 view: borrower_to_loan_application {
   sql_table_name: mapping.borrower_to_loan_application ;;
-  drill_fields: [borrower_to_loan_application_id]
 
   dimension: borrower_to_loan_application_id {
     primary_key: yes
@@ -108,8 +107,14 @@ view: borrower_to_loan_application {
     sql: ${TABLE}."updated_by" ;;
   }
 
+  measure: borrower_count {
+    type: count_distinct
+    sql: ${borrower_id} ;;
+  }
+
 
   measure: count_of_hello_sign {
+    view_label: "Vendor Information"
     type: number
     label: "Hello Sign Signature Count"
     sql: COUNT(case when ${form710_signature_raw} IS NOT NULL then 1 end) ;;
@@ -122,6 +127,7 @@ view: borrower_to_loan_application {
   }
 
   measure: submitted_application{
+    hidden: yes
     type: number
     label: "(4) Submitted Application"
     view_label: "Application"
@@ -138,12 +144,17 @@ view: borrower_to_loan_application {
 
   set: hellosign_fields {
     fields: [
-      form710_signature_date,
-      last_completed_step,
       total_cost,
       count_of_hello_sign,
-      count_of_incomplete_application,
-      submitted_application
+    ]
+  }
+
+  set: details {
+    fields: [
+      borrower_count,
+      form710_signature_date,
+      last_completed_step,
+      count_of_incomplete_application
     ]
   }
 

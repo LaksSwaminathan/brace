@@ -3,7 +3,7 @@ view: user {
   drill_fields: [user_id]
 
   dimension: user_id {
-    primary_key: yes
+    # primary_key: yes
     hidden: yes
     type: number
     sql: ${TABLE}."user_id" ;;
@@ -55,53 +55,53 @@ view: user {
 #     sql: md5(${TABLE}."email") ;;
   }
 
-  dimension: employer_address {
-    group_label: "Employer"
-    type: string
-    sql: ${TABLE}."employer_address" ;;
-  }
+  # dimension: employer_address {
+  #   group_label: "Employer"
+  #   type: string
+  #   sql: ${TABLE}."employer_address" ;;
+  # }
 
-  dimension: employer_address2 {
-    group_label: "Employer"
-    type: string
-    sql: ${TABLE}."employer_address2" ;;
-  }
+  # dimension: employer_address2 {
+  #   group_label: "Employer"
+  #   type: string
+  #   sql: ${TABLE}."employer_address2" ;;
+  # }
 
-  dimension: employer_city {
-    group_label: "Employer"
-    type: string
-    sql: ${TABLE}."employer_city" ;;
-  }
+  # dimension: employer_city {
+  #   group_label: "Employer"
+  #   type: string
+  #   sql: ${TABLE}."employer_city" ;;
+  # }
 
-  dimension: employer_county {
-    group_label: "Employer"
-    type: string
-    sql: ${TABLE}."employer_county" ;;
-  }
+  # dimension: employer_county {
+  #   group_label: "Employer"
+  #   type: string
+  #   sql: ${TABLE}."employer_county" ;;
+  # }
 
-  dimension: employer_name {
-    group_label: "Employer"
-    type: string
-    sql: ${TABLE}."employer_name" ;;
-  }
+  # dimension: employer_name {
+  #   group_label: "Employer"
+  #   type: string
+  #   sql: ${TABLE}."employer_name" ;;
+  # }
 
-  dimension: employer_phone {
-    group_label: "Employer"
-    type: string
-    sql: ${TABLE}."employer_phone" ;;
-  }
+  # dimension: employer_phone {
+  #   group_label: "Employer"
+  #   type: string
+  #   sql: ${TABLE}."employer_phone" ;;
+  # }
 
-  dimension: employer_state {
-    group_label: "Employer"
-    type: string
-    sql: ${TABLE}."employer_state" ;;
-  }
+  # dimension: employer_state {
+  #   group_label: "Employer"
+  #   type: string
+  #   sql: ${TABLE}."employer_state" ;;
+  # }
 
-  dimension: employer_zip_code {
-    group_label: "Employer"
-    type: string
-    sql: ${TABLE}."employer_zip_code" ;;
-  }
+  # dimension: employer_zip_code {
+  #   group_label: "Employer"
+  #   type: string
+  #   sql: ${TABLE}."employer_zip_code" ;;
+  # }
 
   dimension: first_name {
     hidden: yes
@@ -247,7 +247,6 @@ view: user {
       first_name,
       middle_name,
       last_name,
-      employer_name,
       login.count
     ]
   }

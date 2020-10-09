@@ -3,6 +3,7 @@ view: application_details {
   derived_table: {
     explore_source: application {
       column: application_id {}
+      column: number_of_coborrowers { field: borrower_to_loan_application.borrower_count }
       column: count { field: document.count }
       column: login_count { field: login.count }
     }
@@ -16,6 +17,11 @@ view: application_details {
   dimension: document_count {
     type: number
     sql: ${TABLE}.count ;;
+  }
+
+  dimension: number_of_coborrowers {
+    type: number
+    sql: ${TABLE}.number_of_coborrowers ;;
   }
 
   dimension: document_count_tier {
@@ -36,6 +42,6 @@ view: application_details {
   }
 
   set: detail {
-    fields: [application_id, document_count]
+    fields: [application_id, document_count, number_of_coborrowers]
   }
 }
