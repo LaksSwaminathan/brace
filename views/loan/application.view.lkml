@@ -183,7 +183,8 @@ view: application {
           and ${borrower_to_loan_application.last_completed_step} like 'Notstarted' then 'Application Started'
         when ${state} like 'Collecting' AND ${status} like 'Active'
           and ${borrower_to_loan_application.last_completed_step} not like 'Notstarted' then 'Application Active'
-        when ${state} not like 'Collecting' AND ${status} not like 'Pending' and ${status} not like 'Expired' then 'eSigned Application'
+        when ${state} not like 'Collecting' AND ${status} not like 'Pending' and ${status} not like 'Expired'
+          and ${borrower_to_loan_application.form710_signature_raw} is not null then 'eSigned Application'
         when ${state} not like 'Collecting' AND ${status} like 'Expired' then 'Application Expired'
 
         else 'Other'
