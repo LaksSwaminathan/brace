@@ -13,6 +13,13 @@ explore: application {
     relationship: one_to_one
   }
 
+  join: application_audit_details {
+    sql_on: ${application.application_id} = ${application_audit_details.application_id};;
+    relationship: one_to_one
+  }
+
+  # application_audit_details
+
   join: hardship {
     sql_on: ${application.application_id} = ${hardship.loan_application_id} ;;
     relationship: one_to_one
