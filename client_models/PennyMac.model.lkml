@@ -1,4 +1,4 @@
-connection: "dev-readreplica"
+connection: "brace_dev"
 include: "../base_brace_explore.lkml"
 
 explore: +application {

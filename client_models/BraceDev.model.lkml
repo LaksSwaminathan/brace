@@ -1,4 +1,4 @@
-connection: "brace_staging"
+connection: "brace_dev"
 
 include: "../base_brace_explore.lkml"
 
