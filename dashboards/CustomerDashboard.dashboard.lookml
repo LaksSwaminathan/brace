@@ -15,10 +15,10 @@
 #     model: BraceDev
     explore: application
     type: looker_column
-    fields: [application.count, application.created_date]
+    fields: [application.count, application_audit_details.application_begin_date]
+    fill_fields: [application_audit_details.application_begin_date]
     filters:
       application.created_week: 4 weeks
-    sorts: [application.created_date desc]
     limit: 500
     query_timezone: America/Los_Angeles
     x_axis_gridlines: false
@@ -63,7 +63,8 @@
     hidden_fields:
     defaults_version: 1
     series_types: {}
-    listen: {}
+    listen:
+      Application Date: application_audit_details.application_begin_date
     row: 5
     col: 0
     width: 14
@@ -74,6 +75,7 @@
     explore: application
     type: single_value
     fields: [application.count]
+    filters: {}
     limit: 500
     column_limit: 50
     custom_color_enabled: true
@@ -87,14 +89,14 @@
     conditional_formatting_include_nulls: false
     defaults_version: 1
     listen:
-      Application Date: application.created_date
+      Application Date: application_audit_details.application_begin_date
     row: 5
     col: 18
     width: 4
     height: 2
   - title: Started Applications - by Mode
     name: Started Applications - by Mode
-#     model: BraceDev
+    model: BraceDev
     explore: application
     type: looker_grid
     fields: [application.mode, application.count]
@@ -373,11 +375,9 @@
 #     model: BraceDev
     explore: application
     type: looker_column
-    fields: [application.created_date, application.count_of_complete_application]
-    filters:
-      application.created_week: 4 weeks
-      application.count: ''
-    sorts: [application.created_date desc]
+    fields: [application.count_of_complete_application, borrower_to_loan_application.form710_signature_date]
+    filters: {}
+    sorts: [borrower_to_loan_application.form710_signature_date desc]
     limit: 500
     query_timezone: America/Los_Angeles
     x_axis_gridlines: false
@@ -407,6 +407,8 @@
     show_totals_labels: false
     show_silhouette: false
     totals_color: "#808080"
+    x_axis_label: eSigned Date
+    series_types: {}
     show_null_points: true
     interpolation: linear
     custom_color_enabled: true
@@ -421,8 +423,8 @@
     comparison_label: WoW Change
     hidden_fields:
     defaults_version: 1
-    series_types: {}
-    listen: {}
+    listen:
+      Application Date: borrower_to_loan_application.form710_signature_date
     row: 10
     col: 0
     width: 14
@@ -582,7 +584,7 @@
     height: 2
   - title: FileThis Connections
     name: FileThis Connections
-#     model: BraceDev
+    model: BraceDev
     explore: application
     type: single_value
     fields: [borrower.count_filethis_accounts]
@@ -625,13 +627,10 @@
     explore: application
     type: looker_grid
     fields: [application.count, hardship_type.description]
+    filters: {}
     sorts: [application.count desc]
     limit: 500
     column_limit: 50
-    dynamic_fields: [{table_calculation: percentage_of_applications, label: Percentage
-          of applications, expression: "${application.count}/sum(${application.count})",
-        value_format: !!null '', value_format_name: percent_0, _kind_hint: measure,
-        _type_hint: number}]
     show_view_names: false
     show_row_numbers: true
     transpose: false
@@ -685,7 +684,7 @@
     show_comparison_label: true
     hidden_fields:
     listen:
-      Application Date: application.created_date
+      Application Date: application_audit_details.application_begin_date
     row: 36
     col: 0
     width: 14
@@ -721,14 +720,10 @@
   filters:
   - name: Application Date
     title: Application Date
-    type: field_filter
-    default_value: 30 days
+    type: date_filter
+    default_value: 7 days
     allow_multiple_values: true
     required: false
     ui_config:
       type: advanced
       display: popover
-#     model: BraceDev
-    explore: application
-    listens_to_filters: []
-    field: application.created_date
