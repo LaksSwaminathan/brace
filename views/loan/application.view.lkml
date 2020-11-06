@@ -21,6 +21,7 @@ view: application {
   }
 
   dimension_group: created {
+    label: "ETL"
     type: time
     timeframes: [
       raw,
@@ -47,7 +48,7 @@ view: application {
 
   dimension: days_since_application_creation {
     type: number
-    sql: DATE_PART('day', current_date - ${created_raw});;
+    sql: DATE_PART('day', current_date - ${application_audit_details.application_begin_date});;
   }
 
   measure: count_of_incomplete_application {
@@ -68,7 +69,7 @@ view: application {
 
   dimension: days_to_submit {
     type: number
-    sql: DATE_PART('day', ${created_raw}- ${borrower_to_loan_application.form710_signature_raw});;
+    sql: DATE_PART('day', ${borrower_to_loan_application.form710_signature_raw} - ${application_audit_details.application_begin_date});;
   }
 
   dimension: days_to_submit_tier {
