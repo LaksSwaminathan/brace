@@ -1,4 +1,4 @@
-connection: "mycu-prod"
+connection: "mycu-uat"
 
 include: "../base_brace_explore.lkml"
 
