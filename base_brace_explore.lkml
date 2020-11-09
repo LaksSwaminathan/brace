@@ -76,7 +76,7 @@ explore: application {
 
   join: borrower_to_loan_application {
     view_label: "Borrower"
-    sql_on: ${application.application_id} = ${borrower_to_loan_application.borrower_to_loan_application_id} ;;
+    sql_on: ${application.application_id} = ${borrower_to_loan_application.loan_application_id} ;;
     relationship: one_to_one
     fields: [borrower_to_loan_application.hellosign_fields*, borrower_to_loan_application.details*]
   }

@@ -52,12 +52,14 @@ view: application {
   }
 
   measure: count_of_incomplete_application {
-    type: count
+    type: count_distinct
+    sql: ${application_id} ;;
     filters: [is_incomplete_application: "No"]
   }
 
   measure: count_of_complete_application {
-    type: count
+    type: count_distinct
+    sql: ${application_id} ;;
     filters: [is_incomplete_application: "Yes"]
   }
 
@@ -260,7 +262,8 @@ view: application {
   }
 
   measure: count {
-    type: count
+    type: count_distinct
+    sql: ${application_id} ;;
     drill_fields: [application_id, user.full_name, application_status_detail]
   }
 

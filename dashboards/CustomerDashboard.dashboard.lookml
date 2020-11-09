@@ -1,5 +1,5 @@
-- dashboard: customer_dashboard_dev
-  title: Customer Dashboard (Dev)
+- dashboard: customer_dashboard
+  title: Customer Dashboard
   layout: newspaper
   preferred_viewer: dashboards
   embed_style:
@@ -12,13 +12,13 @@
   elements:
   - title: 'Daily - # of Applications Started'
     name: 'Daily - # of Applications Started'
-#     model: BraceDev
+    # model: myCU
     explore: application
     type: looker_column
     fields: [application.count, application_audit_details.application_begin_date]
     fill_fields: [application_audit_details.application_begin_date]
-    filters:
-      application.created_week: 4 weeks
+    filters: {}
+    sorts: [application_audit_details.application_begin_date desc]
     limit: 500
     query_timezone: America/Los_Angeles
     x_axis_gridlines: false
@@ -71,11 +71,10 @@
     height: 5
   - title: "# Started"
     name: "# Started"
-#     model: BraceDev
+    # model: myCU
     explore: application
     type: single_value
     fields: [application.count]
-    filters: {}
     limit: 500
     column_limit: 50
     custom_color_enabled: true
@@ -181,11 +180,12 @@
     height: 2
   - title: "# of eSigned Applications - by Days to Submit"
     name: "# of eSigned Applications - by Days to Submit"
-#     model: BraceDev
+    # model: myCU
     explore: application
     type: looker_bar
     fields: [application.days_to_submit_tier, application.count]
-    fill_fields: [application.days_to_submit_tier]
+    filters:
+      application.days_to_submit_tier: "-Undefined"
     sorts: [application.days_to_submit_tier]
     limit: 500
     x_axis_gridlines: false
@@ -228,14 +228,14 @@
     conditional_formatting_include_nulls: false
     defaults_version: 1
     listen:
-      Application Date: application.created_date
+      Application Date: application_audit_details.application_begin_date
     row: 18
     col: 0
     width: 14
     height: 6
   - title: "# In Progress"
     name: "# In Progress"
-#     model: BraceDev
+    # model: myCU
     explore: application
     type: single_value
     fields: [application.count]
@@ -255,14 +255,14 @@
     conditional_formatting_include_nulls: false
     defaults_version: 1
     listen:
-      Application Date: application.created_date
+      Application Date: application_audit_details.application_begin_date
     row: 14
     col: 18
     width: 4
     height: 2
   - title: "# Expired"
     name: "# Expired"
-#     model: BraceDev
+    # model: myCU
     explore: application
     type: single_value
     fields: [application.count]
@@ -281,24 +281,23 @@
     conditional_formatting_include_nulls: false
     defaults_version: 1
     listen:
-      Application Date: application.created_date
+      Application Date: application_audit_details.application_begin_date
     row: 9
     col: 18
     width: 4
     height: 2
   - title: 'Daily - # of eSigned Applications by Days to Submit'
     name: 'Daily - # of eSigned Applications by Days to Submit'
-#     model: BraceDev
+    # model: myCU
     explore: application
     type: looker_grid
-    fields: [application.created_date, application.days_to_submit_tier, application.count,
-      application.is_incomplete_application]
+    fields: [application.days_to_submit_tier, application.count, application.is_incomplete_application,
+      application_audit_details.application_begin_date]
     pivots: [application.days_to_submit_tier, application.is_incomplete_application]
-    fill_fields: [application.created_date]
+    fill_fields: [application_audit_details.application_begin_date]
     filters:
-      application.created_date: 10 days
       application.days_to_submit_tier: "-Undefined"
-    sorts: [application.created_date desc, application.days_to_submit_tier, application.is_incomplete_application]
+    sorts: [application.days_to_submit_tier, application.is_incomplete_application]
     limit: 500
     query_timezone: America/Los_Angeles
     show_view_names: false
@@ -365,20 +364,21 @@
     show_null_points: true
     interpolation: linear
     defaults_version: 1
-    listen: {}
+    listen:
+      Application Date: application_audit_details.application_begin_date
     row: 24
     col: 0
     width: 14
     height: 8
   - title: 'Daily - # of eSigned Applications'
     name: 'Daily - # of eSigned Applications'
-#     model: BraceDev
+    # model: myCU
     explore: application
     type: looker_column
     fields: [application.count_of_complete_application, borrower_to_loan_application.form710_signature_date]
-    filters: {}
     sorts: [borrower_to_loan_application.form710_signature_date desc]
     limit: 500
+    column_limit: 50
     query_timezone: America/Los_Angeles
     x_axis_gridlines: false
     y_axis_gridlines: true
@@ -431,7 +431,7 @@
     height: 5
   - title: "# eSigned"
     name: "# eSigned"
-#     model: BraceDev
+    # model: myCU
     explore: application
     type: single_value
     fields: [application.count]
@@ -450,7 +450,7 @@
     conditional_formatting_include_nulls: false
     defaults_version: 1
     listen:
-      Application Date: application.created_date
+      Application Date: borrower_to_loan_application.form710_signature_date
     row: 7
     col: 18
     width: 4
@@ -485,7 +485,7 @@
     height: 3
   - title: Application Snapshot by Status
     name: Application Snapshot by Status
-#     model: BraceDev
+    # model: myCU
     explore: application
     type: looker_grid
     fields: [application.application_status_description, application.application_status_detail,
@@ -559,7 +559,7 @@
     height: 10
   - title: Plaid Connections
     name: Plaid Connections
-#     model: BraceDev
+    # model: myCU
     explore: application
     type: single_value
     fields: [plaid_details.count]
@@ -577,7 +577,7 @@
     single_value_title: "# Plaid Connections"
     defaults_version: 1
     listen:
-      Application Date: application.created_date
+      Application Date: application_audit_details.application_begin_date
     row: 29
     col: 18
     width: 4
@@ -602,7 +602,7 @@
     single_value_title: "# FileThis Accounts"
     defaults_version: 1
     listen:
-      Application Date: application.created_date
+      Application Date: application_audit_details.application_begin_date
     row: 31
     col: 18
     width: 4
@@ -623,11 +623,12 @@
     height: 3
   - title: Started Applications - by Hardship
     name: Started Applications - by Hardship
-#     model: BraceDev
+    # model: myCU
     explore: application
     type: looker_grid
     fields: [application.count, hardship_type.description]
-    filters: {}
+    filters:
+      hardship_type.description: "-NULL"
     sorts: [application.count desc]
     limit: 500
     column_limit: 50
@@ -721,7 +722,7 @@
   - name: Application Date
     title: Application Date
     type: date_filter
-    default_value: 7 days
+    default_value: 30 days
     allow_multiple_values: true
     required: false
     ui_config:
