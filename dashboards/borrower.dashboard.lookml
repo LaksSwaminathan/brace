@@ -1,68 +1,11 @@
-- dashboard: borrower_new
-  title: BorrowerNew
+- dashboard: financial_information
+  title: Financial Information
   layout: newspaper
   preferred_viewer: dashboards
   elements:
-  - title: Count of Application
-    name: Count of Application
-    # model: brace_bi
-    explore: application
-    type: single_value
-    fields: [application.created_week, application.count]
-    fill_fields: [application.created_week]
-    filters:
-      application.created_week: 2 weeks
-    sorts: [application.created_week desc]
-    limit: 2
-    dynamic_fields: [{table_calculation: change, label: "% Change", expression: "${application.count}/offset(${application.count},1)\
-          \ - 1", value_format: !!null '', value_format_name: percent_1, _kind_hint: measure,
-        _type_hint: number}]
-    query_timezone: America/Los_Angeles
-    custom_color_enabled: true
-    show_single_value_title: true
-    show_comparison: true
-    comparison_type: change
-    comparison_reverse_colors: false
-    show_comparison_label: true
-    enable_conditional_formatting: false
-    conditional_formatting_include_totals: false
-    conditional_formatting_include_nulls: false
-    comparison_label: WoW Change
-    hidden_fields:
-    x_axis_gridlines: false
-    y_axis_gridlines: true
-    show_view_names: false
-    show_y_axis_labels: true
-    show_y_axis_ticks: true
-    y_axis_tick_density: default
-    y_axis_tick_density_custom: 5
-    show_x_axis_label: true
-    show_x_axis_ticks: true
-    y_axis_scale_mode: linear
-    x_axis_reversed: false
-    y_axis_reversed: false
-    plot_size_by_field: false
-    trellis: ''
-    stacking: ''
-    limit_displayed_rows: false
-    legend_position: center
-    point_style: none
-    show_value_labels: false
-    label_density: 25
-    x_axis_scale: auto
-    y_axis_combined: true
-    show_null_points: true
-    interpolation: linear
-    defaults_version: 1
-    series_types: {}
-    listen: {}
-    row: 2
-    col: 6
-    width: 5
-    height: 4
-  - title: Total Applications
-    name: Total Applications
-    # model: brace_bi
+  - title: Total Applications Created
+    name: Total Applications Created
+#     model: BraceDev
     explore: application
     type: single_value
     fields: [application.count]
@@ -77,122 +20,17 @@
     enable_conditional_formatting: false
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
+    single_value_title: Applications Created
     defaults_version: 1
+    listen:
+      Date: application_audit_details.application_begin_date
     row: 2
     col: 1
-    width: 5
-    height: 4
-  - title: Count of Applications by Mode
-    name: Count of Applications by Mode
-    # model: brace_bi
-    explore: application
-    type: looker_pie
-    fields: [application.mode, application.count]
-    sorts: [application.count desc]
-    limit: 500
-    column_limit: 50
-    value_labels: labels
-    label_type: labPer
-    inner_radius: 65
-    x_axis_gridlines: false
-    y_axis_gridlines: true
-    show_view_names: false
-    show_y_axis_labels: true
-    show_y_axis_ticks: true
-    y_axis_tick_density: default
-    y_axis_tick_density_custom: 5
-    show_x_axis_label: true
-    show_x_axis_ticks: true
-    y_axis_scale_mode: linear
-    x_axis_reversed: false
-    y_axis_reversed: false
-    plot_size_by_field: false
-    trellis: ''
-    stacking: ''
-    limit_displayed_rows: false
-    legend_position: center
-    point_style: none
-    show_value_labels: false
-    label_density: 25
-    x_axis_scale: auto
-    y_axis_combined: true
-    ordering: none
-    show_null_labels: false
-    show_totals_labels: false
-    show_silhouette: false
-    totals_color: "#808080"
-    defaults_version: 1
-    series_types: {}
-    custom_color_enabled: true
-    show_single_value_title: true
-    show_comparison: false
-    comparison_type: value
-    comparison_reverse_colors: false
-    show_comparison_label: true
-    enable_conditional_formatting: false
-    conditional_formatting_include_totals: false
-    conditional_formatting_include_nulls: false
-    row: 2
-    col: 11
-    width: 6
-    height: 8
-  - title: State of Application Breakdown
-    name: State of Application Breakdown
-    # model: brace_bi
-    explore: application
-    type: looker_pie
-    fields: [application.status, application.count]
-    sorts: [application.status]
-    limit: 500
-    column_limit: 50
-    value_labels: labels
-    label_type: labPer
-    inner_radius: 65
-    color_application:
-      collection_id: b43731d5-dc87-4a8e-b807-635bef3948e7
-      palette_id: fb7bb53e-b77b-4ab6-8274-9d420d3d73f3
-      options:
-        steps: 5
-        reverse: false
-    show_value_labels: true
-    font_size: 17
-    hide_legend: true
-    x_axis_gridlines: false
-    y_axis_gridlines: true
-    show_view_names: false
-    show_y_axis_labels: true
-    show_y_axis_ticks: true
-    y_axis_tick_density: default
-    y_axis_tick_density_custom: 5
-    show_x_axis_label: true
-    show_x_axis_ticks: true
-    y_axis_scale_mode: linear
-    x_axis_reversed: false
-    y_axis_reversed: false
-    plot_size_by_field: false
-    trellis: ''
-    stacking: normal
-    limit_displayed_rows: false
-    legend_position: center
-    series_types: {}
-    point_style: none
-    label_density: 25
-    x_axis_scale: auto
-    y_axis_combined: true
-    ordering: desc
-    show_null_labels: false
-    show_totals_labels: true
-    show_silhouette: false
-    totals_color: "#808080"
-    defaults_version: 1
-    listen: {}
-    row: 2
-    col: 17
-    width: 6
-    height: 8
+    width: 11
+    height: 3
   - title: FileThis Cost
     name: FileThis Cost
-    # model: brace_bi
+#     model: BraceDev
     explore: application
     type: single_value
     fields: [borrower.total_filethis_cost]
@@ -208,14 +46,15 @@
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
     defaults_version: 1
-    listen: {}
-    row: 28
+    listen:
+      Date: application_audit_details.application_begin_date
+    row: 17
     col: 7
     width: 3
     height: 6
   - title: Total Connection
     name: Total Connection
-    # model: brace_bi
+#     model: BraceDev
     explore: application
     type: single_value
     fields: [plaid_details.count]
@@ -269,14 +108,15 @@
     header_text_alignment: left
     header_font_size: 12
     rows_font_size: 12
-    listen: {}
-    row: 22
+    listen:
+      Date: application_audit_details.application_begin_date
+    row: 7
     col: 4
     width: 3
     height: 6
   - title: HelloSign Cost
     name: HelloSign Cost
-    # model: brace_bi
+#     model: BraceDev
     explore: application
     type: single_value
     fields: [borrower_to_loan_application.total_cost]
@@ -292,48 +132,12 @@
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
     defaults_version: 1
-    row: 34
+    listen:
+      Date: application_audit_details.application_begin_date
+    row: 23
     col: 7
     width: 3
     height: 6
-  - title: Document Upload by Borrower
-    name: Document Upload by Borrower
-    # model: brace_bi
-    explore: application
-    type: looker_grid
-    fields: [document.count, user.full_name, application.application_id]
-    sorts: [document.count desc]
-    limit: 500
-    column_limit: 50
-    show_view_names: false
-    show_row_numbers: true
-    transpose: false
-    truncate_text: true
-    hide_totals: false
-    hide_row_totals: false
-    size_to_fit: true
-    table_theme: white
-    limit_displayed_rows: false
-    enable_conditional_formatting: false
-    header_text_alignment: left
-    header_font_size: 12
-    rows_font_size: 12
-    conditional_formatting_include_totals: false
-    conditional_formatting_include_nulls: false
-    custom_color_enabled: true
-    show_single_value_title: true
-    show_comparison: false
-    comparison_type: value
-    comparison_reverse_colors: false
-    show_comparison_label: true
-    defaults_version: 1
-    series_types: {}
-    hidden_fields: [document.application_id]
-    listen: {}
-    row: 10
-    col: 11
-    width: 12
-    height: 10
   - name: ''
     type: text
     body_text: |-
@@ -347,80 +151,6 @@
     col: 1
     width: 22
     height: 2
-  - title: Days to Submit Application Count
-    name: Days to Submit Application Count
-    # model: brace_bi
-    explore: application
-    type: looker_bar
-    fields: [application.days_to_submit_tier, application.count]
-    fill_fields: [application.days_to_submit_tier]
-    sorts: [application.days_to_submit_tier]
-    limit: 500
-    x_axis_gridlines: false
-    y_axis_gridlines: true
-    show_view_names: false
-    show_y_axis_labels: true
-    show_y_axis_ticks: true
-    y_axis_tick_density: default
-    y_axis_tick_density_custom: 5
-    show_x_axis_label: true
-    show_x_axis_ticks: true
-    y_axis_scale_mode: linear
-    x_axis_reversed: false
-    y_axis_reversed: false
-    plot_size_by_field: false
-    trellis: ''
-    stacking: ''
-    limit_displayed_rows: false
-    legend_position: center
-    point_style: none
-    show_value_labels: true
-    label_density: 25
-    x_axis_scale: auto
-    y_axis_combined: true
-    ordering: none
-    show_null_labels: false
-    show_totals_labels: false
-    show_silhouette: false
-    totals_color: "#808080"
-    series_types: {}
-    show_dropoff: false
-    custom_color_enabled: true
-    show_single_value_title: true
-    show_comparison: false
-    comparison_type: value
-    comparison_reverse_colors: false
-    show_comparison_label: true
-    enable_conditional_formatting: false
-    conditional_formatting_include_totals: false
-    conditional_formatting_include_nulls: false
-    defaults_version: 1
-    listen: {}
-    row: 14
-    col: 1
-    width: 10
-    height: 6
-  - title: Number of Borrowers
-    name: Number of Borrowers
-    # model: brace_bi
-    explore: application
-    type: single_value
-    fields: [user.count]
-    limit: 500
-    custom_color_enabled: true
-    show_single_value_title: true
-    show_comparison: false
-    comparison_type: value
-    comparison_reverse_colors: false
-    show_comparison_label: true
-    enable_conditional_formatting: false
-    conditional_formatting_include_totals: false
-    conditional_formatting_include_nulls: false
-    defaults_version: 1
-    row: 6
-    col: 6
-    width: 5
-    height: 4
   - name: " (2)"
     type: text
     body_text: |-
@@ -430,13 +160,13 @@
       </b></center></font>
       </div>
       </div>
-    row: 20
+    row: 5
     col: 1
     width: 22
     height: 2
   - title: Vendor Breakdown
     name: Vendor Breakdown
-    # model: brace_bi
+#     model: BraceDev
     explore: application
     type: looker_column
     fields: [borrower_income.count, borrower_to_loan_application.count_of_hello_sign,
@@ -474,7 +204,9 @@
     show_silhouette: false
     totals_color: "#808080"
     defaults_version: 1
-    row: 40
+    listen:
+      Date: application_audit_details.application_begin_date
+    row: 29
     col: 1
     width: 22
     height: 9
@@ -483,13 +215,13 @@
     body_text: "<div class=\"vis\">\n<div class=\"vis-single-value\">\n<font color=\"\
       #2aa5b1\" size=\"6\"><center><a href=\"https://brace.cloud.looker.com/dashboards/2\"\
       >Plaid</a>\n</center></font> \n</div>\n</div>"
-    row: 22
+    row: 7
     col: 1
     width: 3
     height: 6
   - title: Total Cost
     name: Total Cost
-    # model: brace_bi
+#     model: BraceDev
     explore: application
     type: single_value
     fields: [plaid_details.total_cost]
@@ -504,14 +236,15 @@
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
     defaults_version: 1
-    listen: {}
-    row: 22
+    listen:
+      Date: application_audit_details.application_begin_date
+    row: 7
     col: 7
     width: 3
     height: 6
   - title: Total Cost & Connection Breakdown
     name: Total Cost & Connection Breakdown
-    # model: brace_bi
+#     model: BraceDev
     explore: application
     type: looker_line
     fields: [plaid_details.total_cost, plaid_details.count, application.created_date]
@@ -555,8 +288,9 @@
     series_types:
       plaid_details.count: column
     defaults_version: 1
-    listen: {}
-    row: 22
+    listen:
+      Date: application_audit_details.application_begin_date
+    row: 7
     col: 10
     width: 13
     height: 6
@@ -565,13 +299,13 @@
     body_text: "<div class=\"vis\">\n<div class=\"vis-single-value\">\n<font color=\"\
       #2aa5b1\" size=\"6\"><center><a href=\"https://brace.cloud.looker.com/dashboards/2\"\
       >FileThis</a>\n</center></font> \n</div>\n</div>"
-    row: 28
+    row: 17
     col: 1
     width: 3
     height: 6
   - title: Total Connections
     name: Total Connections
-    # model: brace_bi
+#     model: BraceDev
     explore: application
     type: single_value
     fields: [borrower.count_filethis_accounts]
@@ -586,14 +320,15 @@
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
     defaults_version: 1
-    listen: {}
-    row: 28
+    listen:
+      Date: application_audit_details.application_begin_date
+    row: 17
     col: 4
     width: 3
     height: 6
   - title: Total Cost & Connection Breakdown
     name: Total Cost & Connection Breakdown (2)
-    # model: brace_bi
+#     model: BraceDev
     explore: application
     type: looker_line
     fields: [application.created_date, borrower.total_filethis_cost, borrower.count_filethis_accounts]
@@ -640,8 +375,9 @@
       borrower_income.count: column
       borrower.count_filethis_accounts: column
     defaults_version: 1
-    listen: {}
-    row: 28
+    listen:
+      Date: application_audit_details.application_begin_date
+    row: 17
     col: 10
     width: 13
     height: 6
@@ -650,13 +386,13 @@
     body_text: "<div class=\"vis\">\n<div class=\"vis-single-value\">\n<font color=\"\
       #2aa5b1\" size=\"6\"><center><a href=\"https://brace.cloud.looker.com/dashboards/2\"\
       >HelloSign</a>\n</center></font> \n</div>\n</div>"
-    row: 34
+    row: 23
     col: 1
     width: 3
     height: 6
   - title: Total Connection
     name: Total Connection (2)
-    # model: brace_bi
+#     model: BraceDev
     explore: application
     type: single_value
     fields: [borrower_to_loan_application.count_of_hello_sign]
@@ -671,14 +407,15 @@
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
     defaults_version: 1
-    listen: {}
-    row: 34
+    listen:
+      Date: application_audit_details.application_begin_date
+    row: 23
     col: 4
     width: 3
     height: 6
   - title: Total Cost & Connection Breakdown (copy)
     name: Total Cost & Connection Breakdown (copy)
-    # model: brace_bi
+#     model: BraceDev
     explore: application
     type: looker_line
     fields: [borrower_to_loan_application.total_cost, borrower_to_loan_application.count_of_hello_sign,
@@ -726,69 +463,88 @@
       borrower_income.count: column
       borrower_to_loan_application.count_of_hello_sign: column
     defaults_version: 1
-    listen: {}
-    row: 34
+    listen:
+      Date: application_audit_details.application_begin_date
+    row: 23
     col: 10
     width: 13
     height: 6
-  - title: Incomplete Active Application
-    name: Incomplete Active Application
-    # model: brace_bi
+  - title: Plaid Connections By Application
+    name: Plaid Connections By Application
+#     model: BraceDev
     explore: application
-    type: single_value
-    fields: [borrower_to_loan_application.count_of_incomplete_application]
+    type: looker_grid
+    fields: [application.application_id, plaid_details.count, user.full_name, application.created_date]
     filters:
-      application.status: Active
+      plaid_details.count: ">0"
+    sorts: [plaid_details.count desc]
     limit: 500
-    query_timezone: America/Los_Angeles
+    column_limit: 50
+    show_view_names: false
+    show_row_numbers: true
+    transpose: false
+    truncate_text: true
+    hide_totals: false
+    hide_row_totals: false
+    size_to_fit: true
+    table_theme: white
+    limit_displayed_rows: false
+    enable_conditional_formatting: false
+    header_text_alignment: left
+    header_font_size: 12
+    rows_font_size: 12
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
     custom_color_enabled: true
     show_single_value_title: true
     show_comparison: false
     comparison_type: value
     comparison_reverse_colors: false
     show_comparison_label: true
-    enable_conditional_formatting: false
-    conditional_formatting_include_totals: false
-    conditional_formatting_include_nulls: false
     defaults_version: 1
-    row: 6
+    series_types: {}
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    listen:
+      Date: application_audit_details.application_begin_date
+    row: 13
     col: 1
-    width: 5
+    width: 22
     height: 4
-  - title: "# of Closed Incomplete Applications"
-    name: "# of Closed Incomplete Applications"
-    # model: brace_bi
-    explore: application
-    type: single_value
-    fields: [borrower_to_loan_application.count_of_incomplete_application]
-    filters:
-      application.status: Completed
-    limit: 500
-    query_timezone: America/Los_Angeles
-    custom_color_enabled: true
-    show_single_value_title: true
-    show_comparison: false
-    comparison_type: value
-    comparison_reverse_colors: false
-    show_comparison_label: true
-    enable_conditional_formatting: false
-    conditional_formatting_include_totals: false
-    conditional_formatting_include_nulls: false
-    defaults_version: 1
-    row: 10
-    col: 1
-    width: 5
-    height: 4
-  - title: "# of Applications filled out in Together Mode"
-    name: "# of Applications filled out in Together Mode"
-    # model: brace_bi
+  - title: Applications Completed (eSigned)
+    name: Applications Completed (eSigned)
+#     model: BraceDev
     explore: application
     type: single_value
     fields: [application.count]
     filters:
-      application.mode: Together
+      application.application_status_detail: eSigned Application
+    sorts: [application.count desc]
     limit: 500
-    query_timezone: America/Los_Angeles
+    column_limit: 50
     custom_color_enabled: true
     show_single_value_title: true
     show_comparison: false
@@ -798,8 +554,18 @@
     enable_conditional_formatting: false
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
+    single_value_title: Applications Completed (eSigned)
     defaults_version: 1
-    row: 10
-    col: 6
-    width: 5
-    height: 4
+    listen:
+      Date: borrower_to_loan_application.form710_signature_date
+    row: 2
+    col: 12
+    width: 11
+    height: 3
+  filters:
+  - name: Date
+    title: Date
+    type: date_filter
+    default_value: 1 quarters ago for 1 quarters
+    allow_multiple_values: true
+    required: false
