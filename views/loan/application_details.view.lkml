@@ -10,25 +10,33 @@ view: application_details {
 #     persist_for: "24 hours"
   }
 
+###################################################################################################
+#
+#   PRIMARY KEY
+#
+###################################################################################################
+
   dimension: application_id {
+    primary_key: yes
     type: number
   }
+
+###################################################################################################
+#
+#   DIMENSIONS
+#
+###################################################################################################
 
   dimension: document_count {
     type: number
     sql: ${TABLE}.count ;;
   }
 
-  dimension: number_of_coborrowers {
-    type: number
-    sql: ${TABLE}.number_of_coborrowers ;;
-  }
-
   dimension: document_count_tier {
     type: tier
     style: integer
     tiers: [1,2,3,5]
-    sql: ${TABLE}.count ;;
+    sql: ${document_count};;
   }
 
   dimension: has_logged_in {
@@ -36,10 +44,27 @@ view: application_details {
     sql: ${TABLE}.login_count > 0  ;;
   }
 
+  dimension: number_of_coborrowers {
+    type: number
+    sql: ${TABLE}.number_of_coborrowers ;;
+  }
+
+###################################################################################################
+#
+#   MEASURES
+#
+###################################################################################################
+
   measure: average_document_upload {
     type: average
     sql: ${document_count} ;;
   }
+
+###################################################################################################
+#
+#   SETS
+#
+###################################################################################################
 
   set: detail {
     fields: [application_id, document_count, number_of_coborrowers]

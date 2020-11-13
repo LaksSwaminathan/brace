@@ -14,11 +14,11 @@ view: application_audit_details {
        ;;
   }
 
-  measure: count {
-    hidden: yes
-    type: count
-    drill_fields: [detail*]
-  }
+###################################################################################################
+#
+#   PRIMARY KEY
+#
+###################################################################################################
 
   dimension: application_id {
     primary_key: yes
@@ -27,12 +27,36 @@ view: application_audit_details {
     sql: ${TABLE}."application_id" ;;
   }
 
+###################################################################################################
+#
+#   DIMENSIONS
+#
+###################################################################################################
+
   dimension_group: application_begin {
-    view_label: "Application"
+    # view_label: "Application"
     type: time
     timeframes: [date, month, hour, year, raw]
     sql: ${TABLE}."application_begin_timestamp" ;;
   }
+
+###################################################################################################
+#
+#   MEASURES
+#
+###################################################################################################
+
+  measure: count {
+    hidden: yes
+    type: count
+    drill_fields: [detail*]
+  }
+
+###################################################################################################
+#
+#   SETS
+#
+###################################################################################################
 
   set: detail {
     # fields: [application_id, application_begin_timestamp_time]
