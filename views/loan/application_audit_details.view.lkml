@@ -45,19 +45,29 @@ view: application_audit_details {
 ###################################################################################################
 
   dimension_group: application_begin {
-    # view_label: "Application"
+    view_label: "Application"
     type: time
     timeframes: [date, month, hour, year, raw]
     sql: ${TABLE}."application_begin_timestamp" ;;
   }
 
-  dimension_group: application_completed {
-    description: "Timestamp when a decision has been rendered, accepted, and an application has been marked as complete"
+  dimension_group: application_status_completed {
+    description: "Timestamp when the application status is moved to complete"
     view_label: "Application"
     type: time
     timeframes: [date, month, hour, year, raw]
     sql: ${TABLE}."application_completed_timestamp" ;;
   }
+
+  dimension_group: application_completed {
+    description: "Timestamp when the application is e-signed OR marked as complete"
+    view_label: "Application"
+    type: time
+    timeframes: [date, month, hour, year, raw]
+    sql: COALESCE(${borrower_to_loan_application.form710_signature_raw}, ${application_status_completed_raw});;
+  }
+
+
 
 ###################################################################################################
 #
