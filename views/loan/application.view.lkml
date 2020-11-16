@@ -2,11 +2,24 @@ view: application {
   sql_table_name: loan.application ;;
   drill_fields: [application_id]
 
+
+###################################################################################################
+#
+#   PRIMARY KEY
+#
+###################################################################################################
+
   dimension: application_id {
     primary_key: yes
     type: number
     sql: ${TABLE}."application_id" ;;
   }
+
+###################################################################################################
+#
+#   DIMENSIONS
+#
+###################################################################################################
 
   dimension: application_uuid {
     hidden: yes
@@ -49,24 +62,6 @@ view: application {
   dimension: days_since_application_creation {
     type: number
     sql: DATE_PART('day', current_date - ${application_audit_details.application_begin_date});;
-  }
-
-  measure: count_of_incomplete_application {
-    type: count_distinct
-    sql: ${application_id} ;;
-    filters: [is_incomplete_application: "No"]
-  }
-
-  measure: count_of_complete_application {
-    type: count_distinct
-    sql: ${application_id} ;;
-    filters: [is_incomplete_application: "Yes"]
-  }
-
-  measure: days_in_funnel {
-    type: sum
-    sql: ${days_since_application_creation} ;;
-    filters: [is_incomplete_application: "No"]
   }
 
   dimension: days_to_submit {
@@ -261,15 +256,46 @@ view: application {
     sql: ${TABLE}."workout_details_communicated" ;;
   }
 
+###################################################################################################
+#
+#   MEASURES
+#
+###################################################################################################
+
   measure: count {
     type: count_distinct
     sql: ${application_id} ;;
     drill_fields: [application_id, user.full_name, application_status_detail]
   }
 
+  measure: count_of_incomplete_application {
+    type: count_distinct
+    sql: ${application_id} ;;
+    filters: [is_incomplete_application: "No"]
+  }
+
+  measure: count_of_complete_application {
+    type: count_distinct
+    sql: ${application_id} ;;
+    filters: [is_incomplete_application: "Yes"]
+  }
+
+  measure: days_in_funnel {
+    type: sum
+    sql: ${days_since_application_creation} ;;
+    filters: [is_incomplete_application: "No"]
+  }
+
+
+
+###################################################################################################
+#
+#   SETS
+#
+###################################################################################################
+
   set: application {
     fields: [
-
     ]
   }
 }

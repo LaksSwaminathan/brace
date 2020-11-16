@@ -25,11 +25,11 @@ view: application_audit_details {
       left join completed on begin.application_id = completed.application_id;;
   }
 
-  measure: count {
-    hidden: yes
-    type: count
-    drill_fields: [detail*]
-  }
+###################################################################################################
+#
+#   PRIMARY KEY
+#
+###################################################################################################
 
   dimension: application_id {
     primary_key: yes
@@ -38,8 +38,14 @@ view: application_audit_details {
     sql: ${TABLE}."application_id" ;;
   }
 
+###################################################################################################
+#
+#   DIMENSIONS
+#
+###################################################################################################
+
   dimension_group: application_begin {
-    view_label: "Application"
+    # view_label: "Application"
     type: time
     timeframes: [date, month, hour, year, raw]
     sql: ${TABLE}."application_begin_timestamp" ;;
@@ -52,6 +58,24 @@ view: application_audit_details {
     timeframes: [date, month, hour, year, raw]
     sql: ${TABLE}."application_completed_timestamp" ;;
   }
+
+###################################################################################################
+#
+#   MEASURES
+#
+###################################################################################################
+
+  measure: count {
+    hidden: yes
+    type: count
+    drill_fields: [detail*]
+  }
+
+###################################################################################################
+#
+#   SETS
+#
+###################################################################################################
 
   set: detail {
     # fields: [application_id, application_begin_timestamp_time]
