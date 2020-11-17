@@ -262,7 +262,7 @@ view: application {
 #
 ###################################################################################################
 
-  measure: count {
+  measure: application_count {
     type: count_distinct
     sql: ${application_id} ;;
     drill_fields: [application_id, user.full_name, application_status_detail]

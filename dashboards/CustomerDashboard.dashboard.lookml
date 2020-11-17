@@ -15,7 +15,7 @@
     # model: myCU
     explore: application
     type: looker_column
-    fields: [application.count, application_audit_details.application_begin_date]
+    fields: [application.application_count, application_audit_details.application_begin_date]
     fill_fields: [application_audit_details.application_begin_date]
     filters: {}
     sorts: [application_audit_details.application_begin_date desc]
@@ -60,9 +60,10 @@
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
     comparison_label: WoW Change
-    hidden_fields:
+    hidden_fields: []
     defaults_version: 1
     series_types: {}
+    y_axes: []
     listen:
       Application Date: application_audit_details.application_begin_date
     row: 5
@@ -74,7 +75,7 @@
     # model: myCU
     explore: application
     type: single_value
-    fields: [application.count]
+    fields: [application.application_count]
     limit: 500
     column_limit: 50
     custom_color_enabled: true
@@ -87,6 +88,8 @@
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
     defaults_version: 1
+    hidden_fields: []
+    y_axes: []
     listen:
       Application Date: application_audit_details.application_begin_date
     row: 5
@@ -95,15 +98,15 @@
     height: 2
   - title: Started Applications - by Mode
     name: Started Applications - by Mode
-    model: BraceDev
+    # model: BraceDev
     explore: application
     type: looker_grid
-    fields: [application.mode, application.count]
-    sorts: [application.count desc]
+    fields: [application.mode, application.application_count]
+    sorts: [application.application_count desc]
     limit: 500
     column_limit: 50
     dynamic_fields: [{table_calculation: percentage_of_applications, label: Percentage
-          of applications, expression: "${application.count}/sum(${application.count})",
+          of applications, expression: "${application.application_count}/sum(${application.application_count})",
         value_format: !!null '', value_format_name: percent_0, _kind_hint: measure,
         _type_hint: number}]
     show_view_names: false
@@ -157,7 +160,8 @@
     comparison_type: value
     comparison_reverse_colors: false
     show_comparison_label: true
-    hidden_fields:
+    hidden_fields: []
+    y_axes: []
     listen:
       Application Date: application.created_date
     row: 32
@@ -183,7 +187,7 @@
     # model: myCU
     explore: application
     type: looker_bar
-    fields: [application.days_to_submit_tier, application.count]
+    fields: [application.days_to_submit_tier, application.application_count]
     filters:
       application.days_to_submit_tier: "-Undefined"
     sorts: [application.days_to_submit_tier]
@@ -227,6 +231,8 @@
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
     defaults_version: 1
+    hidden_fields: []
+    y_axes: []
     listen:
       Application Date: application_audit_details.application_begin_date
     row: 18
@@ -238,10 +244,10 @@
     # model: myCU
     explore: application
     type: single_value
-    fields: [application.count]
+    fields: [application.application_count]
     filters:
       application.application_status_detail: Application Active,Application Started
-    sorts: [application.count desc]
+    sorts: [application.application_count desc]
     limit: 500
     query_timezone: America/Los_Angeles
     custom_color_enabled: true
@@ -254,6 +260,8 @@
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
     defaults_version: 1
+    hidden_fields: []
+    y_axes: []
     listen:
       Application Date: application_audit_details.application_begin_date
     row: 14
@@ -265,7 +273,7 @@
     # model: myCU
     explore: application
     type: single_value
-    fields: [application.count]
+    fields: [application.application_count]
     filters:
       application.application_status_detail: Expired
     limit: 500
@@ -280,6 +288,8 @@
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
     defaults_version: 1
+    hidden_fields: []
+    y_axes: []
     listen:
       Application Date: application_audit_details.application_begin_date
     row: 9
@@ -291,7 +301,7 @@
     # model: myCU
     explore: application
     type: looker_grid
-    fields: [application.days_to_submit_tier, application.count, application.is_incomplete_application,
+    fields: [application.days_to_submit_tier, application.application_count, application.is_incomplete_application,
       application_audit_details.application_begin_date]
     pivots: [application.days_to_submit_tier, application.is_incomplete_application]
     fill_fields: [application_audit_details.application_begin_date]
@@ -364,6 +374,8 @@
     show_null_points: true
     interpolation: linear
     defaults_version: 1
+    hidden_fields: []
+    y_axes: []
     listen:
       Application Date: application_audit_details.application_begin_date
     row: 24
@@ -434,7 +446,7 @@
     # model: myCU
     explore: application
     type: single_value
-    fields: [application.count]
+    fields: [application.application_count]
     filters:
       application.application_status_detail: eSigned Application
     limit: 500
@@ -449,6 +461,8 @@
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
     defaults_version: 1
+    hidden_fields: []
+    y_axes: []
     listen:
       Application Date: borrower_to_loan_application.form710_signature_date
     row: 7
@@ -489,7 +503,7 @@
     explore: application
     type: looker_grid
     fields: [application.application_status_description, application.application_status_detail,
-      application.count]
+      application.application_count]
     sorts: [application.application_status_detail desc]
     limit: 500
     query_timezone: America/Los_Angeles
@@ -552,6 +566,8 @@
     series_types: {}
     pinned_columns:
       application.application_status_detail: left
+    hidden_fields: []
+    y_axes: []
     listen: {}
     row: 16
     col: 16
@@ -584,7 +600,7 @@
     height: 2
   - title: FileThis Connections
     name: FileThis Connections
-    model: BraceDev
+    # model: BraceDev
     explore: application
     type: single_value
     fields: [borrower.count_filethis_accounts]
@@ -626,10 +642,10 @@
     # model: myCU
     explore: application
     type: looker_grid
-    fields: [application.count, hardship_type.description]
+    fields: [application.application_count, hardship_type.description]
     filters:
       hardship_type.description: "-NULL"
-    sorts: [application.count desc]
+    sorts: [application.application_count desc]
     limit: 500
     column_limit: 50
     show_view_names: false
@@ -683,7 +699,8 @@
     comparison_type: value
     comparison_reverse_colors: false
     show_comparison_label: true
-    hidden_fields:
+    hidden_fields: []
+    y_axes: []
     listen:
       Application Date: application_audit_details.application_begin_date
     row: 36
