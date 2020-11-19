@@ -52,6 +52,7 @@ view: application_audit_details {
   }
 
   dimension_group: application_status_completed {
+    hidden: yes
     description: "Timestamp when the application status is moved to complete"
     view_label: "Application"
     type: time
