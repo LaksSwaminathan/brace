@@ -19,6 +19,7 @@ view: application_details {
   dimension: application_id {
     primary_key: yes
     type: number
+    sql: ${TABLE}.application_id ;;
   }
 
 ###################################################################################################

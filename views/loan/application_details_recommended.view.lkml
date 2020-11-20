@@ -16,6 +16,7 @@ view: application_details_recommended {
   dimension: primary_key {
     hidden: yes
     primary_key: yes
+    type: string
     sql: ${application_id} || ${recommended_raw};;
   }
 
@@ -28,7 +29,7 @@ view: application_details_recommended {
   dimension: application_id {
     hidden: yes
     type: number
-    sql: ${TABLE}.application_id ;;
+    sql: ${TABLE}.application_id::bigint ;;
   }
 
   dimension_group: recommended {
