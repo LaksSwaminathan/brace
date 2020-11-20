@@ -120,6 +120,12 @@ explore: servicer {
     relationship: one_to_one
   }
 
+  join: application_details_recommended {
+    view_label: "Application"
+    sql_on: ${application.application_id} = ${application_details_recommended.application_id} ;;
+    relationship: one_to_many
+  }
+
   join: application_audit_details {
     sql_on: ${application.application_id} = ${application_audit_details.application_id};;
     relationship: one_to_one
