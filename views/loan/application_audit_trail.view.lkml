@@ -1,12 +1,15 @@
 view: application_audit_trail {
   derived_table: {
-    sql: SELECT row_data -> 'application_id'::bigint AS application_id
+    sql: SELECT row_data -> 'application_id' AS application_id
         , action_tstamp_tx AS changed_date
         , row_data -> 'state' AS prior_state
         , changed_fields -> 'state' AS new_state
         , RANK() OVER (
             PARTITION BY row_data -> 'application_id' ORDER BY action_tstamp_tx
             ) AS record
+        , ROW_NUMBER() OVER (
+            PARTITION BY row_data -> 'application_id' ORDER BY action_tstamp_tx
+            ) AS row_number
     FROM audit.logged_actions
     WHERE table_name = 'application'
         AND action = 'U'
@@ -21,6 +24,8 @@ view: application_audit_trail {
 ###################################################################################################
 
   dimension: primary_key {
+    hidden: yes
+    primary_key: yes
     type: string
     sql: ${application_id} || '_' || ${record} ;;
   }
@@ -32,7 +37,7 @@ view: application_audit_trail {
 ###################################################################################################
 
   dimension: application_id {
-    hidden: yes
+    # hidden: yes
     type: number
     sql: ${TABLE}.application_id ;;
   }
@@ -40,17 +45,17 @@ view: application_audit_trail {
   dimension_group: changed_date {
     type: time
     timeframes: [raw, date, week, month, quarter, year]
-    sql: ${TABLE}.application_id ;;
+    sql: ${TABLE}.changed_date ;;
   }
 
   dimension: prior_state {
     type: string
-    sql: ${TABLE}.application_id ;;
+    sql: ${TABLE}.prior_state ;;
   }
 
   dimension: new_state {
     type: string
-    sql: ${TABLE}.application_id ;;
+    sql: ${TABLE}.new_state ;;
   }
 
   dimension: record {
@@ -58,4 +63,11 @@ view: application_audit_trail {
     sql: ${TABLE}.record ;;
   }
 
+  dimension: row_number {
+    type: number
+    sql: ${TABLE}.row_number ;;
+  }
+
 }
+
+explore: application_audit_trail {}
