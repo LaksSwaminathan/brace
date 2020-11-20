@@ -83,12 +83,12 @@ view: application {
     sql_end: NOW() ;;
   }
 
-  # dimension: days_since_submitted_tier {
-  #   type: tier
-  #   tiers: [7, 14, 21]
-  #   style: classic
-  #   sql: ${days_days_since_submitted} ;;
-  # }
+  dimension: days_since_submitted_buckets {
+    type: tier
+    tiers: [5, 10, 30, 60, 90]
+    style: integer
+    sql: ${days_since_submitted} ;;
+  }
 
   dimension: days_to_submit_tier {
     type: tier
