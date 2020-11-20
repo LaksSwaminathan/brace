@@ -55,9 +55,13 @@ view: application {
 
   dimension: is_incomplete_application {
     type: yesno
-    sql: case when ${application_status_detail} like 'eSigned Application' then true else false end ;;
+    sql: case when ${application_audit_details.application_completed_date} is not null then true else false end ;;
   }
 
+  dimension: is_esigned_application {
+    type: yesno
+    sql: case when ${application_status_detail} like 'eSigned Application' then true else false end ;;
+  }
 
   dimension: days_since_application_creation {
     type: duration_day

@@ -60,9 +60,10 @@
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
     comparison_label: WoW Change
-    hidden_fields:
+    hidden_fields: []
     defaults_version: 1
     series_types: {}
+    y_axes: []
     listen:
       Application Date: application_audit_details.application_begin_date
     row: 5
@@ -87,6 +88,8 @@
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
     defaults_version: 1
+    hidden_fields: []
+    y_axes: []
     listen:
       Application Date: application_audit_details.application_begin_date
     row: 5
@@ -95,7 +98,7 @@
     height: 2
   - title: Started Applications - by Mode
     name: Started Applications - by Mode
-    model: BraceDev
+    # model: BraceDev
     explore: application
     type: looker_grid
     fields: [application.mode, application.application_count]
@@ -157,7 +160,8 @@
     comparison_type: value
     comparison_reverse_colors: false
     show_comparison_label: true
-    hidden_fields:
+    hidden_fields: []
+    y_axes: []
     listen:
       Application Date: application.created_date
     row: 32
@@ -227,6 +231,8 @@
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
     defaults_version: 1
+    hidden_fields: []
+    y_axes: []
     listen:
       Application Date: application_audit_details.application_begin_date
     row: 18
@@ -254,6 +260,8 @@
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
     defaults_version: 1
+    hidden_fields: []
+    y_axes: []
     listen:
       Application Date: application_audit_details.application_begin_date
     row: 14
@@ -280,6 +288,8 @@
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
     defaults_version: 1
+    hidden_fields: []
+    y_axes: []
     listen:
       Application Date: application_audit_details.application_begin_date
     row: 9
@@ -364,6 +374,8 @@
     show_null_points: true
     interpolation: linear
     defaults_version: 1
+    hidden_fields: []
+    y_axes: []
     listen:
       Application Date: application_audit_details.application_begin_date
     row: 24
@@ -449,6 +461,8 @@
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
     defaults_version: 1
+    hidden_fields: []
+    y_axes: []
     listen:
       Application Date: borrower_to_loan_application.form710_signature_date
     row: 7
@@ -552,6 +566,8 @@
     series_types: {}
     pinned_columns:
       application.application_status_detail: left
+    hidden_fields: []
+    y_axes: []
     listen: {}
     row: 16
     col: 16
@@ -584,7 +600,7 @@
     height: 2
   - title: FileThis Connections
     name: FileThis Connections
-    model: BraceDev
+    # model: BraceDev
     explore: application
     type: single_value
     fields: [borrower.count_filethis_accounts]
@@ -683,7 +699,8 @@
     comparison_type: value
     comparison_reverse_colors: false
     show_comparison_label: true
-    hidden_fields:
+    hidden_fields: []
+    y_axes: []
     listen:
       Application Date: application_audit_details.application_begin_date
     row: 36
