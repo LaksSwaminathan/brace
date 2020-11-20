@@ -112,6 +112,72 @@ explore: application {
   ## Equifax -- credit.liability or credit.report (Count)
 }
 
+explore: servicer {
+  view_name: application
+
+  join: application_details {
+    sql_on: ${application.application_id} = ${application_details.application_id} ;;
+    relationship: one_to_one
+  }
+
+  join: application_audit_details {
+    sql_on: ${application.application_id} = ${application_audit_details.application_id};;
+    relationship: one_to_one
+  }
+
+  join: borrower_to_loan_application {
+    view_label: "Borrower"
+    sql_on: ${application.application_id} = ${borrower_to_loan_application.loan_application_id} ;;
+    relationship: one_to_one
+    fields: [borrower_to_loan_application.hellosign_fields*, borrower_to_loan_application.details*]
+  }
+
+  join: disaster {
+    view_label: "Hardship"
+    from: disaster
+    sql_on: ${disaster.disaster_id} = ${hardship.disaster_id} ;;
+    relationship: many_to_one
+    fields: [disaster.diaster_fields*]
+  }
+
+  join: document {
+    view_label: "Document"
+    type: left_outer
+    sql_on: ${application.application_id} = ${document.application_id} ;;
+    relationship: one_to_many
+    fields: [document.document_fields*, document.count]
+  }
+
+  join: document_type {
+    view_label: "Document"
+    type: left_outer
+    sql_on: ${document.document_type_id} = ${document_type.document_type_id} ;;
+    relationship: many_to_one
+    fields: [document_type.document_type_fields*]
+  }
+  join: hardship {
+    view_label: "Hardship"
+    sql_on: ${application.application_id} = ${hardship.loan_application_id} ;;
+    relationship: one_to_one
+    fields: [hardship.hardship_fields*]
+  }
+
+  join: hardship_type {
+    view_label: "Hardship"
+    sql_on: ${hardship_type.hardship_type_id} = ${hardship.type_id} ;;
+    relationship: many_to_one
+    fields: [hardship_type.hardship_type_fields*]
+  }
+
+  join: loan {
+    view_label: "Loan"
+    sql_on: ${application.loan_id} = ${loan.loan_id} ;;
+    relationship: many_to_one
+  }
+
+}
+
+
 # explore: application_funnel {
 #   from: application
 #   join: hardship {
