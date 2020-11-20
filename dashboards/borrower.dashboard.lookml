@@ -8,7 +8,7 @@
 #     model: BraceDev
     explore: application
     type: single_value
-    fields: [application.count]
+    fields: [application.application_count]
     limit: 500
     column_limit: 50
     custom_color_enabled: true
@@ -539,10 +539,10 @@
 #     model: BraceDev
     explore: application
     type: single_value
-    fields: [application.count]
+    fields: [application.application_count]
     filters:
       application.application_status_detail: eSigned Application
-    sorts: [application.count desc]
+    sorts: [application.application_count desc]
     limit: 500
     column_limit: 50
     custom_color_enabled: true

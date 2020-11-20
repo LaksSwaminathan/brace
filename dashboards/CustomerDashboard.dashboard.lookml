@@ -15,7 +15,7 @@
     # model: myCU
     explore: application
     type: looker_column
-    fields: [application.count, application_audit_details.application_begin_date]
+    fields: [application.application_count, application_audit_details.application_begin_date]
     fill_fields: [application_audit_details.application_begin_date]
     filters: {}
     sorts: [application_audit_details.application_begin_date desc]
@@ -74,7 +74,7 @@
     # model: myCU
     explore: application
     type: single_value
-    fields: [application.count]
+    fields: [application.application_count]
     limit: 500
     column_limit: 50
     custom_color_enabled: true
@@ -98,12 +98,12 @@
     model: BraceDev
     explore: application
     type: looker_grid
-    fields: [application.mode, application.count]
-    sorts: [application.count desc]
+    fields: [application.mode, application.application_count]
+    sorts: [application.application_count desc]
     limit: 500
     column_limit: 50
     dynamic_fields: [{table_calculation: percentage_of_applications, label: Percentage
-          of applications, expression: "${application.count}/sum(${application.count})",
+          of applications, expression: "${application.application_count}/sum(${application.application_count})",
         value_format: !!null '', value_format_name: percent_0, _kind_hint: measure,
         _type_hint: number}]
     show_view_names: false
@@ -183,7 +183,7 @@
     # model: myCU
     explore: application
     type: looker_bar
-    fields: [application.days_to_submit_tier, application.count]
+    fields: [application.days_to_submit_tier, application.application_count]
     filters:
       application.days_to_submit_tier: "-Undefined"
     sorts: [application.days_to_submit_tier]
@@ -238,10 +238,10 @@
     # model: myCU
     explore: application
     type: single_value
-    fields: [application.count]
+    fields: [application.application_count]
     filters:
       application.application_status_detail: Application Active,Application Started
-    sorts: [application.count desc]
+    sorts: [application.application_count desc]
     limit: 500
     query_timezone: America/Los_Angeles
     custom_color_enabled: true
@@ -265,7 +265,7 @@
     # model: myCU
     explore: application
     type: single_value
-    fields: [application.count]
+    fields: [application.application_count]
     filters:
       application.application_status_detail: Expired
     limit: 500
@@ -291,7 +291,7 @@
     # model: myCU
     explore: application
     type: looker_grid
-    fields: [application.days_to_submit_tier, application.count, application.is_incomplete_application,
+    fields: [application.days_to_submit_tier, application.application_count, application.is_incomplete_application,
       application_audit_details.application_begin_date]
     pivots: [application.days_to_submit_tier, application.is_incomplete_application]
     fill_fields: [application_audit_details.application_begin_date]
@@ -325,7 +325,7 @@
       application.is_incomplete_application: Incomplete Application
       application.days_to_submit_tier: Days to Submit Application
     series_cell_visualizations:
-      application.count:
+      application.application_count:
         is_active: true
     limit_displayed_rows_values:
       show_hide: hide
@@ -434,7 +434,7 @@
     # model: myCU
     explore: application
     type: single_value
-    fields: [application.count]
+    fields: [application.application_count]
     filters:
       application.application_status_detail: eSigned Application
     limit: 500
@@ -489,7 +489,7 @@
     explore: application
     type: looker_grid
     fields: [application.application_status_description, application.application_status_detail,
-      application.count]
+      application.application_count]
     sorts: [application.application_status_detail desc]
     limit: 500
     query_timezone: America/Los_Angeles
@@ -510,14 +510,14 @@
     conditional_formatting_include_nulls: false
     show_sql_query_menu_options: false
     column_order: ["$$$_row_numbers_$$$", application.application_status_detail, application.application_status_description,
-      application.count]
+      application.application_count]
     show_totals: true
     show_row_totals: true
     series_column_widths:
       application.application_status_description: 241
       application.application_status_detail: 93
     series_cell_visualizations:
-      application.count:
+      application.application_count:
         is_active: true
     limit_displayed_rows_values:
       show_hide: hide
@@ -626,10 +626,10 @@
     # model: myCU
     explore: application
     type: looker_grid
-    fields: [application.count, hardship_type.description]
+    fields: [application.application_count, hardship_type.description]
     filters:
       hardship_type.description: "-NULL"
-    sorts: [application.count desc]
+    sorts: [application.application_count desc]
     limit: 500
     column_limit: 50
     show_view_names: false
