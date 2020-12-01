@@ -188,7 +188,8 @@ view: application {
         when ${state} not like 'Collecting' AND ${status} not like 'Pending' and ${status} not like 'Expired'
           and ${borrower_to_loan_application.form710_signature_raw} is not null then 'eSigned Application'
         when ${state} not like 'Collecting' AND ${status} like 'Expired' then 'Application Expired'
-
+        when ${state} not like 'Collecting' AND ${status} not like 'Pending' and ${status} not like 'Expired'
+          and ${application_audit_details.application_completed_date} is not null then 'Application Complete'
         else 'Other'
       end
       ;;
@@ -202,8 +203,10 @@ view: application {
         when ${application_status_detail} like 'Logged In' then 'User has reached Brace, User has not clicked "Begin Application", User has closed browser'
         when ${application_status_detail} like 'Application Started' then 'User has reached brace, user has clicked "Begin Application", User has not completed anything'
         when ${application_status_detail} like 'Application Active' then 'User has reached brace, user has clicked "Begin Application", and has specified some information in the application. User has not yet submitted OR has not reached the application timeout window'
-        when ${application_status_detail} like 'eSigned Application' then 'All Users have e-signed an application with all the required fields'
+        when ${application_status_detail} like 'eSigned Application' then 'User has e-signed an application with all the required fields'
         when ${application_status_detail} like 'Application Expired' then 'User has clicked "Begin Application", but has not finished and/or submitted an application, and X days have passed'
+        when ${application_status_detail} like 'Application Complete' then 'User has completed an application, possibly through the acceptance of a forbearance grant.'
+
         else 'Other'
       end
       ;;
