@@ -335,7 +335,7 @@
       application.is_incomplete_application: Incomplete Application
       application.days_to_submit_tier: Days to Submit Application
     series_cell_visualizations:
-      application.count:
+      application.application_count:
         is_active: true
     limit_displayed_rows_values:
       show_hide: hide
@@ -524,14 +524,14 @@
     conditional_formatting_include_nulls: false
     show_sql_query_menu_options: false
     column_order: ["$$$_row_numbers_$$$", application.application_status_detail, application.application_status_description,
-      application.count]
+      application.application_count]
     show_totals: true
     show_row_totals: true
     series_column_widths:
       application.application_status_description: 241
       application.application_status_detail: 93
     series_cell_visualizations:
-      application.count:
+      application.application_count:
         is_active: true
     limit_displayed_rows_values:
       show_hide: hide

@@ -12,7 +12,7 @@ view: application {
   dimension: application_id {
     primary_key: yes
     type: number
-    sql: ${TABLE}."application_id" ;;
+    sql: ${TABLE}.application_id ;;
   }
 
 ###################################################################################################
@@ -64,13 +64,30 @@ view: application {
   }
 
   dimension: days_since_application_creation {
-    type: number
-    sql: DATE_PART('day', current_date - ${application_audit_details.application_begin_date});;
+    type: duration_day
+    sql_start: ${application_audit_details.application_begin_raw};;
+    sql_end: NOW() ;;
+    # sql: DATE_PART('day', current_date - ${application_audit_details.application_begin_date});;
   }
 
   dimension: days_to_submit {
-    type: number
-    sql: DATE_PART('day', ${borrower_to_loan_application.form710_signature_raw} - ${application_audit_details.application_begin_date});;
+    type: duration_day
+    sql_start: ${application_audit_details.application_begin_raw};;
+    sql_end: ${borrower_to_loan_application.form710_signature_raw} ;;
+    # sql: DATE_PART('day', ${borrower_to_loan_application.form710_signature_raw} - ${application_audit_details.application_begin_date});;
+  }
+
+  dimension: days_since_submitted {
+    type: duration_day
+    sql_start: ${borrower_to_loan_application.form710_signature_raw} ;;
+    sql_end: NOW() ;;
+  }
+
+  dimension: days_since_submitted_buckets {
+    type: tier
+    tiers: [5, 10, 30, 60, 90]
+    style: integer
+    sql: ${days_since_submitted} ;;
   }
 
   dimension: days_to_submit_tier {
@@ -293,6 +310,11 @@ view: application {
     filters: [is_incomplete_application: "No"]
   }
 
+  measure: option_recommended_count {
+    type: count_distinct
+    sql: ${application_id} ;;
+    filters: [state: "Option_Recommended"]
+  }
 
 
 ###################################################################################################

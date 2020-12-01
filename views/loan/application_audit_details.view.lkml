@@ -34,7 +34,7 @@ view: application_audit_details {
   dimension: application_id {
     primary_key: yes
     hidden: yes
-    type: string
+    type: number
     sql: ${TABLE}."application_id" ;;
   }
 

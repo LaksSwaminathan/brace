@@ -29,7 +29,7 @@ view: disaster {
 
   dimension: is_covid {
     type: yesno
-    sql: LOWER(${name}) LIKE '%ovid%' ;;
+    sql: LOWER(${disaster_name}) LIKE '%ovid%' ;;
   }
   dimension: disaster_uuid {
     hidden: yes
@@ -94,7 +94,7 @@ view: disaster {
     sql: ${TABLE}."incident_end_date" ;;
   }
 
-  dimension: name {
+  dimension: disaster_name {
     type: string
     sql: ${TABLE}."name" ;;
   }
@@ -120,13 +120,13 @@ view: disaster {
 
   measure: count {
     type: count
-    drill_fields: [disaster_id, name]
+    drill_fields: [disaster_id, disaster_name]
   }
 
   set: diaster_fields {
     fields: [
       is_covid,
-      name,
+      disaster_name,
       fema_declaration_date,
       fema_disaster_type,
       fema_incident_type,
