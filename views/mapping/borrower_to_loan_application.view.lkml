@@ -63,7 +63,7 @@ view: borrower_to_loan_application {
   }
 
   dimension: last_completed_step {
-    hidden: yes
+    # hidden: yes
     type: string
     sql: initcap(CAST(${TABLE}."last_completed_step" AS VARCHAR)) ;;
   }
