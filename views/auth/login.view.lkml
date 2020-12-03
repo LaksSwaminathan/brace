@@ -62,11 +62,6 @@ view: login {
     sql: ${user_id} ;;
   }
 
-  measure: most_recent_login {
-    type: max
-    sql: ${tstamp_raw} ;;
-  }
-
 ###################################################################################################
 #
 #   SETS

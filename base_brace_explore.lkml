@@ -190,6 +190,13 @@ explore: servicer {
 
 }
 
+explore: user {
+  join: login {
+    type: inner
+    relationship: one_to_many
+    sql_on: ${user.user_id}=${login.user_id} ;;
+  }
+}
 
 # explore: application_funnel {
 #   from: application
