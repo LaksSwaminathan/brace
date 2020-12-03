@@ -189,15 +189,21 @@ explore: servicer {
     relationship: many_to_one
   }
 
+  join: workout {
+    type: left_outer
+    sql_on: ${application.application_id}= ${workout.loan_application_id} ;;
+    relationship: many_to_one
+  }
+
 }
 
-# explore: user {
-#   join: login {
-#     type: inner
-#     relationship: one_to_many
-#     sql_on: ${user.user_id}=${login.user_id} ;;
-#   }
-# }
+explore: user {
+  join: login {
+    type: inner
+    relationship: one_to_many
+    sql_on: ${user.user_id}=${login.user_id} ;;
+  }
+}
 
 # explore: application_funnel {
 #   from: application
