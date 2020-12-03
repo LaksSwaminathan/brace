@@ -197,13 +197,29 @@ explore: servicer {
 
 }
 
-explore: user {
-  join: login {
-    type: inner
-    relationship: one_to_many
-    sql_on: ${user.user_id}=${login.user_id} ;;
-  }
-}
+# explore: user {
+#   join: login {
+#     type: inner
+#     relationship: one_to_many
+#     sql_on: ${user.user_id}=${login.user_id} ;;
+#   }
+# }
+
+
+# explore: new_state {
+#   from: application_audit_trail
+
+#   join: old_state {
+#     from: application_audit_trail
+#     type: left_outer
+#     sql_on: ${new_state.application_id}=${old_state.application_id} and ${new_state.record}-1 = ${old_state.record};;
+#     relationship: many_to_many
+#   }
+# }
+
+
+
+
 
 # explore: application_funnel {
 #   from: application
