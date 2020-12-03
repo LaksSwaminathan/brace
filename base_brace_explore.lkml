@@ -138,6 +138,13 @@ explore: servicer {
     fields: [borrower_to_loan_application.hellosign_fields*, borrower_to_loan_application.details*]
   }
 
+  join: user {
+    type: inner
+    sql_on: ${user.user_id}=${application.created_by} ;;
+    sql_where: ${user.role} <> 'BORROWER' ;;
+    relationship: many_to_one
+  }
+
   join: disaster {
     view_label: "Hardship"
     from: disaster
