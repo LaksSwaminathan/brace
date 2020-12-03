@@ -114,6 +114,7 @@ explore: application {
 
 explore: servicer {
   view_name: application
+  sql_always_where: ${user.role} <> 'BORROWER' ;;
 
   join: application_details {
     sql_on: ${application.application_id} = ${application_details.application_id} ;;
@@ -139,9 +140,9 @@ explore: servicer {
   }
 
   join: user {
+    view_label: "Servicer User"
     type: inner
     sql_on: ${user.user_id}=${application.created_by} ;;
-    sql_where: ${user.role} <> 'BORROWER' ;;
     relationship: many_to_one
   }
 
@@ -190,13 +191,13 @@ explore: servicer {
 
 }
 
-explore: user {
-  join: login {
-    type: inner
-    relationship: one_to_many
-    sql_on: ${user.user_id}=${login.user_id} ;;
-  }
-}
+# explore: user {
+#   join: login {
+#     type: inner
+#     relationship: one_to_many
+#     sql_on: ${user.user_id}=${login.user_id} ;;
+#   }
+# }
 
 # explore: application_funnel {
 #   from: application

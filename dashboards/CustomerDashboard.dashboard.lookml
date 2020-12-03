@@ -387,7 +387,7 @@
     # model: myCU
     explore: application
     type: looker_column
-    fields: [application.count_of_complete_application, borrower_to_loan_application.form710_signature_date]
+    fields: [application.count_complete_application, borrower_to_loan_application.form710_signature_date]
     sorts: [borrower_to_loan_application.form710_signature_date desc]
     limit: 500
     column_limit: 50

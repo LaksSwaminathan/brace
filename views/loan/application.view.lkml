@@ -292,16 +292,22 @@ view: application {
     drill_fields: [application_id, user.full_name, application_status_detail]
   }
 
-  measure: count_of_incomplete_application {
+  measure: count_incomplete_application {
     type: count_distinct
     sql: ${application_id} ;;
     filters: [is_incomplete_application: "No"]
   }
 
-  measure: count_of_complete_application {
+  measure: count_complete_application {
     type: count_distinct
     sql: ${application_id} ;;
     filters: [is_incomplete_application: "Yes"]
+  }
+
+  measure: count_option_recommended {
+    type: count_distinct
+    sql: ${application_id} ;;
+    filters: [state: "Option_Recommended"]
   }
 
   measure: days_in_funnel {
@@ -310,11 +316,7 @@ view: application {
     filters: [is_incomplete_application: "No"]
   }
 
-  measure: option_recommended_count {
-    type: count_distinct
-    sql: ${application_id} ;;
-    filters: [state: "Option_Recommended"]
-  }
+
 
 
 ###################################################################################################
