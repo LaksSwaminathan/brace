@@ -53,6 +53,20 @@ view: application {
     sql: ${TABLE}."created_by" ;;
   }
 
+  dimension_group: expiration {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql: ${TABLE}."expiration_date" ;;
+  }
+
   dimension: is_incomplete_application {
     type: yesno
     sql: case when ${application_audit_details.application_completed_date} is not null then true else false end ;;
