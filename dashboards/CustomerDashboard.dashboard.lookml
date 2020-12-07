@@ -173,7 +173,7 @@
     explore: application
     type: looker_column
     fields: [application_audit_details.application_completed_date, application.is_esigned_application,
-      application.count_of_complete_application]
+      application.count_complete_application]
     pivots: [application.is_esigned_application]
     fill_fields: [application_audit_details.application_completed_date, application.is_esigned_application]
     sorts: [application_audit_details.application_completed_date desc, application.is_esigned_application]

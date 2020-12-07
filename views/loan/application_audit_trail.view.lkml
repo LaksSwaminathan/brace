@@ -42,7 +42,7 @@ view: application_audit_trail {
     sql: ${TABLE}.application_id ;;
   }
 
-  dimension_group: changed_date {
+  dimension_group: changed {
     type: time
     timeframes: [raw, date, week, month, quarter, year]
     sql: ${TABLE}.changed_date ;;
@@ -67,7 +67,4 @@ view: application_audit_trail {
     type: number
     sql: ${TABLE}.row_number ;;
   }
-
 }
-
-explore: application_audit_trail {}

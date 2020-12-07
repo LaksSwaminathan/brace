@@ -114,6 +114,7 @@ explore: application {
 
 explore: servicer {
   view_name: application
+  sql_always_where: ${user.role} <> 'BORROWER' ;;
 
   join: application_details {
     sql_on: ${application.application_id} = ${application_details.application_id} ;;
@@ -136,6 +137,13 @@ explore: servicer {
     sql_on: ${application.application_id} = ${borrower_to_loan_application.loan_application_id} ;;
     relationship: one_to_one
     fields: [borrower_to_loan_application.hellosign_fields*, borrower_to_loan_application.details*]
+  }
+
+  join: user {
+    view_label: "Servicer User"
+    type: inner
+    sql_on: ${user.user_id}=${application.created_by} ;;
+    relationship: many_to_one
   }
 
   join: disaster {
@@ -181,7 +189,36 @@ explore: servicer {
     relationship: many_to_one
   }
 
+  join: workout {
+    type: left_outer
+    sql_on: ${application.application_id}= ${workout.loan_application_id} ;;
+    relationship: many_to_one
+  }
+
 }
+
+# explore: user {
+#   join: login {
+#     type: inner
+#     relationship: one_to_many
+#     sql_on: ${user.user_id}=${login.user_id} ;;
+#   }
+# }
+
+
+# explore: new_state {
+#   from: application_audit_trail
+
+#   join: old_state {
+#     from: application_audit_trail
+#     type: left_outer
+#     sql_on: ${new_state.application_id}=${old_state.application_id} and ${new_state.record}-1 = ${old_state.record};;
+#     relationship: many_to_many
+#   }
+# }
+
+
+
 
 
 # explore: application_funnel {

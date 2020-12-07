@@ -1,13 +1,38 @@
+###################################################################################################
+#   PURPOSE: Modeling the auth.user table
+#
+#   AUTHOR:  DATA CLYMER (www.dataclymer.com):  hello@dataclymer.com
+#
+#   DATE:  12/03/2020
+#
+#   NOTES:
+#
+###################################################################################################
+
+
 view: user {
   sql_table_name: auth."user" ;;
-  drill_fields: [user_id]
+  drill_fields: [detail*]
+
+
+###################################################################################################
+#
+#   PRIMARY KEY
+#
+###################################################################################################
 
   dimension: user_id {
-    # primary_key: yes
+    primary_key: yes
     hidden: yes
     type: number
     sql: ${TABLE}."user_id" ;;
   }
+
+###################################################################################################
+#
+#   DIMENSIONS
+#
+###################################################################################################
 
   dimension_group: created {
     hidden: yes
@@ -107,6 +132,17 @@ view: user {
     hidden: yes
     type: string
     sql: ${TABLE}."first_name" ;;
+  }
+
+  dimension: is_active_user {
+    type: yesno
+    sql: ${last_login_date} >= ${30_days_ago};;
+  }
+
+  dimension: 30_days_ago {
+    hidden: yes
+    type: date
+    sql:  now() - 30 * interval '1 day';;
   }
 
   dimension_group: last_login {
@@ -235,12 +271,34 @@ view: user {
     sql: ${TABLE}."user_uuid" ;;
   }
 
+###################################################################################################
+#
+#   MEASURES
+#
+###################################################################################################
+
   measure: count {
     type: count
     drill_fields: [detail*]
   }
 
-  # ----- Sets of fields for drilling ------
+  measure: user_count {
+    type: count_distinct
+    sql: ${user_id} ;;
+  }
+
+  measure: active_user_count {
+    type: count_distinct
+    sql: ${user_id} ;;
+    filters: [is_active_user: "Yes"]
+  }
+
+###################################################################################################
+#
+#   SETS
+#
+###################################################################################################
+
   set: detail {
     fields: [
       user_id,
