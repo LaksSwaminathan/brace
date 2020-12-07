@@ -73,13 +73,13 @@ view: application {
   dimension: days_to_submit {
     type: duration_day
     sql_start: ${application_audit_details.application_begin_raw};;
-    sql_end: ${borrower_to_loan_application.form710_signature_raw} ;;
+    sql_end: ${application_audit_details.application_completed_date} ;;
     # sql: DATE_PART('day', ${borrower_to_loan_application.form710_signature_raw} - ${application_audit_details.application_begin_date});;
   }
 
   dimension: days_since_submitted {
     type: duration_day
-    sql_start: ${borrower_to_loan_application.form710_signature_raw} ;;
+    sql_start: ${application_audit_details.application_completed_date} ;;
     sql_end: NOW() ;;
   }
 
