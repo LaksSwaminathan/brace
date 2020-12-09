@@ -121,4 +121,4 @@ view: workout_history {
   }
 }
 
-explore: workout_history {}
+# explore: workout_history {}
