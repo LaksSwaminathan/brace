@@ -5,6 +5,10 @@ explore: +application {
   label: "PennyMac 📝"
 }
 
+explore: +servicer {
+  hidden: yes
+}
+
 # include: "views/*/*.view.lkml"                # include all views in the views/ folder in this project
 #
 # label: "Borrower"

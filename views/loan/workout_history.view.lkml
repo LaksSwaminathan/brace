@@ -120,3 +120,5 @@ view: workout_history {
     drill_fields: [workout_history_id, workout.workout_id]
   }
 }
+
+# explore: workout_history {}

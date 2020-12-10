@@ -277,11 +277,6 @@ view: user {
 #
 ###################################################################################################
 
-  measure: count {
-    type: count
-    drill_fields: [detail*]
-  }
-
   measure: user_count {
     type: count_distinct
     sql: ${user_id} ;;
