@@ -87,7 +87,7 @@ view: application {
   dimension: days_to_submit {
     type: duration_day
     sql_start: ${application_audit_details.application_begin_raw};;
-    sql_end: ${application_audit_details.application_completed_date} ;;
+    sql_end: ${application_audit_details.application_completed_raw} ;;
     # sql: DATE_PART('day', ${borrower_to_loan_application.form710_signature_raw} - ${application_audit_details.application_begin_date});;
   }
 
