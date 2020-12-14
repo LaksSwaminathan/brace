@@ -1,4 +1,4 @@
-connection: "pennymac-uat"
+connection: "pennymac-prod"
 include: "../base_brace_explore.lkml"
 
 explore: +application {
