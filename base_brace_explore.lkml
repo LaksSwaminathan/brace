@@ -169,6 +169,7 @@ explore: servicer {
     relationship: many_to_one
     fields: [document_type.document_type_fields*]
   }
+
   join: hardship {
     view_label: "Hardship"
     sql_on: ${application.application_id} = ${hardship.loan_application_id} ;;
@@ -191,7 +192,7 @@ explore: servicer {
 
   join: workout {
     type: left_outer
-    sql_on: ${application.application_id}= ${workout.loan_application_id} ;;
+    sql_on: ${application.application_id}= ${workout.loan_application_id} and ${application.state}='Option_Recommended' ;;
     relationship: many_to_one
   }
 

@@ -1,21 +1,58 @@
+###################################################################################################
+#   PURPOSE: To define a derived table allowing for the calculation of time spent in each state
+#
+#   AUTHOR:  DATA CLYMER (www.dataclymer.com):  hello@dataclymer.com
+#
+#   DATE:  12/16/2020
+#
+#   NOTES:
+#
+###################################################################################################
+
 view: application_audit_trail {
   derived_table: {
-    sql: SELECT row_data -> 'application_id' AS application_id
-        , action_tstamp_tx AS changed_date
-        , row_data -> 'state' AS prior_state
-        , changed_fields -> 'state' AS new_state
-        , RANK() OVER (
-            PARTITION BY row_data -> 'application_id' ORDER BY action_tstamp_tx
-            ) AS record
-        , ROW_NUMBER() OVER (
-            PARTITION BY row_data -> 'application_id' ORDER BY action_tstamp_tx
-            ) AS row_number
-    FROM audit.logged_actions
-    WHERE table_name = 'application'
-        AND action = 'U'
-        AND changed_fields ? 'state'
-    GROUP BY 1, 2, 3, 4 ;;
+    sql:
+    SELECT *
+    FROM (
+        SELECT bat.*
+            , (bat2.changed_date - bat.changed_date) AS time_spent_in_state
+        FROM ${application_audit_trail_base.SQL_TABLE_NAME} bat
+        LEFT JOIN (
+            SELECT application_id
+                , changed_date
+                , record
+            FROM ${application_audit_trail_base.SQL_TABLE_NAME}
+            ) bat2
+            ON bat.application_id = bat2.application_id
+                AND bat.record + 1 = bat2.record
+        INNER JOIN (
+            SELECT application_id
+                , created
+            FROM ${application.SQL_TABLE_NAME}
+            ) app
+            ON app.application_id::BIGINT = bat2.application_id::BIGINT
+
+        UNION
+
+        SELECT bat.application_id
+            , app.created AS changed_date
+            , 'CREATED' AS prior_state
+            , 'COLLECTING' AS new_state
+            , 0 AS record
+            , bat.changed_date - app.created AS time_spent_in_state
+        FROM ${application_audit_trail_base.SQL_TABLE_NAME} bat
+        INNER JOIN (
+            SELECT application_id
+                , created
+            FROM ${application.SQL_TABLE_NAME}
+            ) app
+            ON app.application_id::BIGINT = bat.application_id::BIGINT
+        WHERE bat.record = 1
+        ) t
+    ORDER BY t.application_id
+        , t.record;;
   }
+
 
 ###################################################################################################
 #
@@ -24,10 +61,19 @@ view: application_audit_trail {
 ###################################################################################################
 
   dimension: primary_key {
-    hidden: yes
     primary_key: yes
-    type: string
-    sql: ${application_id} || '_' || ${record} ;;
+    hidden: yes
+    sql: ${application_id} || ${record} ;;
+  }
+
+  dimension: application_id {
+    type: number
+    sql: ${TABLE}.application_id ;;
+  }
+
+  dimension: record {
+    type: number
+    sql: ${TABLE}.record ;;
   }
 
 ###################################################################################################
@@ -35,18 +81,6 @@ view: application_audit_trail {
 #   DIMENSIONS
 #
 ###################################################################################################
-
-  dimension: application_id {
-    # hidden: yes
-    type: number
-    sql: ${TABLE}.application_id ;;
-  }
-
-  dimension_group: changed {
-    type: time
-    timeframes: [raw, date, week, month, quarter, year]
-    sql: ${TABLE}.changed_date ;;
-  }
 
   dimension: prior_state {
     type: string
@@ -58,13 +92,49 @@ view: application_audit_trail {
     sql: ${TABLE}.new_state ;;
   }
 
-  dimension: record {
-    type: number
-    sql: ${TABLE}.record ;;
+  dimension_group: state_changed {
+    type: time
+    timeframes: [raw, hour, date, week, month, year]
+    sql: ${TABLE}.changed_date ;;
   }
 
-  dimension: row_number {
-    type: number
-    sql: ${TABLE}.row_number ;;
+  dimension_group: spent_in_state {
+    type: duration
+    intervals: [second, minute, hour, day, week, month, quarter, year]
+    sql_start: localtimestamp ;;
+    sql_end: localtimestamp + ${TABLE}.time_spent_in_state ;;
   }
+
+###################################################################################################
+#
+#   MEASURES
+#
+###################################################################################################
+
+  measure: avg_seconds_in_state {
+    group_label: "Average Time In State"
+    type: average
+    sql: ${seconds_spent_in_state};;
+  }
+  measure: avg_mins_in_state {
+    group_label: "Average Time In State"
+    type: average
+    sql: ${minutes_spent_in_state};;
+  }
+  measure: avg_hours_in_state {
+    group_label: "Average Time In State"
+    type: average
+    sql: ${hours_spent_in_state};;
+  }
+  measure: avg_days_in_state {
+    group_label: "Average Time In State"
+    type: average
+    sql: ${days_spent_in_state};;
+  }
+  measure: avg_weeks_in_state {
+    group_label: "Average Time In State"
+    type: average
+    sql: ${weeks_spent_in_state};;
+  }
+
 }
