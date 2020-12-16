@@ -11,6 +11,7 @@
 
 view: application_audit_trail {
   derived_table: {
+    # datagroup_trigger: application_audit_dg
     sql:
     SELECT *
     FROM (

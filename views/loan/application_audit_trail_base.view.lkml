@@ -1,5 +1,6 @@
 view: application_audit_trail_base {
   derived_table: {
+    # datagroup_trigger: application_audit_dg
     sql:
     SELECT row_data -> 'application_id' AS application_id
         , action_tstamp_tx AS changed_date

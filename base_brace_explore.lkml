@@ -5,6 +5,11 @@ include: "dashboards/*.dashboard"
 
 label: "Borrower"
 
+# datagroup: application_audit_dg {
+#   sql_trigger: select extract(DAY from CURRENT_DATE) ;;
+#   max_cache_age: "24 hours"
+# }
+
 explore: application {
   label: "Application 📝"
 
@@ -208,6 +213,30 @@ explore: servicer {
     type: left_outer
     sql_on: ${application.application_id}= ${workout.loan_application_id} and ${application.state}='Option_Recommended' ;;
     relationship: many_to_one
+  }
+
+  join: workout_history {
+    type: inner
+    relationship: one_to_many
+    sql_on: ${workout_history.workout_id} = ${workout.workout_id} ;;
+  }
+
+  join: workout_type {
+    type: inner
+    relationship: many_to_one
+    sql_on: ${workout.workout_type_id} = ${workout_type.workout_type_id} ;;
+  }
+
+  join: workout_state {
+    type: inner
+    relationship: many_to_one
+    sql_on: ${workout_history.workout_state_id} = ${workout_state.workout_state_id};;
+  }
+
+  join: workout_event {
+    type: inner
+    relationship: many_to_one
+    sql_on: ${workout_history.workout_event_id} = ${workout_event.workout_event_id};;
   }
 
 }
