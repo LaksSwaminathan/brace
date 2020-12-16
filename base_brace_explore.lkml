@@ -117,23 +117,33 @@ explore: servicer {
   sql_always_where: ${user.role} <> 'BORROWER' ;;
 
   join: application_details {
+    type: inner
     sql_on: ${application.application_id} = ${application_details.application_id} ;;
     relationship: one_to_one
   }
 
   join: application_details_recommended {
     view_label: "Application"
+    type: left_outer
     sql_on: ${application.application_id} = ${application_details_recommended.application_id} ;;
     relationship: one_to_many
   }
 
   join: application_audit_details {
+    type: inner
     sql_on: ${application.application_id} = ${application_audit_details.application_id};;
     relationship: one_to_one
   }
 
+  join: application_audit_trail {
+    type: left_outer
+    relationship: one_to_many
+    sql_on: ${application.application_id} = ${application_audit_trail.application_id} ;;
+  }
+
   join: borrower_to_loan_application {
     view_label: "Borrower"
+    type: left_outer
     sql_on: ${application.application_id} = ${borrower_to_loan_application.loan_application_id} ;;
     relationship: one_to_one
     fields: [borrower_to_loan_application.hellosign_fields*, borrower_to_loan_application.details*]
@@ -149,6 +159,7 @@ explore: servicer {
   join: disaster {
     view_label: "Hardship"
     from: disaster
+    type: left_outer
     sql_on: ${disaster.disaster_id} = ${hardship.disaster_id} ;;
     relationship: many_to_one
     fields: [disaster.diaster_fields*]
@@ -172,6 +183,7 @@ explore: servicer {
 
   join: hardship {
     view_label: "Hardship"
+    type: left_outer
     sql_on: ${application.application_id} = ${hardship.loan_application_id} ;;
     relationship: one_to_one
     fields: [hardship.hardship_fields*]
@@ -179,6 +191,7 @@ explore: servicer {
 
   join: hardship_type {
     view_label: "Hardship"
+    type: left_outer
     sql_on: ${hardship_type.hardship_type_id} = ${hardship.type_id} ;;
     relationship: many_to_one
     fields: [hardship_type.hardship_type_fields*]
@@ -186,6 +199,7 @@ explore: servicer {
 
   join: loan {
     view_label: "Loan"
+    type: left_outer
     sql_on: ${application.loan_id} = ${loan.loan_id} ;;
     relationship: many_to_one
   }
