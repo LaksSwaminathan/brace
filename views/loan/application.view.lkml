@@ -87,7 +87,7 @@ view: application {
   dimension: days_to_submit {
     type: duration_day
     sql_start: ${application_audit_details.application_begin_raw};;
-    sql_end: ${application_audit_details.application_completed_date} ;;
+    sql_end: ${application_audit_details.application_completed_raw} ;;
     # sql: DATE_PART('day', ${borrower_to_loan_application.form710_signature_raw} - ${application_audit_details.application_begin_date});;
   }
 
@@ -338,7 +338,7 @@ view: application {
   measure: application_count {
     type: count_distinct
     sql: ${application_id} ;;
-    drill_fields: [application_id, user.full_name, application_status_detail]
+    drill_fields: [application_id, user.email, application_status_detail]
   }
 
   measure: count_incomplete_application {

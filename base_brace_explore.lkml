@@ -74,6 +74,8 @@ explore: application {
     relationship: one_to_many
   }
 
+  # Getting User ID
+
   join: borrower_to_loan_application {
     view_label: "Borrower"
     sql_on: ${application.application_id} = ${borrower_to_loan_application.loan_application_id} ;;
@@ -81,24 +83,22 @@ explore: application {
     fields: [borrower_to_loan_application.hellosign_fields*, borrower_to_loan_application.details*]
   }
 
+  join: borrower {
+    type: left_outer
+    sql_on: ${borrower_to_loan_application.borrower_id} = ${borrower.borrower_id}  ;;
+    relationship: many_to_one
+  }
+
   join: user {
     view_label: "Borrower"
-    sql_on: ${loan.created_by} = ${user.user_id} ;;
-    relationship: many_to_one
+    sql_on: ${borrower.user_id} = ${user.user_id} ;;
+    relationship: one_to_one
   }
 
   join: login {
     sql_on: ${user.user_id} = ${login.user_id} ;;
-    relationship: many_to_one
-
-    # fields: []
-  }
-
-  join: borrower {
-    type: left_outer
-    sql_on: ${borrower.user_id} = ${user.user_id}  ;;
-    relationship: one_to_one
-#     fields: []
+    relationship: one_to_many
+    fields: []
   }
 
   join: equifax_report {
