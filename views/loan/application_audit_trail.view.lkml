@@ -24,12 +24,12 @@ view: application_audit_trail {
                 , record
             FROM ${application_audit_trail_base.SQL_TABLE_NAME}
             ) bat2
-            ON bat.application_id = bat2.application_id
+            ON bat.application_id::BIGINT = bat2.application_id::BIGINT
                 AND bat.record + 1 = bat2.record
         INNER JOIN (
             SELECT application_id
                 , created
-            FROM ${application.SQL_TABLE_NAME}
+            FROM loan.application
             ) app
             ON app.application_id::BIGINT = bat2.application_id::BIGINT
 
@@ -45,7 +45,7 @@ view: application_audit_trail {
         INNER JOIN (
             SELECT application_id
                 , created
-            FROM ${application.SQL_TABLE_NAME}
+            FROM loan.application
             ) app
             ON app.application_id::BIGINT = bat.application_id::BIGINT
         WHERE bat.record = 1

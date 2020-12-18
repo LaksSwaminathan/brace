@@ -143,7 +143,7 @@ explore: servicer {
   join: application_audit_trail {
     type: left_outer
     relationship: one_to_many
-    sql_on: ${application.application_id} = ${application_audit_trail.application_id} ;;
+    sql_on: ${application.application_id}::BIGINT = ${application_audit_trail.application_id}::BIGINT ;;
   }
 
   join: borrower_to_loan_application {
