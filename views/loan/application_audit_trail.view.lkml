@@ -116,26 +116,32 @@ view: application_audit_trail {
     group_label: "Average Time In State"
     type: average
     sql: ${seconds_spent_in_state};;
+    value_format_name: decimal_2
   }
   measure: avg_mins_in_state {
     group_label: "Average Time In State"
     type: average
     sql: ${minutes_spent_in_state};;
+    value_format_name: decimal_2
   }
+
   measure: avg_hours_in_state {
     group_label: "Average Time In State"
     type: average
     sql: ${hours_spent_in_state};;
+    value_format_name: decimal_2
   }
   measure: avg_days_in_state {
     group_label: "Average Time In State"
     type: average
     sql: ${days_spent_in_state};;
+    value_format_name: decimal_2
   }
   measure: avg_weeks_in_state {
     group_label: "Average Time In State"
     type: average
     sql: ${weeks_spent_in_state};;
+    value_format_name: decimal_2
   }
 
 }
