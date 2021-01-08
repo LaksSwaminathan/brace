@@ -356,7 +356,7 @@ view: application {
   measure: count_option_recommended {
     type: count_distinct
     sql: ${application_id} ;;
-    filters: [state: "Option_Recommended"]
+    filters: [state: "Option_Recommended", workout_state.name: "PROPOSED"]
   }
 
   measure: days_in_funnel {

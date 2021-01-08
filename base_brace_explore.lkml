@@ -12,6 +12,7 @@ label: "Borrower"
 
 explore: application {
   label: "Application 📝"
+  fields: [ALL_FIELDS*, -application.count_option_recommended]
 
   join: application_details {
     sql_on: ${application.application_id} = ${application_details.application_id} ;;
