@@ -65,4 +65,8 @@ view: workout_type {
     type: count
     drill_fields: [workout_type_id, name]
   }
+
+  set: servicer_set {
+    fields: [name, description]
+  }
 }

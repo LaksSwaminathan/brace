@@ -120,7 +120,7 @@ explore: application {
 
 explore: servicer {
   view_name: application
-  sql_always_where: ${user.role} <> 'BORROWER' ;;
+  # sql_always_where: ${user.role} <> 'BORROWER' ;;
 
   join: application_details {
     type: inner
@@ -136,12 +136,14 @@ explore: servicer {
   }
 
   join: application_audit_details {
+    view_label: "Application"
     type: inner
     sql_on: ${application.application_id} = ${application_audit_details.application_id};;
     relationship: one_to_one
   }
 
   join: application_audit_trail {
+    view_label: "Application"
     type: left_outer
     relationship: one_to_many
     sql_on: ${application.application_id}::BIGINT = ${application_audit_trail.application_id}::BIGINT ;;
@@ -155,12 +157,12 @@ explore: servicer {
     fields: [borrower_to_loan_application.hellosign_fields*, borrower_to_loan_application.details*]
   }
 
-  join: user {
-    view_label: "Servicer User"
-    type: inner
-    sql_on: ${user.user_id}=${application.created_by} ;;
-    relationship: many_to_one
-  }
+  # join: user {
+  #   view_label: "Servicer User"
+  #   type: left_outer
+  #   sql_on: ${user.user_id}=${application.created_by} ;;
+  #   relationship: many_to_one
+  # }
 
   join: disaster {
     view_label: "Hardship"
@@ -212,7 +214,7 @@ explore: servicer {
 
   join: workout {
     type: left_outer
-    sql_on: ${application.application_id}= ${workout.loan_application_id} and ${application.state}='Option_Recommended' ;;
+    sql_on: ${application.application_id}= ${workout.loan_application_id} and ${application.state} IN ('Option_Recommended', 'Completed') ;;
     relationship: many_to_one
   }
 
@@ -223,59 +225,18 @@ explore: servicer {
   }
 
   join: workout_type {
+    view_label: "Workout"
     type: inner
     relationship: many_to_one
     sql_on: ${workout.workout_type_id} = ${workout_type.workout_type_id} ;;
+    fields: [workout_type.servicer_set*]
   }
 
   join: workout_state {
+    view_label: "Workout History"
     type: inner
     relationship: many_to_one
     sql_on: ${workout_history.workout_state_id} = ${workout_state.workout_state_id};;
+    fields: [workout_state.servicer_set*]
   }
-
-  join: workout_event {
-    type: inner
-    relationship: many_to_one
-    sql_on: ${workout_history.workout_event_id} = ${workout_event.workout_event_id};;
-  }
-
 }
-
-# explore: user {
-#   join: login {
-#     type: inner
-#     relationship: one_to_many
-#     sql_on: ${user.user_id}=${login.user_id} ;;
-#   }
-# }
-
-
-# explore: new_state {
-#   from: application_audit_trail
-
-#   join: old_state {
-#     from: application_audit_trail
-#     type: left_outer
-#     sql_on: ${new_state.application_id}=${old_state.application_id} and ${new_state.record}-1 = ${old_state.record};;
-#     relationship: many_to_many
-#   }
-# }
-
-
-
-
-
-# explore: application_funnel {
-#   from: application
-#   join: hardship {
-#     sql_on: ${application_funnel.application_id} = ${hardship.loan_application_id} ;;
-#     relationship: one_to_one
-#   }
-#
-#   join: hardship_type {
-#     type: inner
-#     sql_on: ${hardship_type.hardship_type_id} = ${hardship.type_id} ;;
-#     relationship: many_to_one
-#   }
-# }

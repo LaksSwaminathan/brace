@@ -6,6 +6,7 @@ view: application_details_recommended {
             AND action = 'U'
             AND changed_fields -> 'state' = 'OPTION_RECOMMENDED'
           GROUP BY 1,2 ;;
+          # most recent value of option recommended
   }
 
 ###################################################################################################
