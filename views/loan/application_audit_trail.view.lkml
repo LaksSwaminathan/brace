@@ -68,11 +68,13 @@ view: application_audit_trail {
   }
 
   dimension: application_id {
+    hidden: yes
     type: number
     sql: ${TABLE}.application_id ;;
   }
 
   dimension: record {
+    # hidden: yes
     type: number
     sql: ${TABLE}.record ;;
   }

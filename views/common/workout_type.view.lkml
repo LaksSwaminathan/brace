@@ -4,6 +4,7 @@ view: workout_type {
 
   dimension: workout_type_id {
     primary_key: yes
+    hidden: yes
     type: number
     sql: ${TABLE}."workout_type_id" ;;
   }
@@ -57,6 +58,7 @@ view: workout_type {
   }
 
   dimension: workout_type_uuid {
+    hidden: yes
     type: string
     sql: ${TABLE}."workout_type_uuid" ;;
   }

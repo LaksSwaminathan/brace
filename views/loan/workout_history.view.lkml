@@ -89,22 +89,25 @@ view: workout_history {
   }
 
   dimension: workout_event_id {
+    hidden: yes
     type: number
     sql: ${TABLE}."workout_event_id" ;;
   }
 
   dimension: workout_history_uuid {
+    hidden: yes
     type: string
     sql: ${TABLE}."workout_history_uuid" ;;
   }
 
   dimension: workout_id {
+    hidden: yes
     type: number
-    # hidden: yes
     sql: ${TABLE}."workout_id" ;;
   }
 
   dimension: workout_state_id {
+    hidden: yes
     type: number
     sql: ${TABLE}."workout_state_id" ;;
   }

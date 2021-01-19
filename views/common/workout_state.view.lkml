@@ -4,6 +4,7 @@ view: workout_state {
 
   dimension: workout_state_id {
     primary_key: yes
+    hidden: yes
     type: number
     sql: ${TABLE}."workout_state_id" ;;
   }
@@ -57,6 +58,7 @@ view: workout_state {
   }
 
   dimension: workout_state_uuid {
+    hidden: yes
     type: string
     sql: ${TABLE}."workout_state_uuid" ;;
   }

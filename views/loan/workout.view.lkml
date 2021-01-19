@@ -62,6 +62,7 @@ view: workout {
   }
 
   dimension: loan_application_id {
+    hidden: yes
     type: number
     sql: ${TABLE}."loan_application_id" ;;
   }
@@ -112,11 +113,13 @@ view: workout {
   }
 
   dimension: workout_type_id {
+    hidden: yes
     type: number
     sql: ${TABLE}."workout_type_id" ;;
   }
 
-  dimension: workout_uuid {
+  dimension: workout_uuid { # should this be our unique identifier instead?
+    hidden: yes
     type: string
     sql: ${TABLE}."workout_uuid" ;;
   }

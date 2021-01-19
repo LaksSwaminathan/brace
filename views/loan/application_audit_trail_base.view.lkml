@@ -36,7 +36,7 @@ view: application_audit_trail_base {
 ###################################################################################################
 
   dimension: application_id {
-    # hidden: yes
+    hidden: yes
     type: number
     sql: ${TABLE}.application_id ;;
   }

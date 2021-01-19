@@ -87,7 +87,7 @@ view: borrower {
   }
 
   dimension: user_id {
-#     hidden: yes
+    hidden: yes
     type: number
     sql: ${TABLE}."user_id" ;;
   }

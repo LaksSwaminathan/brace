@@ -90,6 +90,7 @@ view: hardship {
   }
 
   dimension: loan_application_id {
+    hidden: yes
     type: number
     sql: ${TABLE}."loan_application_id" ;;
   }

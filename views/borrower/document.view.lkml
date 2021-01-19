@@ -9,6 +9,7 @@ view: document {
   }
 
   dimension: application_id {
+    hidden: yes
     type: number
     sql: ${TABLE}."application_id" ;;
   }
@@ -44,11 +45,13 @@ view: document {
   }
 
   dimension: document_type_id {
+    hidden: yes
     type: number
     sql: ${TABLE}."document_type_id" ;;
   }
 
   dimension: document_uuid {
+    hidden: yes
     type: string
     sql: ${TABLE}."document_uuid" ;;
   }

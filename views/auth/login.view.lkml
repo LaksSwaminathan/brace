@@ -21,6 +21,7 @@ view: login {
 
   dimension: login_id {
     primary_key: yes
+    hidden: yes
     type: number
     sql: ${TABLE}."login_id" ;;
   }
@@ -31,7 +32,7 @@ view: login {
 #
 ###################################################################################################
 
-  dimension_group: tstamp {
+  dimension_group: login {
     type: time
     timeframes: [
       raw,

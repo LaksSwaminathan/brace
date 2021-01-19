@@ -33,6 +33,7 @@ view: document_type {
   }
 
   dimension: document_type_uuid {
+    hidden: yes
     type: string
     sql: ${TABLE}."document_type_uuid" ;;
   }

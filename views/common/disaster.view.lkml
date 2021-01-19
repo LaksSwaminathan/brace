@@ -4,6 +4,7 @@ view: disaster {
 
   dimension: disaster_id {
     primary_key: yes
+    hidden: yes
     type: number
     sql: ${TABLE}."disaster_id" ;;
   }
@@ -31,6 +32,7 @@ view: disaster {
     type: yesno
     sql: LOWER(${disaster_name}) LIKE '%ovid%' ;;
   }
+
   dimension: disaster_uuid {
     hidden: yes
     type: string

@@ -50,6 +50,7 @@ view: hardship_type {
   }
 
   dimension: hardship_type_uuid {
+    hidden: yes
     type: string
     sql: ${TABLE}."hardship_type_uuid" ;;
   }
