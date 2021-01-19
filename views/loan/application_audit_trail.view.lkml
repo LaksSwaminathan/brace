@@ -74,7 +74,7 @@ view: application_audit_trail {
   }
 
   dimension: record {
-    # hidden: yes
+    hidden: yes
     type: number
     sql: ${TABLE}.record ;;
   }

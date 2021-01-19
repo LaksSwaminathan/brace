@@ -8,6 +8,7 @@ view: borrower_to_loan_application {
   }
 
   dimension: borrower_id {
+    hidden: yes
     type: number
     sql: ${TABLE}."borrower_id" ;;
   }
@@ -69,6 +70,7 @@ view: borrower_to_loan_application {
   }
 
   dimension: loan_application_id {
+    hidden: yes
     type: number
     sql: ${TABLE}."loan_application_id" ;;
   }

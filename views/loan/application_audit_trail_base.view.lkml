@@ -58,6 +58,7 @@ view: application_audit_trail_base {
   }
 
   dimension: record {
+    hidden: yes
     type: number
     sql: ${TABLE}.record ;;
   }
