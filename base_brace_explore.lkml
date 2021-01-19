@@ -120,7 +120,6 @@ explore: application {
 
 explore: servicer {
   view_name: application
-  # sql_always_where: ${user.role} <> 'BORROWER' ;;
 
   join: application_details {
     type: inner
@@ -162,6 +161,7 @@ explore: servicer {
   #   type: left_outer
   #   sql_on: ${user.user_id}=${application.created_by} ;;
   #   relationship: many_to_one
+  #   sql_always_where: ${user.role} <> 'BORROWER';;
   # }
 
   join: disaster {
@@ -238,5 +238,13 @@ explore: servicer {
     relationship: many_to_one
     sql_on: ${workout_history.workout_state_id} = ${workout_state.workout_state_id};;
     fields: [workout_state.servicer_set*]
+  }
+}
+
+explore: user {
+  join: login {
+    type: inner
+    relationship: one_to_many
+    sql_on: ${user.user_id}=${login.user_id};;
   }
 }

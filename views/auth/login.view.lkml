@@ -57,7 +57,7 @@ view: login {
 #
 ###################################################################################################
 
-  measure: user_count {
+  measure: user_login_count {
     type: count_distinct
     sql: ${user_id} ;;
   }
