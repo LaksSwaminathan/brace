@@ -1,5 +1,6 @@
 view: application_audit_details {
   derived_table: {
+    # datagroup_trigger: application_audit_dg
     sql:
       WITH completed AS (
         SELECT (row_data -> 'application_id')::INTEGER as application_id,

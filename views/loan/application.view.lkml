@@ -247,7 +247,42 @@ view: application {
   dimension: state {
     label: "Servicer State"
     type: string
-    sql: initcap(CAST(${TABLE}."state" AS VARCHAR)) ;;
+    sql: INITCAP(${state_raw}) ;;
+    order_by_field: state_sort
+  }
+
+  dimension: state_raw {
+    hidden: yes
+    type: string
+    sql: CAST(${TABLE}."state" AS VARCHAR) ;;
+  }
+
+  dimension: state_sort {
+    hidden: yes
+    case: {
+      when: {
+        label: "1"
+        sql: ${state_raw} = 'COLLECTING' ;;
+      }
+      when: {
+        label: "2"
+        sql: ${state_raw} = 'PROCESSING' ;;
+      }
+      when: {
+        label: "3"
+        sql: ${state_raw} = 'UNDERWRITING' ;;
+      }
+      when: {
+        label: "4"
+        sql: ${state_raw} = 'OPTION_RECOMMENDED' ;;
+      }
+      when: {
+        label: "5"
+        sql: ${state_raw} = 'COMPLETED' ;;
+      }
+      else: "0"
+    }
+    alpha_sort: yes
   }
 
   dimension: status {

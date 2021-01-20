@@ -5,6 +5,11 @@ include: "dashboards/*.dashboard"
 
 label: "Borrower"
 
+# datagroup: application_audit_dg {
+#   sql_trigger: select extract(DAY from CURRENT_DATE) ;;
+#   max_cache_age: "24 hours"
+# }
+
 explore: application {
   label: "Application 📝"
 
@@ -117,23 +122,33 @@ explore: servicer {
   sql_always_where: ${user.role} <> 'BORROWER' ;;
 
   join: application_details {
+    type: inner
     sql_on: ${application.application_id} = ${application_details.application_id} ;;
     relationship: one_to_one
   }
 
   join: application_details_recommended {
     view_label: "Application"
+    type: left_outer
     sql_on: ${application.application_id} = ${application_details_recommended.application_id} ;;
     relationship: one_to_many
   }
 
   join: application_audit_details {
+    type: inner
     sql_on: ${application.application_id} = ${application_audit_details.application_id};;
     relationship: one_to_one
   }
 
+  join: application_audit_trail {
+    type: left_outer
+    relationship: one_to_many
+    sql_on: ${application.application_id}::BIGINT = ${application_audit_trail.application_id}::BIGINT ;;
+  }
+
   join: borrower_to_loan_application {
     view_label: "Borrower"
+    type: left_outer
     sql_on: ${application.application_id} = ${borrower_to_loan_application.loan_application_id} ;;
     relationship: one_to_one
     fields: [borrower_to_loan_application.hellosign_fields*, borrower_to_loan_application.details*]
@@ -149,6 +164,7 @@ explore: servicer {
   join: disaster {
     view_label: "Hardship"
     from: disaster
+    type: left_outer
     sql_on: ${disaster.disaster_id} = ${hardship.disaster_id} ;;
     relationship: many_to_one
     fields: [disaster.diaster_fields*]
@@ -169,8 +185,10 @@ explore: servicer {
     relationship: many_to_one
     fields: [document_type.document_type_fields*]
   }
+
   join: hardship {
     view_label: "Hardship"
+    type: left_outer
     sql_on: ${application.application_id} = ${hardship.loan_application_id} ;;
     relationship: one_to_one
     fields: [hardship.hardship_fields*]
@@ -178,6 +196,7 @@ explore: servicer {
 
   join: hardship_type {
     view_label: "Hardship"
+    type: left_outer
     sql_on: ${hardship_type.hardship_type_id} = ${hardship.type_id} ;;
     relationship: many_to_one
     fields: [hardship_type.hardship_type_fields*]
@@ -185,14 +204,39 @@ explore: servicer {
 
   join: loan {
     view_label: "Loan"
+    type: left_outer
     sql_on: ${application.loan_id} = ${loan.loan_id} ;;
     relationship: many_to_one
   }
 
   join: workout {
     type: left_outer
-    sql_on: ${application.application_id}= ${workout.loan_application_id} ;;
+    sql_on: ${application.application_id}= ${workout.loan_application_id} and ${application.state}='Option_Recommended' ;;
     relationship: many_to_one
+  }
+
+  join: workout_history {
+    type: inner
+    relationship: one_to_many
+    sql_on: ${workout_history.workout_id} = ${workout.workout_id} ;;
+  }
+
+  join: workout_type {
+    type: inner
+    relationship: many_to_one
+    sql_on: ${workout.workout_type_id} = ${workout_type.workout_type_id} ;;
+  }
+
+  join: workout_state {
+    type: inner
+    relationship: many_to_one
+    sql_on: ${workout_history.workout_state_id} = ${workout_state.workout_state_id};;
+  }
+
+  join: workout_event {
+    type: inner
+    relationship: many_to_one
+    sql_on: ${workout_history.workout_event_id} = ${workout_event.workout_event_id};;
   }
 
 }
