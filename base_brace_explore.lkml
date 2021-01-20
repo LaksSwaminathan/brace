@@ -156,6 +156,13 @@ explore: servicer {
     fields: [borrower_to_loan_application.hellosign_fields*, borrower_to_loan_application.details*]
   }
 
+  join: servicer_user_to_application {
+    type: inner
+    relationship: many_to_many
+    sql_on: ${application.application_id}=${servicer_user_to_application.application_id}
+      AND ${application.state}=${servicer_user_to_application.application_state};;
+  }
+
   # join: user {
   #   view_label: "Servicer User"
   #   type: left_outer
@@ -163,6 +170,16 @@ explore: servicer {
   #   relationship: many_to_one
   #   sql_always_where: ${user.role} <> 'BORROWER';;
   # }
+
+  join: servicer_user {
+    from: user
+    view_label: "Servicer User"
+    type: left_outer
+    sql_on: ${servicer_user.user_id}=${servicer_user_to_application.user_id} ;;
+    relationship: many_to_one
+  }
+
+
 
   join: disaster {
     view_label: "Hardship"
