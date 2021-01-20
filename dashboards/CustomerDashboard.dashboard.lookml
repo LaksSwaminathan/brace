@@ -12,7 +12,7 @@
   elements:
   - title: 'Daily - # of Applications Started'
     name: 'Daily - # of Applications Started'
-    # model: myCU
+#     model: myCU
     explore: application
     type: looker_column
     fields: [application.application_count, application_audit_details.application_begin_date]
@@ -72,7 +72,7 @@
     height: 5
   - title: "# Started"
     name: "# Started"
-    # model: myCU
+#     model: myCU
     explore: application
     type: single_value
     fields: [application.application_count]
@@ -102,7 +102,7 @@
     body_text: |-
       <div class="vis">
       <div class="vis-single-value">
-      <font color="#2aa5b1" size="6"><center><b>Customer Dashboard
+      <font color="#2aa5b1" size="6"><center><b>myCU Dashboard
       </b></center></font>
       </div>
       </div>
@@ -112,7 +112,7 @@
     height: 2
   - title: "# In Progress"
     name: "# In Progress"
-    # model: myCU
+#     model: myCU
     explore: application
     type: single_value
     fields: [application.application_count]
@@ -135,18 +135,19 @@
     y_axes: []
     listen:
       Application Date: application_audit_details.application_begin_date
-    row: 24
+    row: 14
     col: 18
     width: 4
     height: 2
   - title: "# Expired"
     name: "# Expired"
-    # model: myCU
+#     model: myCU
     explore: application
     type: single_value
     fields: [application.application_count]
     filters:
-      application.application_status_detail: Expired
+      application.status: "%Expired%"
+    sorts: [application.application_count desc]
     limit: 500
     query_timezone: America/Los_Angeles
     custom_color_enabled: true
@@ -169,7 +170,7 @@
     height: 2
   - title: 'Daily - # of Completed Applications'
     name: 'Daily - # of Completed Applications'
-    # model: myCU
+#     model: myCU
     explore: application
     type: looker_column
     fields: [application_audit_details.application_completed_date, application.is_esigned_application,
@@ -212,6 +213,8 @@
     series_labels:
       No - application.count_of_complete_application: Complete - Not eSigned
       Yes - application.count_of_complete_application: Complete - eSigned
+      Yes - application.count_complete_application: Esigned
+      No - application.count_complete_application: Completed without eSignature
     show_null_points: true
     interpolation: linear
     custom_color_enabled: true
@@ -231,7 +234,7 @@
     row: 10
     col: 0
     width: 14
-    height: 6
+    height: 5
   - name: " (2)"
     type: text
     title_text: ''
@@ -262,7 +265,7 @@
     height: 3
   - title: Application Snapshot by Status
     name: Application Snapshot by Status
-    # model: myCU
+#     model: myCU
     explore: application
     type: looker_grid
     fields: [application.application_status_description, application.application_status_detail,
@@ -333,13 +336,13 @@
     y_axes: []
     listen:
       Application Date: application_audit_details.application_begin_date
-    row: 14
+    row: 16
     col: 16
     width: 8
     height: 10
   - title: Plaid Connections
     name: Plaid Connections
-    # model: myCU
+#     model: myCU
     explore: application
     type: single_value
     fields: [plaid_details.count]
@@ -355,31 +358,6 @@
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
     single_value_title: "# Plaid Connections"
-    defaults_version: 1
-    listen:
-      Application Date: application_audit_details.application_begin_date
-    row: 31
-    col: 18
-    width: 4
-    height: 2
-  - title: FileThis Connections
-    name: FileThis Connections
-    # model: BraceDev
-    explore: application
-    type: single_value
-    fields: [borrower.count_filethis_accounts]
-    limit: 500
-    query_timezone: America/Los_Angeles
-    custom_color_enabled: true
-    show_single_value_title: true
-    show_comparison: false
-    comparison_type: value
-    comparison_reverse_colors: false
-    show_comparison_label: true
-    enable_conditional_formatting: false
-    conditional_formatting_include_totals: false
-    conditional_formatting_include_nulls: false
-    single_value_title: "# FileThis Accounts"
     defaults_version: 1
     listen:
       Application Date: application_audit_details.application_begin_date
@@ -403,7 +381,7 @@
     height: 3
   - title: Started Applications - by Hardship
     name: Started Applications - by Hardship
-    # model: myCU
+#     model: myCU
     explore: application
     type: looker_grid
     fields: [application.application_count, hardship_type.description]
@@ -467,7 +445,7 @@
     y_axes: []
     listen:
       Application Date: application_audit_details.application_begin_date
-    row: 37
+    row: 36
     col: 0
     width: 14
     height: 4
@@ -495,13 +473,13 @@
       </b></center></font>
       </div>
       </div>
-    row: 16
+    row: 15
     col: 0
     width: 6
     height: 3
   - title: "# of Completed Applications - by Days to Submit"
     name: "# of Completed Applications - by Days to Submit"
-    # model: myCU
+#     model: myCU
     explore: application
     type: looker_bar
     fields: [application.days_to_submit_tier, application.application_count]
@@ -552,13 +530,13 @@
     y_axes: []
     listen:
       Application Date: application_audit_details.application_begin_date
-    row: 19
+    row: 18
     col: 0
     width: 14
     height: 7
   - title: 'Daily # of Completed Applications - By days to submit'
     name: 'Daily # of Completed Applications - By days to submit'
-    # model: myCU
+#     model: myCU
     explore: application
     type: looker_grid
     fields: [application.days_to_submit_tier, application.application_count, application.is_incomplete_application,
@@ -637,13 +615,13 @@
     y_axes: []
     listen:
       Application Date: application_audit_details.application_begin_date
-    row: 26
+    row: 25
     col: 0
     width: 14
     height: 8
   - title: "# Completed"
     name: "# Completed"
-    # model: myCU
+#     model: myCU
     explore: application
     type: single_value
     fields: [application.application_count]
@@ -670,7 +648,7 @@
     height: 2
   - title: Started Applications - By Mode
     name: Started Applications - By Mode
-    # model: myCU
+#     model: myCU
     explore: application
     type: looker_grid
     fields: [application.mode, application.application_count]
@@ -737,10 +715,33 @@
     y_axes: []
     listen:
       Application Date: application_audit_details.application_begin_date
-    row: 34
+    row: 33
     col: 0
     width: 14
     height: 3
+  - title: New Tile
+    name: New Tile
+#     model: myCU
+    explore: application
+    type: single_value
+    fields: [borrower.count_filethis_accounts]
+    limit: 500
+    query_timezone: America/Los_Angeles
+    custom_color_enabled: true
+    show_single_value_title: true
+    show_comparison: false
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    single_value_title: "# FileThis Accounts"
+    defaults_version: 1
+    row: 31
+    col: 18
+    width: 4
+    height: 2
   filters:
   - name: Application Date
     title: Application Date

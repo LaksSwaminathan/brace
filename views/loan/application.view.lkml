@@ -338,7 +338,7 @@ view: application {
   measure: application_count {
     type: count_distinct
     sql: ${application_id} ;;
-    drill_fields: [application_id, user.email, application_status_detail]
+    drill_fields: [application_id, user.email, application_status_detail, borrower_to_loan_application.last_completed_step]
   }
 
   measure: count_incomplete_application {
