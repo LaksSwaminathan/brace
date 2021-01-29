@@ -3,13 +3,6 @@ include: "views/*/*.view.lkml"                # include all views in the views/ 
 
 include: "dashboards/*.dashboard"
 
-label: "Borrower"
-
-# datagroup: application_audit_dg {
-#   sql_trigger: select extract(DAY from CURRENT_DATE) ;;
-#   max_cache_age: "24 hours"
-# }
-
 explore: application {
   label: "Application 📝"
   fields: [ALL_FIELDS*, -application.count_option_recommended]
@@ -114,8 +107,6 @@ explore: application {
     relationship: one_to_many
     fields: [equifax_report.number_of_completed_equifax_pulls]
   }
-
-  ## Equifax -- credit.liability or credit.report (Count)
 }
 
 explore: servicer {
@@ -163,14 +154,6 @@ explore: servicer {
       AND ${application.state}=${servicer_user_to_application.application_state};;
   }
 
-  # join: user {
-  #   view_label: "Servicer User"
-  #   type: left_outer
-  #   sql_on: ${user.user_id}=${application.created_by} ;;
-  #   relationship: many_to_one
-  #   sql_always_where: ${user.role} <> 'BORROWER';;
-  # }
-
   join: servicer_user {
     from: user
     view_label: "Servicer User"
@@ -178,8 +161,6 @@ explore: servicer {
     sql_on: ${servicer_user.user_id}=${servicer_user_to_application.user_id} ;;
     relationship: many_to_one
   }
-
-
 
   join: disaster {
     view_label: "Hardship"
@@ -259,6 +240,7 @@ explore: servicer {
 }
 
 explore: user {
+  hidden: yes
   join: login {
     type: inner
     relationship: one_to_many
