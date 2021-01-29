@@ -148,7 +148,7 @@ explore: servicer {
   }
 
   join: servicer_user_to_application {
-    type: inner
+    type: left_outer
     relationship: many_to_many
     sql_on: ${application.application_id}=${servicer_user_to_application.application_id}
       AND ${application.state}=${servicer_user_to_application.application_state};;
