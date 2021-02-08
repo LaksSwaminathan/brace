@@ -99,7 +99,7 @@ view: loan {
   }
 
   dimension: sor_identifier {
-    hidden: yes
+    # hidden: yes
     type: string
     sql: ${TABLE}."sor_identifier" ;;
   }
