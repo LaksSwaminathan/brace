@@ -218,7 +218,7 @@ view: application {
           and ${application_details.borrower_started_count} > 0 then 'Application Active'
         when ${state} not like 'Collecting' AND ${status} not like 'Pending' and ${status} not like 'Expired'
           and ${borrower_to_loan_application.form710_signature_raw} is not null then 'eSigned Application'
-        when ${state} not like 'Collecting' AND ${status} like 'Expired' then 'Application Expired'
+        when ${state} not like 'Collecting' AND ${status} LIKE '%Expired%' then 'Application Expired'
         when ${state} not like 'Collecting' AND ${status} not like 'Pending' and ${status} not like 'Expired'
           and ${application_audit_details.application_completed_date} is not null then 'Application Complete'
         else 'Other'
