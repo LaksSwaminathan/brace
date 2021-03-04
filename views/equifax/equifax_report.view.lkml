@@ -37,6 +37,14 @@ view: equifax_report {
     sql: ${TABLE}."experian_score" ;;
   }
 
+  dimension: valid_credit_score {
+    type: number
+    sql: case when
+      ${equifax_score} is not null OR ${experian_score} is not null OR ${transunion_score} is not null
+      then 1
+      else 0 end;;
+  }
+
   dimension_group: first_issued {
     type: time
     timeframes: [
@@ -84,8 +92,8 @@ view: equifax_report {
 
   measure: number_of_completed_equifax_pulls {
     label: "Equifax Credit Pulls"
-    type: count_distinct
-    sql: ${report_id} ;;
+    type: sum
+    sql: ${valid_credit_score} ;;
     drill_fields: [report_id]
   }
 
