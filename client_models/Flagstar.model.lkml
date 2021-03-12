@@ -1,4 +1,4 @@
-connection: "flagstar-uat"
+connection: "flagstar-prod"
 
 include: "../base_brace_explore.lkml"
 
