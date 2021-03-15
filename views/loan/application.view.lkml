@@ -85,7 +85,16 @@ view: application {
   }
 
   dimension: days_to_submit {
+    group_label: "Time to Submit"
     type: duration_day
+    sql_start: ${application_audit_details.application_begin_raw};;
+    sql_end: ${application_audit_details.application_completed_raw} ;;
+    # sql: DATE_PART('day', ${borrower_to_loan_application.form710_signature_raw} - ${application_audit_details.application_begin_date});;
+  }
+
+  dimension: minutes_to_submit {
+    group_label: "Time to Submit"
+    type: duration_minute
     sql_start: ${application_audit_details.application_begin_raw};;
     sql_end: ${application_audit_details.application_completed_raw} ;;
     # sql: DATE_PART('day', ${borrower_to_loan_application.form710_signature_raw} - ${application_audit_details.application_begin_date});;
