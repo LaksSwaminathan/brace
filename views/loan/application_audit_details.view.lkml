@@ -47,7 +47,7 @@ view: application_audit_details {
 
   dimension_group: application_begin {
     type: time
-    timeframes: [date, month, hour, year, raw]
+    timeframes: [date, month, hour, year, raw, millisecond]
     sql: ${TABLE}."application_begin_timestamp" ;;
   }
 
@@ -62,7 +62,7 @@ view: application_audit_details {
   dimension_group: application_completed {
     description: "Timestamp when the application is e-signed OR marked as complete"
     type: time
-    timeframes: [date, month, hour, year, raw]
+    timeframes: [date, month, hour, year, raw, millisecond]
     sql: COALESCE(${borrower_to_loan_application.form710_signature_raw}, ${application_status_completed_raw});;
   }
 
