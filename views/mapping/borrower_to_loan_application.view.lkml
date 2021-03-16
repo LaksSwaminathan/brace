@@ -109,6 +109,34 @@ view: borrower_to_loan_application {
     sql: ${TABLE}."updated_by" ;;
   }
 
+  dimension: file_this_account_id {
+    hidden: yes
+    type: number
+    sql: ${TABLE}."file_this_account_id" ;;
+  }
+
+  dimension: file_this_token {
+    hidden: yes
+    type: string
+    sql: ${TABLE}."file_this_token" ;;
+  }
+
+  measure: count_filethis_accounts {
+    view_label: "Vendor Information"
+    label: "FileThis Account Count"
+    type: count_distinct
+    sql: ${file_this_account_id} ;;
+    drill_fields: [borrower_id]
+  }
+
+  measure: total_filethis_cost {
+    view_label: "Vendor Information"
+    label: "FileThis Total Cost"
+    type: number
+    sql: ${count_filethis_accounts}*4 ;;
+    value_format_name: usd_0
+  }
+
   measure: borrower_count {
     type: count_distinct
     sql: ${borrower_id} ;;
@@ -156,7 +184,9 @@ view: borrower_to_loan_application {
       borrower_count,
       form710_signature_date,
       last_completed_step,
-      count_of_incomplete_application
+      count_of_incomplete_application,
+      count_filethis_accounts,
+      total_filethis_cost
     ]
   }
 

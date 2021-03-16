@@ -724,7 +724,7 @@
 #     model: myCU
     explore: application
     type: single_value
-    fields: [borrower.count_filethis_accounts]
+    fields: [borrower_to_loan_application.count_filethis_accounts]
     limit: 500
     query_timezone: America/Los_Angeles
     custom_color_enabled: true
@@ -752,3 +752,10 @@
     ui_config:
       type: advanced
       display: popover
+
+
+
+
+
+
+

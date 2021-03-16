@@ -92,21 +92,4 @@ view: borrower {
     sql: ${TABLE}."user_id" ;;
   }
 
-  measure: count_filethis_accounts {
-    view_label: "Vendor Information"
-    label: "FileThis Account Count"
-    type: count_distinct
-    sql: ${file_this_account_id} ;;
-    drill_fields: [borrower_id]
-  }
-
-  measure: total_filethis_cost {
-    view_label: "Vendor Information"
-    label: "FileThis Total Cost"
-    type: number
-    sql: ${count_filethis_accounts}*4 ;;
-    value_format_name: usd_0
-  }
-
-
 }

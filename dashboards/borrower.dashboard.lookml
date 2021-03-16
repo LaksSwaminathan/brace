@@ -33,7 +33,7 @@
 #     model: BraceDev
     explore: application
     type: single_value
-    fields: [borrower.total_filethis_cost]
+    fields: [borrower_to_loan_application.count_filethis_accounts]
     limit: 2
     column_limit: 50
     custom_color_enabled: true
@@ -308,7 +308,7 @@
 #     model: BraceDev
     explore: application
     type: single_value
-    fields: [borrower.count_filethis_accounts]
+    fields: [borrower_to_loan_application.count_filethis_accounts]
     limit: 500
     custom_color_enabled: true
     show_single_value_title: true
@@ -331,7 +331,7 @@
 #     model: BraceDev
     explore: application
     type: looker_line
-    fields: [application.created_date, borrower.total_filethis_cost, borrower.count_filethis_accounts]
+    fields: [application.created_date, borrower_to_loan_application.total_filethis_cost, borrower_to_loan_application.count_filethis_accounts]
     fill_fields: [application.created_date]
     filters:
       application.created_date: 30 days
