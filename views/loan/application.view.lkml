@@ -222,14 +222,14 @@ view: application {
         when ${state} like 'Collecting' AND ${mode} like 'Notstarted' AND ${status} like 'Pending' AND ${application_details.has_logged_in} is false then 'Not Logged In'
         when ${state} like 'Collecting' AND ${mode} like 'Notstarted' AND ${status} like 'Pending' AND ${application_details.has_logged_in} is true then 'Logged In'
         when ${state} like 'Collecting' AND ${status} like 'Active'
-          and ${application_details.borrower_started_count} = 0  then 'Application Started'
+          and ${application_details.borrower_started_count} = 0  then 'Request for Assistance Started'
         when ${state} like 'Collecting' AND ${status} like 'Active'
-          and ${application_details.borrower_started_count} > 0 then 'Application Active'
+          and ${application_details.borrower_started_count} > 0 then 'Request for Assistance Active'
         when ${state} not like 'Collecting' AND ${status} not like 'Pending' and ${status} not like 'Expired'
           and ${borrower_to_loan_application.form710_signature_raw} is not null then 'eSigned Application'
-        when ${state} not like 'Collecting' AND ${status} LIKE '%Expired%' then 'Application Expired'
+        when ${state} not like 'Collecting' AND ${status} LIKE '%Expired%' then 'Request for Assistance Expired'
         when ${state} not like 'Collecting' AND ${status} not like 'Pending' and ${status} not like 'Expired'
-          and ${application_audit_details.application_completed_date} is not null then 'Application Complete'
+          and ${application_audit_details.application_completed_date} is not null then 'Request for Assistance Complete'
         else 'Other'
       end
       ;;
@@ -240,12 +240,12 @@ view: application {
     sql:
       case
         when ${application_status_detail} like 'Not Logged In' then 'User has not reached Brace, User has not clicked "Begin Application"'
-        when ${application_status_detail} like 'Logged In' then 'User has reached Brace, User has not clicked "Begin Application", User has closed browser'
-        when ${application_status_detail} like 'Application Started' then 'User has reached brace, user has clicked "Begin Application", User has not completed anything'
-        when ${application_status_detail} like 'Application Active' then 'User has reached brace, user has clicked "Begin Application", and has specified some information in the application. User has not yet submitted OR has not reached the application timeout window'
+        when ${application_status_detail} like 'Logged In' then 'User has reached Brace, User has not clicked "Get Started" or "Update Hardship", User has closed browser'
+        when ${application_status_detail} like 'Request for Assistance Started' then 'User has reached brace, user has clicked "Get Started" or "Update Hardship", User has not completed anything'
+        when ${application_status_detail} like 'Request for Assistance Active' then 'User has reached brace, user has clicked "Get Started" or "Update Hardship", and has specified some information in the application. User has not yet submitted OR has not reached the application timeout window'
         when ${application_status_detail} like 'eSigned Application' then 'User has e-signed an application with all the required fields'
-        when ${application_status_detail} like 'Application Expired' then 'User has clicked "Begin Application", but has not finished and/or submitted an application, and X days have passed'
-        when ${application_status_detail} like 'Application Complete' then 'User has completed an application, possibly through the acceptance of a forbearance grant.'
+        when ${application_status_detail} like 'Request for Assistance Expired' then 'User has clicked "Get Started" or "Update Hardship", but has not finished and/or submitted an application, and X days have passed'
+        when ${application_status_detail} like 'Request for Assistance Complete' then 'User has completed an request for assistance, possibly through the acceptance of a forbearance grant.'
 
         else 'Other'
       end
