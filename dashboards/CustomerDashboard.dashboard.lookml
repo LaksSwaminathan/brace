@@ -1,5 +1,5 @@
-- dashboard: customer_dashboard
-  title: Customer Dashboard
+- dashboard: flagstar_dashboard
+  title: Flagstar Dashboard
   layout: newspaper
   preferred_viewer: dashboards
   embed_style:
@@ -12,12 +12,11 @@
   elements:
   - title: 'Daily - # of Applications Started'
     name: 'Daily - # of Applications Started'
-#     model: myCU
+#     model: Flagstar
     explore: application
     type: looker_column
     fields: [application.application_count, application_audit_details.application_begin_date]
     fill_fields: [application_audit_details.application_begin_date]
-    filters: {}
     sorts: [application_audit_details.application_begin_date desc]
     limit: 500
     query_timezone: America/Los_Angeles
@@ -72,7 +71,7 @@
     height: 5
   - title: "# Started"
     name: "# Started"
-#     model: myCU
+#     model: Flagstar
     explore: application
     type: single_value
     fields: [application.application_count]
@@ -102,7 +101,7 @@
     body_text: |-
       <div class="vis">
       <div class="vis-single-value">
-      <font color="#2aa5b1" size="6"><center><b>myCU Dashboard
+      <font color="#2aa5b1" size="6"><center><b> Customer Dashboard
       </b></center></font>
       </div>
       </div>
@@ -112,15 +111,15 @@
     height: 2
   - title: "# In Progress"
     name: "# In Progress"
-#     model: myCU
+#     model: Flagstar
     explore: application
     type: single_value
     fields: [application.application_count]
     filters:
-      application.application_status_detail: Application Active,Application Started
+      application.application_status_detail: Request for Assistance Active,Request
+        for Assistance Started
     sorts: [application.application_count desc]
     limit: 500
-    query_timezone: America/Los_Angeles
     custom_color_enabled: true
     show_single_value_title: true
     show_comparison: false
@@ -141,7 +140,7 @@
     height: 2
   - title: "# Expired"
     name: "# Expired"
-#     model: myCU
+#     model: Flagstar
     explore: application
     type: single_value
     fields: [application.application_count]
@@ -170,7 +169,7 @@
     height: 2
   - title: 'Daily - # of Completed Applications'
     name: 'Daily - # of Completed Applications'
-#     model: myCU
+#     model: Flagstar
     explore: application
     type: looker_column
     fields: [application_audit_details.application_completed_date, application.is_esigned_application,
@@ -265,7 +264,7 @@
     height: 3
   - title: Application Snapshot by Status
     name: Application Snapshot by Status
-#     model: myCU
+#     model: Flagstar
     explore: application
     type: looker_grid
     fields: [application.application_status_description, application.application_status_detail,
@@ -342,7 +341,7 @@
     height: 10
   - title: Plaid Connections
     name: Plaid Connections
-#     model: myCU
+#     model: Flagstar
     explore: application
     type: single_value
     fields: [plaid_details.count]
@@ -381,7 +380,7 @@
     height: 3
   - title: Started Applications - by Hardship
     name: Started Applications - by Hardship
-#     model: myCU
+#     model: Flagstar
     explore: application
     type: looker_grid
     fields: [application.application_count, hardship_type.description]
@@ -479,7 +478,7 @@
     height: 3
   - title: "# of Completed Applications - by Days to Submit"
     name: "# of Completed Applications - by Days to Submit"
-#     model: myCU
+#     model: Flagstar
     explore: application
     type: looker_bar
     fields: [application.days_to_submit_tier, application.application_count]
@@ -536,7 +535,7 @@
     height: 7
   - title: 'Daily # of Completed Applications - By days to submit'
     name: 'Daily # of Completed Applications - By days to submit'
-#     model: myCU
+#     model: Flagstar
     explore: application
     type: looker_grid
     fields: [application.days_to_submit_tier, application.application_count, application.is_incomplete_application,
@@ -621,11 +620,10 @@
     height: 8
   - title: "# Completed"
     name: "# Completed"
-#     model: myCU
+#     model: Flagstar
     explore: application
     type: single_value
     fields: [application.application_count]
-    filters: {}
     limit: 500
     column_limit: 50
     custom_color_enabled: true
@@ -648,11 +646,10 @@
     height: 2
   - title: Started Applications - By Mode
     name: Started Applications - By Mode
-#     model: myCU
+#     model: Flagstar
     explore: application
     type: looker_grid
     fields: [application.mode, application.application_count]
-    filters: {}
     sorts: [application.application_count desc]
     limit: 500
     column_limit: 50
@@ -719,14 +716,13 @@
     col: 0
     width: 14
     height: 3
-  - title: New Tile
-    name: New Tile
-#     model: myCU
+  - title: "# FileThis Interest"
+    name: "# FileThis Interest"
+#     model: Flagstar
     explore: application
     type: single_value
     fields: [borrower_to_loan_application.count_filethis_accounts]
     limit: 500
-    query_timezone: America/Los_Angeles
     custom_color_enabled: true
     show_single_value_title: true
     show_comparison: false
@@ -736,8 +732,9 @@
     enable_conditional_formatting: false
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
-    single_value_title: "# FileThis Accounts"
+    single_value_title: "# FileThis Interest"
     defaults_version: 1
+    listen: {}
     row: 31
     col: 18
     width: 4
@@ -752,10 +749,3 @@
     ui_config:
       type: advanced
       display: popover
-
-
-
-
-
-
-
