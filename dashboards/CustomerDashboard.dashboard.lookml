@@ -1,5 +1,5 @@
-- dashboard: flagstar_dashboard
-  title: Flagstar Dashboard
+- dashboard: customer_dashboard
+  title: Customer Dashboard
   layout: newspaper
   preferred_viewer: dashboards
   embed_style:
