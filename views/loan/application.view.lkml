@@ -100,6 +100,15 @@ view: application {
     # sql: DATE_PART('day', ${borrower_to_loan_application.form710_signature_raw} - ${application_audit_details.application_begin_date});;
   }
 
+  dimension: minutes_to_submit_tier {
+    group_label: "Time to Submit"
+    type: tier
+    style: integer
+    tiers: [0, 1, 2, 3, 4, 5, 15, 60, 360]
+    sql: ${minutes_to_submit} ;;
+    # sql: DATE_PART('day', ${borrower_to_loan_application.form710_signature_raw} - ${application_audit_details.application_begin_date});;
+  }
+
   dimension: days_since_submitted {
     type: duration_day
     sql_start: ${application_audit_details.application_completed_date} ;;

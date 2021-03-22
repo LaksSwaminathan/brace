@@ -40,20 +40,20 @@ explore: application {
     fields: [disaster.diaster_fields*]
   }
 
-  join: document {
-    type: left_outer
-    sql_on: ${application.application_id} = ${document.application_id} ;;
-    relationship: one_to_many
-    fields: [document.document_fields*, document.count]
-  }
+  # join: document {
+  #   type: left_outer
+  #   sql_on: ${application.application_id} = ${document.application_id} ;;
+  #   relationship: one_to_many
+  #   fields: [document.document_fields*, document.count]
+  # }
 
-  join: document_type {
-    view_label: "Document"
-    type: left_outer
-    sql_on: ${document.document_type_id} = ${document_type.document_type_id} ;;
-    relationship: many_to_one
-    fields: [document_type.document_type_fields*]
-  }
+  # join: document_type {
+  #   view_label: "Document"
+  #   type: left_outer
+  #   sql_on: ${document.document_type_id} = ${document_type.document_type_id} ;;
+  #   relationship: many_to_one
+  #   fields: [document_type.document_type_fields*]
+  # }
 
   join: loan {
     sql_on: ${application.loan_id} = ${loan.loan_id} ;;
