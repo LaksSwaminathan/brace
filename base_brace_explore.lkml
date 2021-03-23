@@ -60,13 +60,6 @@ explore: application {
     relationship: many_to_one
   }
 
-  join: plaid_details {
-    view_label: "Vendor Information"
-    sql_on: ${application.application_id} = ${plaid_details.borrower_to_loan_application_id} ;;
-    relationship: one_to_many
-    fields: [plaid_details.count, plaid_details.total_cost, plaid_details.created_date]
-  }
-
   join: borrower_income {
     from: income
     sql_on: ${application.application_id} = ${borrower_income.borrower_to_loan_application_id} ;;
@@ -98,6 +91,13 @@ explore: application {
     sql_on: ${user.user_id} = ${login.user_id} ;;
     relationship: one_to_many
     fields: []
+  }
+
+  join: plaid_details {
+    view_label: "Vendor Information"
+    sql_on: ${borrower_to_loan_application.borrower_to_loan_application_id} = ${plaid_details.borrower_to_loan_application_id} ;;
+    relationship: one_to_many
+    fields: [plaid_details.count, plaid_details.total_cost, plaid_details.created_date]
   }
 
   join: equifax_report {
