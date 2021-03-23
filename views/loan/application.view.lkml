@@ -238,7 +238,9 @@ view: application {
           and ${borrower_to_loan_application.form710_signature_raw} is not null then 'eSigned Application'
         when ${state} not like 'Collecting' AND ${status} LIKE '%Expired%' then 'Request for Assistance Expired'
         when ${state} not like 'Collecting' AND ${status} not like 'Pending' and ${status} not like 'Expired'
-          and ${application_audit_details.application_completed_date} is not null then 'Request for Assistance Complete'
+          and ${application_audit_details.application_completed_date} is not null then 'Request for Assistance - Forbearance Grant'
+        when ${state} like 'Processing' AND ${status} not like '%Expired%' and ${borrower_to_loan_application.form710_signature_raw} is null
+          and ${application_audit_details.application_completed_date} is null then 'Request for Assistance - Streamline Flow Complete'
         else 'Other'
       end
       ;;
@@ -254,8 +256,8 @@ view: application {
         when ${application_status_detail} like 'Request for Assistance Active' then 'User has reached brace, user has clicked "Get Started" or "Update Hardship", and has specified some information in the application. User has not yet submitted OR has not reached the application timeout window'
         when ${application_status_detail} like 'eSigned Application' then 'User has e-signed an application with all the required fields'
         when ${application_status_detail} like 'Request for Assistance Expired' then 'User has clicked "Get Started" or "Update Hardship", but has not finished and/or submitted an application, and X days have passed'
-        when ${application_status_detail} like 'Request for Assistance Complete' then 'User has completed an request for assistance, possibly through the acceptance of a forbearance grant.'
-
+        when ${application_status_detail} like 'Request for Assistance - Forbearance Grant' then 'User has completed an request for assistance, possibly through the acceptance of a forbearance grant.'
+        when ${application_status_detail} like 'Request for Assistance - Streamline Flow Complete' then 'User has completed a request for assistance through the Streamlined No document flow.'
         else 'Other'
       end
       ;;
