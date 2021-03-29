@@ -69,7 +69,11 @@ view: application {
 
   dimension: is_incomplete_application {
     type: yesno
-    sql: case when ${application_audit_details.application_completed_date} is not null then true else false end ;;
+    sql:
+    case when ${application_status_detail} IN ('eSigned Application', 'Request for Assistance - Forbearance Grant', 'Request for Assistance - Streamline Flow Complete')
+    then false else true end ;;
+
+
   }
 
   dimension: is_esigned_application {
@@ -364,13 +368,13 @@ view: application {
   measure: count_incomplete_application {
     type: count_distinct
     sql: ${application_id} ;;
-    filters: [is_incomplete_application: "No"]
+    filters: [is_incomplete_application: "Yes"]
   }
 
   measure: count_complete_application {
     type: count_distinct
     sql: ${application_id} ;;
-    filters: [is_incomplete_application: "Yes"]
+    filters: [is_incomplete_application: "No"]
   }
 
   measure: count_option_recommended {
