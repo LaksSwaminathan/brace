@@ -108,7 +108,7 @@ view: application {
     group_label: "Time to Submit"
     type: tier
     style: integer
-    tiers: [0, 1, 2, 3, 4, 5, 15, 60, 360]
+    tiers: [0, 15, 30, 60, 90, 360,720, 1440]
     sql: ${minutes_to_submit} ;;
     # sql: DATE_PART('day', ${borrower_to_loan_application.form710_signature_raw} - ${application_audit_details.application_begin_date});;
   }
