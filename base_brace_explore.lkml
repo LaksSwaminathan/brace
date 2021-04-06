@@ -40,21 +40,6 @@ explore: application {
     fields: [disaster.diaster_fields*]
   }
 
-  # join: document {
-  #   type: left_outer
-  #   sql_on: ${application.application_id} = ${document.application_id} ;;
-  #   relationship: one_to_many
-  #   fields: [document.document_fields*, document.count]
-  # }
-
-  # join: document_type {
-  #   view_label: "Document"
-  #   type: left_outer
-  #   sql_on: ${document.document_type_id} = ${document_type.document_type_id} ;;
-  #   relationship: many_to_one
-  #   fields: [document_type.document_type_fields*]
-  # }
-
   join: loan {
     sql_on: ${application.loan_id} = ${loan.loan_id} ;;
     relationship: many_to_one
@@ -92,6 +77,43 @@ explore: application {
     relationship: one_to_many
     fields: []
   }
+  # Documents Generation & Vendor Management
+
+  # join: document {
+  #   type: left_outer
+  #   sql_on: ${borrower_to_loan_application.loan_application_id} = ${document.application_id} ;;
+  #   relationship: one_to_many
+  #   fields: [document.document_fields*, document.count]
+  # }
+
+  # join: document_group_to_document {
+  #   type: left_outer
+  #   sql_on: ${document_group_to_document.document_id} = ${document.application_id} ;;
+  #   relationship: one_to_one
+  # }
+
+
+  # join: document_group  {
+  #   type: left_outer
+  #   sql_on: ${document_group.document_group_id} = ${document.document_id} ;;
+  #   relationship: one_to_one
+  # }
+  # # join: document_type {
+  # #   view_label: "Document"
+  # #   type: left_outer
+  # #   sql_on: ${document.document_type_id} = ${document_type.document_type_id} ;;
+  # #   relationship: many_to_one
+  # #   fields: [document_type.document_type_fields*]
+  # # }
+
+
+  # FROM document.document_group doc_group
+  # INNER JOIN mapping.document_group_to_document doc_junc ON doc_junc.document_group_id = doc_group.document_group_id
+  # INNER JOIN borrower.document doc ON doc.document_id = doc_junc.document_id
+  # INNER JOIN mapping.borrower_to_loan_application btla ON btla.loan_application_id = doc.application_id
+  # INNER JOIN loan.application app ON app.application_id = doc.application_id
+  # INNER JOIN loan.hardship hardship ON hardship.document_group_id = doc_group.document_group_id
+
 
   join: plaid_details {
     view_label: "Vendor Information"

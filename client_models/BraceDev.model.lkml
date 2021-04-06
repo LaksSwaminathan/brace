@@ -1,5 +1,5 @@
 connection: "brace_dev"
-persist_for: "60 minutes"
+persist_for: "180 minutes"
 
 include: "../base_brace_explore.lkml"
 

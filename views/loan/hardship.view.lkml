@@ -59,6 +59,11 @@ view: hardship {
     sql: ${TABLE}."document_group_id" ;;
   }
 
+  measure: count_uploaded_hardship_document{
+    type: count_distinct
+    sql: ${document_group_id} ;;
+  }
+
   dimension: duration_type_id {
     type: number
     sql: ${TABLE}."duration_type_id" ;;
@@ -168,6 +173,8 @@ view: hardship {
     fields: [
       start_date,
       end_date,
+      document_group_id,
+      count_uploaded_hardship_document,
       can_repay_missed_payments,
       can_resume_full_payment,
       impacts_place_of_employment,
