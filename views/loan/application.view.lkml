@@ -180,6 +180,11 @@ view: application {
       end;;
   }
 
+  dimension: packet_s3_key {
+    type: string
+    sql: ${TABLE}."packet_s3_key" ;;
+  }
+
   dimension: prior_partial_claims {
     hidden: yes
     type: number
