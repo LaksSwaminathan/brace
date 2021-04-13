@@ -247,9 +247,9 @@ view: application {
           and ${borrower_to_loan_application.form710_signature_raw} is not null then 'eSigned Application'
         when ${state} not like 'Collecting' AND ${status} LIKE '%Expired%' then 'Request for Assistance Expired'
         when ${state} not like 'Collecting' AND ${status} not like 'Pending' and ${status} not like 'Expired'
-          and ${application_audit_details.application_completed_date} is not null then 'Request for Assistance - Forbearance Grant'
+          and ${application_audit_details.application_status_completed_date} is not null then 'Request for Assistance - Forbearance Grant'
         when ${state} like 'Processing' AND ${status} not like '%Expired%' and ${borrower_to_loan_application.form710_signature_raw} is null
-          and ${application_audit_details.application_completed_date} is null then 'Request for Assistance - Streamline Flow Complete'
+          and ${application_audit_details.application_status_processing_date} is not null then 'Request for Assistance - Streamline Flow Complete'
         else 'Other'
       end
       ;;
