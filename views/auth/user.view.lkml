@@ -76,8 +76,7 @@ view: user {
 
   dimension: email {
     type: string
-    sql: ${TABLE}."email" ;;
-#     sql: md5(${TABLE}."email") ;;
+    sql: md5(${TABLE}."email") ;;
   }
 
   # dimension: employer_address {

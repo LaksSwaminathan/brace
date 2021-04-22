@@ -4,7 +4,7 @@ view: borrower {
 
   dimension: borrower_id {
     primary_key: yes
-    hidden: yes
+    # hidden: yes
     type: number
     sql: ${TABLE}."borrower_id" ;;
   }
