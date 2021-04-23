@@ -79,12 +79,12 @@ explore: application {
   }
   # Documents Generation & Vendor Management
 
-  # join: document {
-  #   type: left_outer
-  #   sql_on: ${borrower_to_loan_application.loan_application_id} = ${document.application_id} ;;
-  #   relationship: one_to_many
-  #   fields: [document.document_fields*, document.count]
-  # }
+  join: document {
+    type: left_outer
+    sql_on: ${borrower_to_loan_application.loan_application_id} = ${document.application_id} ;;
+    relationship: one_to_many
+    fields: [document.document_fields*, document.count]
+  }
 
   # join: document_group_to_document {
   #   type: left_outer

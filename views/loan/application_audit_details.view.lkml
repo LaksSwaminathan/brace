@@ -10,6 +10,8 @@ view: application_audit_details {
                 WHERE table_name = 'application'
                 AND action = 'U'
                 AND changed_fields -> 'state' =  'PROCESSING'
+                and action_tstamp_tx NOT BETWEEN '2021-04-21 11:55' AND '2021-04-21 12:05'
+                AND action_tstamp_tx NOT BETWEEN '2021-04-21 20:01:50' and '2021-04-21 20:02:16'
         ),
         completed AS (
           SELECT (row_data -> 'application_id')::INTEGER as application_id,
@@ -18,6 +20,9 @@ view: application_audit_details {
           WHERE table_name = 'application'
           AND action = 'U'
           AND changed_fields -> 'status' =  'COMPLETED'
+          and action_tstamp_tx NOT BETWEEN '2021-04-21 11:55' AND '2021-04-21 12:05'
+          AND action_tstamp_tx NOT BETWEEN '2021-04-21 20:01:50' and '2021-04-21 20:02:16'
+
         ),
         begin AS (
           SELECT (row_data -> 'application_id')::INTEGER as application_id,
@@ -26,6 +31,9 @@ view: application_audit_details {
           WHERE table_name = 'application'
           AND action = 'U'
           AND changed_fields -> 'status' =  'ACTIVE'
+          and action_tstamp_tx NOT BETWEEN '2021-04-21 11:55' AND '2021-04-21 12:05'
+          AND action_tstamp_tx NOT BETWEEN '2021-04-21 20:01:50' and '2021-04-21 20:02:16'
+
         )
       SELECT
         begin.application_id,

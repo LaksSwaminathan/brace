@@ -39,6 +39,12 @@ view: document {
     sql: ${TABLE}."created" ;;
   }
 
+  measure: first_document_created_date {
+    type: date
+    sql: MIN(${created_date}) ;;
+    convert_tz: no
+  }
+
   dimension: created_by {
     type: number
     sql: ${TABLE}."created_by" ;;
@@ -91,7 +97,8 @@ view: document {
       content,
       content_type,
       created_date,
-      updated_date
+      updated_date,
+      first_document_created_date
     ]
   }
 }
