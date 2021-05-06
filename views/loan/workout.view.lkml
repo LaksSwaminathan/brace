@@ -112,6 +112,17 @@ view: workout {
     sql: ${TABLE}."workout_uuid" ;;
   }
 
+  dimension: forbearance_start_date {
+    type: date
+    sql: ${TABLE}."forbearance_start_date" ;;
+  }
+
+  dimension: forbearance_end_date {
+    type: date
+    sql: ${TABLE}."forbearance_end_date" ;;
+  }
+
+
 ###################################################################################################
 #
 #   MEASURES
