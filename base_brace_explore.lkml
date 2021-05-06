@@ -17,6 +17,11 @@ explore: application {
     relationship: one_to_one
   }
 
+  join: workout {
+    sql_on: ${application.application_id} = ${workout.loan_application_id} ;;
+    relationship: one_to_many
+  }
+
   # application_audit_details
 
   join: hardship {

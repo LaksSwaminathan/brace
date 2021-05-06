@@ -1,15 +1,3 @@
-###################################################################################################
-#   PURPOSE: Models the loan.workout table
-#
-#   AUTHOR:  DATA CLYMER (www.dataclymer.com):  hello@dataclymer.com
-#
-#   DATE:  12/03/2020
-#
-#   NOTES:
-#
-###################################################################################################
-
-
 view: workout {
   sql_table_name: loan.workout ;;
   drill_fields: [workout_id]
