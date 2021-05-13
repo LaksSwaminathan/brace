@@ -74,7 +74,7 @@
     body_text: |-
       <div class="vis">
       <div class="vis-single-value">
-      <font color="#2aa5b1" size="6"><center><b>Flagstar Monthly Dashboard
+      <font color="#2aa5b1" size="6"><center><b> Monthly Dashboard
       </b></center></font>
       </div>
       </div>
