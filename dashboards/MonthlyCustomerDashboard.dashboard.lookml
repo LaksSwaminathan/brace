@@ -1,7 +1,7 @@
 - dashboard: monthlycustomerdashboard
-  title: Monthly Customer Dashboard
+  title: Monthly CustomerDashboard
   layout: newspaper
-  preferred_viewer: dashboards
+  preferred_viewer: dashboards-next
   embed_style:
     background_color: "#fcffff"
     show_title: false
@@ -9,7 +9,6 @@
     show_filters_bar: false
     tile_text_color: "#3a4245"
     text_tile_text_color: ''
-
   elements:
   - title: 'Monthly - # of Applications Started'
     name: 'Monthly - # of Applications Started'
