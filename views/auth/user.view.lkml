@@ -206,6 +206,7 @@ view: user {
   }
 
   dimension: primary_identifier {
+    hidden: yes
     type: string
     sql: ${TABLE}."primary_identifier" ;;
   }
