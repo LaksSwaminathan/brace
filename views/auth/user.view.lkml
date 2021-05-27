@@ -134,6 +134,7 @@ view: user {
   }
 
   dimension: is_active_user {
+    description: "Users who have logged in the last 30 days"
     type: yesno
     sql: ${last_login_date} >= ${30_days_ago};;
   }
