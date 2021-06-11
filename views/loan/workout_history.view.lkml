@@ -94,6 +94,11 @@ view: workout_history {
     sql: ${TABLE}."workout_event_id" ;;
   }
 
+  dimension: has_opted_out_of_forbearance{
+    type: yesno
+    sql: ${workout_event_id} = 40 ;;
+  }
+
   dimension: workout_history_uuid {
     hidden: yes
     type: string
@@ -120,7 +125,13 @@ view: workout_history {
 
   measure: count {
     type: count
-    drill_fields: [workout_history_id, workout.workout_id]
+    drill_fields: [workout_history_id, workout.workout_id, has_opted_out_of_forbearance]
+  }
+
+  set: workout_history {
+    fields: [
+      has_opted_out_of_forbearance
+    ]
   }
 }
 

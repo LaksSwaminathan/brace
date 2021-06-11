@@ -17,11 +17,6 @@ explore: application {
     relationship: one_to_one
   }
 
-  join: workout {
-    sql_on: ${application.application_id} = ${workout.loan_application_id} ;;
-    relationship: one_to_many
-  }
-
   # application_audit_details
 
   join: hardship {
@@ -112,12 +107,7 @@ explore: application {
   # # }
 
 
-  # FROM document.document_group doc_group
-  # INNER JOIN mapping.document_group_to_document doc_junc ON doc_junc.document_group_id = doc_group.document_group_id
-  # INNER JOIN borrower.document doc ON doc.document_id = doc_junc.document_id
-  # INNER JOIN mapping.borrower_to_loan_application btla ON btla.loan_application_id = doc.application_id
-  # INNER JOIN loan.application app ON app.application_id = doc.application_id
-  # INNER JOIN loan.hardship hardship ON hardship.document_group_id = doc_group.document_group_id
+
 
 
   join: plaid_details {
@@ -134,6 +124,23 @@ explore: application {
     relationship: one_to_many
     fields: [equifax_report.number_of_completed_equifax_pulls]
   }
+
+  # Workout information
+
+
+  join: workout {
+    sql_on: ${application.application_id} = ${workout.loan_application_id} ;;
+    relationship: one_to_many
+  }
+
+  join: workout_history {
+    view_label: "Workout"
+    type: inner
+    relationship: one_to_many
+    sql_on: ${workout.workout_id} = ${workout_history.workout_id} ;;
+    fields: [workout_history*]
+  }
+
 }
 
 explore: servicer {
@@ -244,9 +251,9 @@ explore: servicer {
   }
 
   join: workout_history {
-    type: inner
+    type: left_outer
     relationship: one_to_many
-    sql_on: ${workout_history.workout_id} = ${workout.workout_id} ;;
+    sql_on: ${workout.workout_id} = ${workout_history.workout_id} ;;
   }
 
   join: workout_type {
