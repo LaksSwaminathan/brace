@@ -45,6 +45,19 @@ explore: application {
     relationship: many_to_one
   }
 
+  join: product_to_loan {
+    sql_on: ${loan.loan_id} = ${product_to_loan.product_id} ;;
+    relationship: one_to_one
+    fields: []
+  }
+
+  join: product {
+    view_label: "Loan"
+    sql_on: ${product_to_loan.product_id} = ${product.product_id} ;;
+    relationship: many_to_one
+    fields: [product.product_name]
+  }
+
   join: borrower_income {
     from: income
     sql_on: ${application.application_id} = ${borrower_income.borrower_to_loan_application_id} ;;
