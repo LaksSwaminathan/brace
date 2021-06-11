@@ -46,7 +46,7 @@ explore: application {
   }
 
   join: product_to_loan {
-    sql_on: ${loan.loan_id} = ${product_to_loan.product_id} ;;
+    sql_on: ${loan.loan_id} = ${product_to_loan.loan_id} ;;
     relationship: one_to_one
     fields: []
   }
