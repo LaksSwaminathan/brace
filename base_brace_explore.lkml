@@ -25,6 +25,13 @@ explore: application {
     fields: [hardship.hardship_fields*]
   }
 
+  join: hardship_duration_type {
+    view_label: "Hardship"
+    sql_on: ${hardship.duration_type_id} = ${hardship_duration_type.hardship_duration_type_id} ;;
+    relationship: many_to_one
+    fields: [hardship_duration_type.description]
+  }
+
   join: hardship_type {
     view_label: "Hardship"
     sql_on: ${hardship_type.hardship_type_id} = ${hardship.type_id} ;;
