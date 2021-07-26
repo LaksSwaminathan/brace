@@ -7,6 +7,7 @@ explore: +application {
   label: "myCU 📝"
 }
 
+
 explore: +servicer {
   hidden: yes
 }
